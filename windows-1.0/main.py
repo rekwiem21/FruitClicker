@@ -54,7 +54,7 @@ def buyapplepack():
 def buyapplecrate():
     global money
     global numOfApples
-    if money < 6:
+    if money < 36:
         messagebox.showinfo("Error", "You do not have enough money!")
     else:
         money = money - 36

@@ -8,7 +8,18 @@ pygame.init()
 money = 10
 currentfruit = "Apple"
 numOfApples = 0
-numOfBananas = 100
+numOfBananas = 0
+
+def switchright():
+    global currentfruit
+    if currentfruit == "Apple":
+        currentfruit = "Banana"
+        if currentfruit == "Apple":
+    clickerphoto = PhotoImage(file = "apple.png")
+if currentfruit == "Banana":
+    clickerphoto = PhotoImage(file = "banana.png")
+clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="White", command=clicked)
+clickerbutton.place(x="100", y="75")
 
 def musicselect():
     musicfilename = filedialog.askopenfilename(initialdir = "/",title = "Select MP3 File",filetypes = (("MP3 Files","*.mp3"),("All Files","*.*")))
@@ -191,7 +202,7 @@ if currentfruit == "Apple":
     if numOfApples < 1000 and numOfApples > 99:
         currentfruitlabel.place(x="165", y="292")
 
-rightfruitbutton = Button(root, text=">")
+rightfruitbutton = Button(root, text=">", command=switchright)
 rightfruitbutton.place(x="267", y="285")
 
 moneystringvar = StringVar()
@@ -204,7 +215,10 @@ if money < 100 and money > 9:
 if money < 1000 and money > 99:
     moneylabel.place(x="300", y="0")
 
-clickerphoto = PhotoImage(file = "apple.png")
+if currentfruit == "Apple":
+    clickerphoto = PhotoImage(file = "apple.png")
+if currentfruit == "Banana":
+    clickerphoto = PhotoImage(file = "banana.png")
 clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="White", command=clicked)
 clickerbutton.place(x="100", y="75")
 

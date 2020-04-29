@@ -1,13 +1,93 @@
 from tkinter import *
+from tkinter import messagebox
 
 money = 0
 currentfruit = "Apple"
 numOfApples = 654
 
+def buyapple():
+    global money
+    global numOfApples
+    if money < 1:
+        messagebox.showinfo("Error", "You do not have enough money!")
+    else:
+        money = money - 1
+        numOfApples = numOfApples + 1
+        currentfruitstringvar.set("Apple x" + str(numOfApples))
+        if numOfApples < 10:
+            currentfruitlabel.place(x="180", y="290")
+        if numOfApples < 100 and numOfApples > 9:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfApples < 1000 and numOfApples > 99:
+            currentfruitlabel.place(x="170", y="290")
+        moneystringvar.set("You have $" + str(money))
+        if money < 10:
+            moneylabel.place(x="327", y="0")
+        if money < 100 and money > 9:
+            moneylabel.place(x="320", y="0")
+        if money < 1000 and money > 99:
+            moneylabel.place(x="315", y="0")
+
+def buyapplepack():
+    global money
+    global numOfApples
+    if money < 6:
+        messagebox.showinfo("Error", "You do not have enough money!")
+    else:
+        money = money - 6
+        numOfApples = numOfApples + 6
+        currentfruitstringvar.set("Apple x" + str(numOfApples))
+        if numOfApples < 10:
+            currentfruitlabel.place(x="180", y="290")
+        if numOfApples < 100 and numOfApples > 9:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfApples < 1000 and numOfApples > 99:
+            currentfruitlabel.place(x="170", y="290")
+        moneystringvar.set("You have $" + str(money))
+        if money < 10:
+            moneylabel.place(x="327", y="0")
+        if money < 100 and money > 9:
+            moneylabel.place(x="320", y="0")
+        if money < 1000 and money > 99:
+            moneylabel.place(x="315", y="0")
+
+def buyapplecrate():
+    global money
+    global numOfApples
+    if money < 6:
+        messagebox.showinfo("Error", "You do not have enough money!")
+    else:
+        money = money - 36
+        numOfApples = numOfApples + 36
+        currentfruitstringvar.set("Apple x" + str(numOfApples))
+        if numOfApples < 10:
+            currentfruitlabel.place(x="180", y="290")
+        if numOfApples < 100 and numOfApples > 9:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfApples < 1000 and numOfApples > 99:
+            currentfruitlabel.place(x="170", y="290")
+        moneystringvar.set("You have $" + str(money))
+        if money < 10:
+            moneylabel.place(x="327", y="0")
+        if money < 100 and money > 9:
+            moneylabel.place(x="320", y="0")
+        if money < 1000 and money > 99:
+            moneylabel.place(x="315", y="0")
+
+
 def clicked():
     global money
     global currentfruit
+    global numOfApples
     if currentfruit == "Apple":
+        numOfApples = numOfApples - 1
+        currentfruitstringvar.set("Apple x" + str(numOfApples))
+        if numOfApples < 10:
+            currentfruitlabel.place(x="180", y="290")
+        if numOfApples < 100 and numOfApples > 9:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfApples < 1000 and numOfApples > 99:
+            currentfruitlabel.place(x="170", y="290")
         money = money + 1
     moneystringvar.set("You have $" + str(money))
     if money < 10:
@@ -31,26 +111,35 @@ def upgradesOnClose():
 
 def inventory():
     global inventorywindow
+    global numOfApples
     root.withdraw()
-    inventorywindow = Tk()
+    inventorywindow = Toplevel()
     inventorywindow.title("Fruit Clicker - Inventory")
     inventorywindow.geometry("400x350+300+100")
     inventorywindow.protocol("WM_DELETE_WINDOW", inventoryOnClose)
+    applesinventory = StringVar()
+    applesinventory.set("Apples: " + str(numOfApples))
+    applesinvlabel = Label(inventorywindow, textvariable=applesinventory)
+    applesinvlabel.grid(row="0", column="0")
     inventorywindow.mainloop()
 
 def market():
     global marketwindow
     root.withdraw()
-    marketwindow = Tk()
+    marketwindow = Toplevel()
     marketwindow.title("Fruit Clicker - Market")
     marketwindow.geometry("400x350+300+100")
     marketwindow.protocol("WM_DELETE_WINDOW", marketOnClose)
+    Label(marketwindow, text="Buy\nApple").grid(row="0", column="0")
+    Button(marketwindow, text="Buy Apple\n$1", command=buyapple).grid(row="0", column="1")
+    Button(marketwindow, text="Buy Pack (6)\n$6", command=buyapplepack).grid(row="0", column="2")
+    Button(marketwindow, text="Buy Crate (36)\n$36", command=buyapplecrate).grid(row="0", column="3")
     marketwindow.mainloop()
 
 def upgrades():
     global upgradeswindow
     root.withdraw()
-    upgradeswindow = Tk()
+    upgradeswindow = Toplevel()
     upgradeswindow.title("Fruit Clicker - Upgrades")
     upgradeswindow.geometry("400x350+300+100")
     upgradeswindow.protocol("WM_DELETE_WINDOW", upgradesOnClose)

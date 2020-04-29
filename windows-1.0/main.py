@@ -74,7 +74,6 @@ def buyapplecrate():
         if money < 1000 and money > 99:
             moneylabel.place(x="315", y="0")
 
-
 def clicked():
     global money
     global currentfruit

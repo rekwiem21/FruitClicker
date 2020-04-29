@@ -1,9 +1,19 @@
 from tkinter import *
 from tkinter import messagebox
+from tkinter import filedialog
+import pygame
+
+pygame.init()
 
 money = 10
 currentfruit = "Apple"
 numOfApples = 0
+numOfBananas = 100
+
+def musicselect():
+    musicfilename = filedialog.askopenfilename(initialdir = "/",title = "Select MP3 File",filetypes = (("MP3 Files","*.mp3"),("All Files","*.*")))
+    pygame.mixer.music.load(musicfilename)
+    pygame.mixer.music.play(-1)
 
 def buyapple():
     global money
@@ -110,6 +120,10 @@ def marketOnClose():
 def upgradesOnClose():
     root.deiconify()
     upgradeswindow.destroy()
+    
+def rootOnClose():
+    pygame.mixer.music.stop()
+    root.destroy()
 
 def inventory():
     global inventorywindow
@@ -121,7 +135,11 @@ def inventory():
     applesinventory = StringVar()
     applesinventory.set("Apples: " + str(numOfApples))
     applesinvlabel = Label(inventorywindow, textvariable=applesinventory)
-    applesinvlabel.grid(row="0", column="0")
+    applesinvlabel.place(x="0", y="0")
+    bananasinventory = StringVar()
+    bananasinventory.set("Bananas: " + str(numOfBananas))
+    bananasinvlabel = Label(inventorywindow, textvariable=bananasinventory)
+    bananasinvlabel.place(x="0", y="20")
     inventorywindow.mainloop()
 
 def market():
@@ -190,4 +208,8 @@ clickerphoto = PhotoImage(file = "apple.png")
 clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="White", command=clicked)
 clickerbutton.place(x="100", y="75")
 
+musicselectbutton = Button(root, text="Music", command=musicselect, bg="Black", fg="White", width="6")
+musicselectbutton.grid(row="4", column="0")
+
+root.protocol("WM_DELETE_WINDOW", rootOnClose)
 root.mainloop()

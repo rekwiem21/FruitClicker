@@ -1,9 +1,9 @@
 from tkinter import *
 from tkinter import messagebox
 
-money = 0
+money = 10
 currentfruit = "Apple"
-numOfApples = 654
+numOfApples = 0
 
 def buyapple():
     global money
@@ -79,22 +79,25 @@ def clicked():
     global currentfruit
     global numOfApples
     if currentfruit == "Apple":
-        numOfApples = numOfApples - 1
-        currentfruitstringvar.set("Apple x" + str(numOfApples))
-        if numOfApples < 10:
-            currentfruitlabel.place(x="180", y="290")
-        if numOfApples < 100 and numOfApples > 9:
-            currentfruitlabel.place(x="175", y="290")
-        if numOfApples < 1000 and numOfApples > 99:
-            currentfruitlabel.place(x="170", y="290")
-        money = money + 1
-    moneystringvar.set("You have $" + str(money))
-    if money < 10:
-        moneylabel.place(x="327", y="0")
-    if money < 100 and money > 9:
-        moneylabel.place(x="320", y="0")
-    if money < 1000 and money > 99:
-        moneylabel.place(x="315", y="0")
+        if numOfApples == 0:
+            messagebox.showinfo("Error", "You do not have any Apples!")
+        else:
+            numOfApples = numOfApples - 1
+            currentfruitstringvar.set("Apple x" + str(numOfApples))
+            if numOfApples < 10:
+                currentfruitlabel.place(x="180", y="290")
+            if numOfApples < 100 and numOfApples > 9:
+                currentfruitlabel.place(x="175", y="290")
+            if numOfApples < 1000 and numOfApples > 99:
+                currentfruitlabel.place(x="170", y="290")
+            money = money + 2
+            moneystringvar.set("You have $" + str(money))
+            if money < 10:
+                moneylabel.place(x="327", y="0")
+            if money < 100 and money > 9:
+                moneylabel.place(x="320", y="0")
+            if money < 1000 and money > 99:
+                moneylabel.place(x="315", y="0")
 
 def inventoryOnClose():
     root.deiconify()

@@ -20,6 +20,10 @@ def save():
             messagebox.showinfo("Save", "Your game has been saved!")
         else:
             messagebox.showinfo("Save", "Your game will not be saved")
+    else:
+        savedoc = open("save.fcsave", "w+")
+        savedoc.write(str(money) + "\n" + str(munch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas))
+        messagebox.showinfo("Save", "Your game has been saved!")
 
 def load():
     if os.path.exists("save.fcsave") == True:
@@ -41,7 +45,15 @@ def load():
             munchlabel.place(x="335", y="20")
         if int(munch) < 1000 and int(munch) > 99:
             munchlabel.place(x="330", y="20")
-        
+        numOfApples = loadedfilelines[2]
+        currentfruitstringvar.set("Apple x" + str(numOfApples))
+        if int(numOfApples) < 10:
+            currentfruitlabel.place(x="180", y="290")
+        if int(numOfApples) < 100 and int(numOfApples) > 9:
+            currentfruitlabel.place(x="175", y="290")
+        if int(numOfApples) < 1000 and int(numOfApples) > 99:
+            currentfruitlabel.place(x="170", y="290")
+        numOfBananas = loadedfilelines[3]
 
 def switchleft():
     global currentfruit

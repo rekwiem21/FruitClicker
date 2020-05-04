@@ -12,6 +12,24 @@ currentfruit = "Apple"
 numOfApples = 0
 numOfBananas = 0
 
+def themewindowOnClose():
+    root.deiconify()
+    themewindow.destroy()
+    themeset = themechosen.get()
+    if themechosen == "Red":
+        root.configure(bg="Red")
+
+def choosetheme():
+    global themewindow
+    global themechosen
+    themewindow = Toplevel()
+    root.withdraw()
+    themewindow.title("Fruit Clicker - Select Theme")
+    themewindow.geometry("400x350+300+100")
+    languages = [("Python", 1), ("Perl", 2), ("Java", 3), ("C++", 4), ("C", 5)]
+    themewindow.protocol("WM_DELETE_WINDOW", themewindowOnClose)
+    
+
 def save():
     if os.path.exists("save.fcsave") == True:
         if messagebox.askyesno("Save Exists", "A save file already exists.\nWould you still like to save?") == True:
@@ -54,6 +72,9 @@ def load():
         if int(numOfApples) < 1000 and int(numOfApples) > 99:
             currentfruitlabel.place(x="170", y="290")
         numOfBananas = loadedfilelines[3]
+        
+    else:
+        messagebox.showerror("Error", "Save data not found.")
 
 def switchleft():
     global currentfruit
@@ -397,4 +418,6 @@ savebutton.grid(row="5", column="0")
 loadbutton = Button(root, text="Load", fg="White", bg="Black", width="6", command=load)
 loadbutton.grid(row="6", column="0")
 
+themesbutton = Button(root, text="Theme", fg="White", bg="Black", width="6", command=choosetheme)
+themesbutton.grid(row="7", column="0")
 root.mainloop()

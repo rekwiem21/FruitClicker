@@ -11,25 +11,12 @@ money = 10
 currentfruit = "Apple"
 numOfApples = 0
 numOfBananas = 0
-
-def themewindowOnClose():
-    root.deiconify()
-    themewindow.destroy()
-    themeset = themechosen.get()
-    if themechosen == "Red":
-        root.configure(bg="Red")
-
-#Work later
-def choosetheme():
-    global themewindow
-    global themechosen
-    themewindow = Toplevel()
-    root.withdraw()
-    themewindow.title("Fruit Clicker - Select Theme")
-    themewindow.geometry("400x350+300+100")
-    languages = [("Python", 1), ("Perl", 2), ("Java", 3), ("C++", 4), ("C", 5)]
-    themewindow.protocol("WM_DELETE_WINDOW", themewindowOnClose)
-    
+numOfPears = 0
+numOfOranges = 0
+numOfMangos = 0
+numOfStrawberries = 0
+numOfBlueberries = 0
+numOfBlackberries = 0
 
 def save():
     if os.path.exists("save.fcsave") == True:
@@ -82,6 +69,7 @@ def switchleft():
     global clickerbutton
     if currentfruit == "Banana":
         currentfruit = "Apple"
+        leftfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto)
         currentfruitstringvar.set("Apple x" + str(numOfApples))
         if numOfApples < 10:
@@ -90,11 +78,7 @@ def switchleft():
             currentfruitlabel.place(x="175", y="290")
         if numOfApples < 1000 and numOfBananas > 99:
             currentfruitlabel.place(x="170", y="290")
-
-def switchright():
-    global currentfruit
-    global clickerbutton
-    if currentfruit == "Apple":
+    if currentfruit == "Pear":
         currentfruit = "Banana"
         clickerbutton.config(image=clickerphoto2)
         currentfruitstringvar.set("Banana x" + str(numOfBananas))
@@ -104,6 +88,147 @@ def switchright():
             currentfruitlabel.place(x="170", y="290")
         if numOfBananas < 1000 and numOfBananas > 99:
             currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Orange":
+        currentfruit = "Pear"
+        clickerbutton.config(image=clickerphoto3)
+        currentfruitstringvar.set("Pear x" + str(numOfPears))
+        if numOfPears < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfPears < 100 and numOfPears > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfPears < 1000 and numOfPears > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Mango":
+        currentfruit = "Orange"
+        clickerbutton.config(image=clickerphoto4)
+        currentfruitstringvar.set("Orange x" + str(numOfOranges))
+        if numOfOranges < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfOranges < 100 and numOfOranges > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfOranges < 1000 and numOfOranges > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Strawberry":
+        currentfruit = "Mango"
+        clickerbutton.config(image=clickerphoto5)
+        currentfruitstringvar.set("Mango x" + str(numOfMangos))
+        if numOfMangos < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfMangos < 100 and numOfMangos > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfMangos < 1000 and numOfMangos > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Blueberry":
+        currentfruit = "Strawberry"
+        clickerbutton.config(image=clickerphoto6)
+        currentfruitstringvar.set("Strawberry x" + str(numOfStrawberries))
+        if numOfStrawberries < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfStrawberries < 100 and numOfStrawberries > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfStrawberries < 1000 and numOfStrawberries > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Blackberry":
+        currentfruit = "Blueberry"
+        rightfruitbutton.config(state=NORMAL)
+        clickerbutton.config(image=clickerphoto7)
+        currentfruitstringvar.set("Blueberry x" + str(numOfBlueberries))
+        if numOfBlueberries < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfBlueberries < 100 and numOfBlueberries > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfBlueberries < 1000 and numOfBlueberries > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+
+def switchright():
+    global currentfruit
+    global clickerbutton
+    if currentfruit == "Apple":
+        currentfruit = "Banana"
+        leftfruitbutton.config(state=NORMAL)
+        clickerbutton.config(image=clickerphoto2)
+        currentfruitstringvar.set("Banana x" + str(numOfBananas))
+        if numOfBananas < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfBananas < 100 and numOfBananas > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfBananas < 1000 and numOfBananas > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Banana":
+        currentfruit = "Pear"
+        clickerbutton.config(image=clickerphoto3)
+        currentfruitstringvar.set("Pear x" + str(numOfPears))
+        if numOfPears < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfPears < 100 and numOfPears > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfPears < 1000 and numOfPears > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Pear":
+        currentfruit = "Orange"
+        clickerbutton.config(image=clickerphoto4)
+        currentfruitstringvar.set("Orange x" + str(numOfOranges))
+        if numOfOranges < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfOranges < 100 and numOfOranges > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfOranges < 1000 and numOfOranges > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Orange":
+        currentfruit = "Mango"
+        clickerbutton.config(image=clickerphoto5)
+        currentfruitstringvar.set("Mango x" + str(numOfMangos))
+        if numOfMangos < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfMangos < 100 and numOfMangos > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfMangos < 1000 and numOfMangos > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Mango":
+        currentfruit = "Strawberry"
+        clickerbutton.config(image=clickerphoto6)
+        currentfruitstringvar.set("Strawberry x" + str(numOfStrawberries))
+        if numOfStrawberries < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfStrawberries < 100 and numOfStrawberries > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfStrawberries < 1000 and numOfStrawberries > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Strawberry":
+        currentfruit = "Blueberry"
+        clickerbutton.config(image=clickerphoto7)
+        currentfruitstringvar.set("Blueberry x" + str(numOfBlueberries))
+        if numOfBlueberries < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfBlueberries < 100 and numOfBlueberries > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfBlueberries < 1000 and numOfBlueberries > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Blueberry":
+        currentfruit = "Blackberry"
+        rightfruitbutton.config(state=DISABLED)
+        clickerbutton.config(image=clickerphoto8)
+        currentfruitstringvar.set("Blackberry x" + str(numOfBlackberries))
+        if numOfBlackberries < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfBlackberries < 100 and numOfBlackberries > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfBlackberries < 1000 and numOfBlackberries > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    
 
 def musicselect():
     musicfilename = filedialog.askopenfilename(initialdir = "/",title = "Select MP3 File",filetypes = (("MP3 Files","*.mp3"),("WAV Files","*.wav")))
@@ -368,7 +493,7 @@ marketbutton.grid(column="0", row="1")
 upgradesbutton = Button(root, text="Upgrades", fg="White", bg="Black", width="6", command=upgrades)
 upgradesbutton.grid(column="0", row="2")
 
-leftfruitbutton = Button(root, text="<", command=switchleft)
+leftfruitbutton = Button(root, text="<", command=switchleft, state=DISABLED)
 leftfruitbutton.place(x="100", y="285")
 
 currentfruitstringvar = StringVar()
@@ -405,8 +530,14 @@ if munch < 100 and munch > 9:
 if munch < 1000 and munch > 99:
     munchlabel.place(x="330", y="20")
 
-clickerphoto = PhotoImage(file = "apple.png")
-clickerphoto2 = PhotoImage(file = "banana.png")
+clickerphoto = PhotoImage(file = "images/apple.png")
+clickerphoto2 = PhotoImage(file = "images/banana.png")
+clickerphoto3 = PhotoImage(file = "images/pear.png")
+clickerphoto4 = PhotoImage(file = "images/orange.png")
+clickerphoto5 = PhotoImage(file = "images/mango.png")
+clickerphoto6 = PhotoImage(file = "images/strawberry.png")
+clickerphoto7 = PhotoImage(file = "images/blueberry.png")
+clickerphoto8 = PhotoImage(file = "images/blackberry.png")
 clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="Black", command=clicked)
 clickerbutton.place(x="100", y="75")
 
@@ -419,6 +550,4 @@ savebutton.grid(row="5", column="0")
 loadbutton = Button(root, text="Load", fg="White", bg="Black", width="6", command=load)
 loadbutton.grid(row="6", column="0")
 
-themesbutton = Button(root, text="Theme", fg="White", bg="Black", width="6", command=choosetheme)
-themesbutton.grid(row="7", column="0")
 root.mainloop()

@@ -3,8 +3,7 @@ A simple clicker game that's all about fruit!
 
 Made by Jayden Collis for a friend.
 
-To run, double click the main.py file in the correct folder according to your os. Alternatively, open the file in a python 
-editor and press F5 (or Run).
+To run on windows, go to releases and download the source code zip, extract it and run the exe file. On linux you have to run the code in a Python IDE. Its not updated to match windows either.
 
 Find the Trello here: https://trello.com/b/xPMekeTK/fruit-clicker
 

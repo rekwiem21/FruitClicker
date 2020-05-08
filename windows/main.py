@@ -11,8 +11,8 @@ pygame.init()
 
 munch = 0
 rawmunch = 0
-money = 50
-rawmoney = 50
+money = 10
+rawmoney = 10
 currentfruit = "Apple"
 multiconvertlevel = 0
 multiconvertcost = 50
@@ -99,152 +99,198 @@ def moneyplace():
         root.destroy()
 
 def munchplace():
-    if munch < 10:
+    global root
+    global rawmunch
+    global munch
+    if rawmunch < 10:
+        munch = rawmunch
         munchlabel.place(x="340", y="20")
-    if munch < 100 and munch > 9:
+    if rawmunch < 100 and rawmunch > 9:
+        munch = rawmunch
         munchlabel.place(x="335", y="20")
-    if munch < 1000 and munch > 99:
+    if rawmunch < 1000 and rawmunch > 99:
+        munch = rawmunch
         munchlabel.place(x="330", y="20")
+    if rawmunch < 10000 and rawmunch > 999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="333", y="20")
+    if rawmunch < 100000 and rawmunch > 9999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="328", y="20")
+    if rawmunch < 1000000 and rawmunch > 99999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="323", y="20")
+    if rawmunch < 10000000 and rawmunch > 999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="329", y="20")
+    if rawmunch < 100000000 and rawmunch > 9999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="325", y="20")
+    if rawmunch < 1000000000 and rawmunch > 99999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="320", y="20")
+    if rawmunch < 10000000000 and rawmunch > 999999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="333", y="20")
+    if rawmunch < 100000000000 and rawmunch > 9999999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="327", y="20")
+    if rawmunch < 1000000000000 and rawmunch > 99999999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="322", y="20")
+    if rawmunch < 10000000000000 and rawmunch > 999999999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="333", y="20")
+    if rawmunch < 100000000000000 and rawmunch > 9999999999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="327", y="20")
+    if rawmunch < 1000000000000000 and rawmunch > 99999999999999:
+        munch = numerize.numerize(rawmunch)
+        munchlabel.place(x="322", y="20")
+    if rawmoney > 10000000000000000:
+        messagebox.showerror("HOw DiD YOu gEt heRE", "YOu hAve ToO MUch mUNCh...\nGo gET a lIfE.")
+        root.destroy()
                 
 def convertmunch():
     global munch
+    global rawmunch
     global rawmoney
     global multiconvertlevel
     if multiconvertlevel == 0:
-        if munch < 5:
+        if rawmunch < 5:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 5
+            rawmunch = rawmunch - 5
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 1
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 1:
-        if munch < 10:
+        if rawmunch < 10:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 10
+            rawmunch = rawmunch - 10
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 2
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 2:
-        if munch < 15:
+        if rawmunch < 15:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 15
+            rawmunch = rawmunch - 15
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 3
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 3:
-        if munch < 20:
+        if rawmunch < 20:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 20
+            rawmunch = rawmunch - 20
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 4
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 4:
-        if munch < 25:
+        if rawmunch < 25:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 25
+            rawmunch = rawmunch - 25
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 5
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 5:
-        if munch < 30:
+        if rawmunch < 30:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 30
+            rawmunch = rawmunch - 30
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 6
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 6:
-        if munch < 35:
+        if rawmunch < 35:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 35
+            rawmunch = munch - 35
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 7
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 7:
-        if munch < 40:
+        if rawmunch < 40:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 40
+            rawmunch = rawmunch - 40
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 8
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 8:
-        if munch < 45:
+        if rawmunch < 45:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 45
+            rawmunch = rawmunch - 45
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 9
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 9:
-        if munch < 50:
+        if rawmunch < 50:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 50
+            rawmunch = rawmunch - 50
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 10
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 10:
-        if munch < 55:
+        if rawmunch < 55:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 55
+            rawmunch = rawmunch - 55
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 11
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 11:
-        if munch < 60:
+        if rawmunch < 60:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 60
+            rawmunch = rawmunch - 60
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 12
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 12:
-        if munch < 65:
+        if rawmunch < 65:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 65
+            rawmunch = rawmunch - 65
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 13
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 13:
-        if munch < 70:
+        if rawmunch < 70:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 70
+            rawmunch = rawmunch - 70
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 14
@@ -254,67 +300,67 @@ def convertmunch():
         if munch < 75:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 75
+            rawmunch = rawmunch - 75
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 15
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 15:
-        if munch < 80:
+        if rawmunch < 80:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 80
+            rawmunch = rawmunch - 80
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 16
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 16:
-        if munch < 85:
+        if rawmunch < 85:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 85
+            rawmunch = rawmunch - 85
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 17
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 17:
-        if munch < 90:
+        if rawmunch < 90:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 90
+            rawmunch = rawmunch - 90
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 18
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 18:
-        if munch < 95:
+        if rawmunch < 95:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 95
+            rawmunch = rawmunch - 95
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 19
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 19:
-        if munch < 100:
+        if rawmunch < 100:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 100
+            rawmunch = rawmunch - 100
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 20
             moneyplace()
             moneystringvar.set("You have $" + str(money))
     if multiconvertlevel == 20:
-        if munch < 105:
+        if rawmunch < 105:
             messagebox.showerror("Error", "Not enough munch!")
         else:
-            munch = munch - 105
+            rawmunch = rawmunch - 105
             munchstringvar.set("Munch: " + str(munch))
             munchplace()
             rawmoney = rawmoney + 21
@@ -331,7 +377,7 @@ def save():
             messagebox.showinfo("Save", "Your game will not be saved")
     else:
         savedoc = open("save.fcsave", "w+")
-        savedoc.write(str(money) + "\n" + str(munch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas))
+        savedoc.write(str(money) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas))
         messagebox.showinfo("Save", "Your game has been saved!")
 
 def load():
@@ -339,21 +385,10 @@ def load():
         loadedfile = open("save.fcsave")
         loadedfilelines = loadedfile.readlines()
         money = loadedfilelines[0]
+        moneyplace()
         moneystringvar.set("You have $" + str(money))
-        if int(money) < 10:
-            moneylabel.place(x="327", y="0")
-        if int(money) < 100 and int(money) > 9:
-            moneylabel.place(x="320", y="0")
-        if int(money) < 1000 and int(money) > 99:
-            moneylabel.place(x="315", y="0")
-        munch = loadedfilelines[1]
-        munchstringvar.set("Munch: " + str(munch))
-        if int(munch) < 10:
-            munchlabel.place(x="340", y="20")
-        if int(munch) < 100 and int(munch) > 9:
-            munchlabel.place(x="335", y="20")
-        if int(munch) < 1000 and int(munch) > 99:
-            munchlabel.place(x="330", y="20")
+        rawmunch = loadedfilelines[1]
+        munchplace()
         numOfApples = loadedfilelines[2]
         currentfruitstringvar.set("Apple x" + str(numOfApples))
         if int(numOfApples) < 10:
@@ -1020,6 +1055,7 @@ def buyblackberrycrate():
             
 def clicked():
     global munch
+    global rawmunch
     global currentfruit
     global numOfApples
     global numOfBananas
@@ -1041,14 +1077,9 @@ def clicked():
                 currentfruitlabel.place(x="175", y="290")
             if numOfApples < 1000 and numOfApples > 99:
                 currentfruitlabel.place(x="170", y="290")
-            munch = munch + random.randint(5, 10)
+            rawmunch = rawmunch + random.randint(5, 10)
+            munchplace()
             munchstringvar.set("Munch:" + str(munch))
-            if munch < 10:
-                munchlabel.place(x="340", y="20")
-            if munch < 100 and munch > 9:
-                munchlabel.place(x="335", y="20")
-            if munch < 1000 and munch > 99:
-                munchlabel.place(x="330", y="20")
     if currentfruit == "Banana":
         if numOfBananas == 0:
             messagebox.showerror("Error", "You do not have any Bananas!")
@@ -1339,14 +1370,9 @@ moneyplace()
 moneystringvar.set("You have $" + str(money))
 
 munchstringvar = StringVar()
-munchstringvar.set("Munch: " + str(munch))
 munchlabel = Label(root, textvariable=munchstringvar)
-if munch < 10:
-    munchlabel.place(x="340", y="20")
-if munch < 100 and munch > 9:
-    munchlabel.place(x="335", y="20")
-if munch < 1000 and munch > 99:
-    munchlabel.place(x="330", y="20")
+munchplace()
+munchstringvar.set("Munch: " + str(munch))
 
 clickerphoto = PhotoImage(file = "images/apple.png")
 clickerphoto2 = PhotoImage(file = "images/banana.png")
@@ -1370,9 +1396,6 @@ loadbutton.grid(row="6", column="0")
 
 munchconvertbutton = Button(root, text="Convert Munch", fg="White", bg="Black", width="11", command=convertmunch)
 munchconvertbutton.grid(row="7", column="0")
-
-
-
 
 root.iconbitmap("images/apple.ico")
 root.mainloop()

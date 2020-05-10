@@ -1079,7 +1079,7 @@ def clicked():
                 currentfruitlabel.place(x="170", y="290")
             rawmunch = rawmunch + random.randint(5, 10)
             munchplace()
-            munchstringvar.set("Munch:" + str(munch))
+            munchstringvar.set("Munch: " + str(munch))
     if currentfruit == "Banana":
         if numOfBananas == 0:
             messagebox.showerror("Error", "You do not have any Bananas!")
@@ -1093,13 +1093,8 @@ def clicked():
             if numOfBananas < 1000 and numOfBananas > 99:
                 currentfruitlabel.place(x="170", y="290")
             munch = munch + random.randint(30, 35)
+            munchplace()
             munchstringvar.set("Munch: " + str(munch))
-            if munch < 10:
-                munchlabel.place(x="340", y="20")
-            if munch < 100 and munch > 9:
-                munchlabel.place(x="335", y="20")
-            if munch < 1000 and munch > 99:
-                munchlabel.place(x="330", y="20")
     if currentfruit == "Pear":
         if numOfPears == 0:
             messagebox.showerror("Error", "You do not have any Pears!")
@@ -1113,13 +1108,8 @@ def clicked():
             if numOfPears < 1000 and numOfPears > 99:
                 currentfruitlabel.place(x="170", y="290")
             munch = munch + random.randint(60, 75)
+            munchplace()
             munchstringvar.set("Munch: " + str(munch))
-            if munch < 10:
-                munchlabel.place(x="340", y="20")
-            if munch < 100 and munch > 9:
-                munchlabel.place(x="335", y="20")
-            if munch < 1000 and munch > 99:
-                munchlabel.place(x="330", y="20")
     if currentfruit == "Orange":
         if numOfOranges == 0:
             messagebox.showerror("Error", "You do not have any Oranges!")
@@ -1133,13 +1123,8 @@ def clicked():
             if numOfOranges < 1000 and numOfOranges > 99:
                 currentfruitlabel.place(x="165", y="290")
             munch = munch + random.randint(95, 110)
+            munchplace()
             munchstringvar.set("Munch: " + str(munch))
-            if munch < 10:
-                munchlabel.place(x="340", y="20")
-            if munch < 100 and munch > 9:
-                munchlabel.place(x="335", y="20")
-            if munch < 1000 and munch > 99:
-                munchlabel.place(x="330", y="20")
     if currentfruit == "Mango":
         if numOfMangos == 0:
             messagebox.showerror("Error", "You do not have any Mangoes!")
@@ -1153,13 +1138,8 @@ def clicked():
             if numOfMangos < 1000 and numOfOranges > 99:
                 currentfruitlabel.place(x="165", y="290")
             munch = munch + random.randint(245, 250)
+            munchplace()
             munchstringvar.set("Munch: " + str(munch))
-            if munch < 10:
-                munchlabel.place(x="340", y="20")
-            if munch < 100 and munch > 9:
-                munchlabel.place(x="335", y="20")
-            if munch < 1000 and munch > 99:
-                munchlabel.place(x="330", y="20")
     if currentfruit == "Strawberry":
         if numOfStrawberries == 0:
             messagebox.showerror("Error", "You do not have any Strawberries!")
@@ -1173,13 +1153,8 @@ def clicked():
             if numOfStrawberries < 1000 and numOfStrawberries > 99:
                 currentfruitlabel.place(x="155", y="290")
             munch = munch + random.randint(48, 55)
+            munchplace()
             munchstringvar.set("Munch: " + str(munch))
-            if munch < 10:
-                munchlabel.place(x="340", y="20")
-            if munch < 100 and munch > 9:
-                munchlabel.place(x="335", y="20")
-            if munch < 1000 and munch > 99:
-                munchlabel.place(x="330", y="20")
     if currentfruit == "Blueberry":
         if numOfBlueberries == 0:
             messagebox.showerror("Error", "You do not have any Blueberries!")
@@ -1193,13 +1168,8 @@ def clicked():
             if numOfBlueberries < 1000 and numOfBlueberries > 99:
                 currentfruitlabel.place(x="155", y="290")
             munch = munch + random.randint(73, 82)
+            munchplace()
             munchstringvar.set("Munch: " + str(munch))
-            if munch < 10:
-                munchlabel.place(x="340", y="20")
-            if munch < 100 and munch > 9:
-                munchlabel.place(x="335", y="20")
-            if munch < 1000 and munch > 99:
-                munchlabel.place(x="330", y="20")
     if currentfruit == "Blackberry":
         if numOfBlackberries == 0:
             messagebox.showerror("Error", "You do not have any Blackberries!")
@@ -1213,14 +1183,9 @@ def clicked():
             if numOfBlackberries < 1000 and numOfBlackberries > 99:
                 currentfruitlabel.place(x="155", y="290")
             munch = munch + random.randint(98, 110)
+            munchplace()
             munchstringvar.set("Munch: " + str(munch))
-            if munch < 10:
-                munchlabel.place(x="340", y="20")
-            if munch < 100 and munch > 9:
-                munchlabel.place(x="335", y="20")
-            if munch < 1000 and munch > 99:
-                munchlabel.place(x="330", y="20")
-
+            
 def inventoryOnClose():
     root.deiconify()
     inventorywindow.destroy()

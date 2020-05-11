@@ -5,16 +5,21 @@ from numerize import numerize
 import pygame
 import os
 import random
-
+from datetime import datetime
 
 pygame.init()
 
+wholedate = datetime.date(datetime.now())
+date = wholedate.strftime("%d")
+month = wholedate.strftime("%m")
+year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
-money = 10
-rawmoney = 10
+money = 10000000
+rawmoney = 10000000
 currentfruit = "Apple"
 multiconvertlevel = 0
+fruitupgradelevel = 0
 multiconvertcost = 50
 numOfApples = 0
 numOfBananas = 0
@@ -25,6 +30,181 @@ numOfStrawberries = 0
 numOfBlueberries = 0
 numOfBlackberries = 0
 
+def fixdate():
+    global date
+    if date == 1:
+        date = "01"
+    if date == 2:
+        date = "02"
+    if date == 3:
+        date = "03"
+    if date == 4:
+        date = "04"
+    if date == 5:
+        date = "05"
+    if date == 6:
+        date = "06"
+    if date == 7:
+        date = "07"
+    if date == 8:
+        date = "08"
+    if date == 9:
+        date = "09"
+
+def fixmonth():
+    global month
+    if month == 1:
+        month = "01"
+    if month == 2:
+        month = "02"
+    if month == 3:
+        month = "03"
+    if month == 4:
+        month = "04"
+    if month == 5:
+        month = "05"
+    if month == 6:
+        month = "06"
+    if month == 7:
+        month = "07"
+    if month == 8:
+        month = "08"
+    if month == 9:
+        month = "09"
+    if month == 10:
+        month = "10"
+    if month == 11:
+        month = "11"
+    if month == 12:
+        month = "12"
+        
+
+def advancetime():
+    global date
+    global month
+    global year
+    if month == "09" or month == "04" or month == "06" or month == "11":
+        date = int(date) + 1
+        if date > 30:
+            date = 1
+            month = int(month) + 1
+            if month > 12:
+                month = 1
+                year = int(year) + 1
+        fixdate()
+        fixmonth()
+        datelabelstringvar.set(str(date) + "/" + str(month) + "/" + str(year))
+        return
+    if month == "01" or month == "03" or month == "05" or month == "07" or month == "08" or month == "10" or month == "12":
+        date = int(date) + 1
+        if date > 31:
+            date = 1
+            month = int(month) + 1
+            if month > 12:
+                month = 1
+                year = int(year) + 1
+        fixdate()
+        fixmonth()
+        datelabelstringvar.set(str(date) + "/" + str(month) + "/" + str(year))
+        return
+    if month == "02" and not year / 4 == True:
+        date = int(date) + 1
+        if date > 31:
+            date = 1
+            month = int(month) + 1
+            if month > 12:
+                month = 1
+                year = int(year) + 1
+        fixdate()
+        fixmonth()
+        datelabelstringvar.set(str(date) + "/" + str(month) + "/" + str(year))
+    
+def calendarOnClose():
+    root.deiconify()
+    calendarwindow.destroy()
+
+def calendar():
+    global datelabelstringvar
+    global calendarwindow
+    root.withdraw()
+    calendarwindow = Toplevel()
+    calendarwindow.title("Calendar")
+    calendarwindow.geometry("400x350+300+100")
+    calendarwindow.protocol("WM_DELETE_WINDOW", calendarOnClose)
+    datelabelstringvar = StringVar()
+    datelabelstringvar.set(str(date) + "/" + str(month) + "/" + str(year))
+    datelabel = Label(calendarwindow, textvariable=datelabelstringvar).grid(row="0", column="0")
+    Button(calendarwindow, text="Advance Time", command=advancetime).grid(row="1", column="0")
+
+def fruitupgradebuy():
+    global fruitupgradelevel
+    global rawmoney
+    if fruitupgradelevel == 0:
+        if rawmoney < 25:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 25
+            moneyplace()
+            fruitupgradetextvar.set("Market Expansion II (Lv. " + str(fruitupgradelevel + 1) + ") $50")
+        return
+    if fruitupgradelevel == 1:
+        if rawmoney < 50:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 50
+            moneyplace()
+            fruitupgradetextvar.set("Citrus Stall (Lv. " + str(fruitupgradelevel + 1) + ") $250")
+        return
+    if fruitupgradelevel == 2:
+        if rawmoney < 250:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 250
+            moneyplace()
+            fruitupgradetextvar.set("Summertime Shop (Lv. " + str(fruitupgradelevel + 1) + ") $1000")
+        return
+    if fruitupgradelevel == 3:
+        if rawmoney < 1000:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 1000
+            moneyplace()
+            fruitupgradetextvar.set("Berry Investment (Lv. " + str(fruitupgradelevel + 1) + ") $5000")
+        return
+    if fruitupgradelevel == 4:
+        if rawmoney < 5000:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 5000
+            moneyplace()
+            fruitupgradetextvar.set("Berry Investment II (Lv. " + str(fruitupgradelevel + 1) + ") $10000")
+        return
+    if fruitupgradelevel == 5:
+        if rawmoney < 10000:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 10000
+            moneyplace()
+            fruitupgradetextvar.set("Berry Investment III (Lv. " + str(fruitupgradelevel + 1) + ") $50000")
+        return
+    if fruitupgradelevel == 6:
+        if rawmoney < 50000:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 50000
+            moneyplace()
+            fruitupgradetextvar.set("Market Upgrade Lv. MAX")
+        return
+    if fruitupgradelevel == 7:
+        messagebox.showerror("Error", "Upgrade is MAX Level!")
+    
 def multiconvertbuy():
     global rawmoney
     global multiconvertcost
@@ -1253,34 +1433,125 @@ def market():
     Button(marketwindow, text="Buy Apple\n$1", command=buyapple, width="11").grid(row="0", column="1")
     Button(marketwindow, text="Buy Pack (6)\n$6", command=buyapplepack, width="11").grid(row="0", column="2")
     Button(marketwindow, text="Buy Crate (36)\n$36", command=buyapplecrate, width="11").grid(row="0", column="3")
-    Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-    Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-    Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-    Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
-    Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
-    Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
-    Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
-    Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
-    Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
-    Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
-    Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
-    Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
-    Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
-    Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
-    Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
-    Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
-    Label(marketwindow, text="Buy\nStrawberry", width="8").grid(row="5", column="0")
-    Button(marketwindow, text="Buy Strawberry\n$10", command=buystrawberry, width="11").grid(row="5", column="1")
-    Button(marketwindow, text="Buy Box (25)\n$250", command=buystrawberrybox, width="11").grid(row="5", column="2")
-    Button(marketwindow, text="Buy Crate (750)\n$7500", command=buystrawberrycrate, width="11").grid(row="5", column="3")
-    Label(marketwindow, text="Buy\nBlueberry", width="8").grid(row="6", column="0")
-    Button(marketwindow, text="Buy Blueberry\n$15", command=buyblueberry, width="11").grid(row="6", column="1")
-    Button(marketwindow, text="Buy Box (25)\n$375", command=buyblueberrybox, width="11").grid(row="6", column="2")
-    Button(marketwindow, text="Buy Crate (750)\n$11250", command=buyblueberrycrate, width="11").grid(row="6", column="3")
-    Label(marketwindow, text="Buy\nBlackberry", width="8").grid(row="7", column="0")
-    Button(marketwindow, text="Buy Blackberry\n$20", command=buyblackberry, width="11").grid(row="7", column="1")
-    Button(marketwindow, text="Buy Box (15)\n$300", command=buyblackberrybox, width="11").grid(row="7", column="2")
-    Button(marketwindow, text="Buy Crate (450)\n$9000", command=buyblackberrycrate, width="11").grid(row="7", column="3")
+    if fruitupgradelevel == 1:
+        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+    if fruitupgradelevel == 2:
+        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
+        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
+        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
+        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
+    if fruitupgradelevel == 3:
+        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
+        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
+        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
+        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
+        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
+        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
+        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
+        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
+    if fruitupgradelevel == 4:
+        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
+        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
+        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
+        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
+        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
+        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
+        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
+        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
+        Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
+        Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
+        Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
+        Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
+    if fruitupgradelevel == 5:
+        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
+        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
+        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
+        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
+        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
+        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
+        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
+        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
+        Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
+        Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
+        Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
+        Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
+        Label(marketwindow, text="Buy\nStrawberry", width="8").grid(row="5", column="0")
+        Button(marketwindow, text="Buy Strawberry\n$10", command=buystrawberry, width="11").grid(row="5", column="1")
+        Button(marketwindow, text="Buy Box (25)\n$250", command=buystrawberrybox, width="11").grid(row="5", column="2")
+        Button(marketwindow, text="Buy Crate (750)\n$7500", command=buystrawberrycrate, width="11").grid(row="5", column="3")
+    if fruitupgradelevel == 6:
+        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
+        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
+        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
+        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
+        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
+        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
+        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
+        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
+        Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
+        Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
+        Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
+        Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
+        Label(marketwindow, text="Buy\nStrawberry", width="8").grid(row="5", column="0")
+        Button(marketwindow, text="Buy Strawberry\n$10", command=buystrawberry, width="11").grid(row="5", column="1")
+        Button(marketwindow, text="Buy Box (25)\n$250", command=buystrawberrybox, width="11").grid(row="5", column="2")
+        Button(marketwindow, text="Buy Crate (750)\n$7500", command=buystrawberrycrate, width="11").grid(row="5", column="3")
+        Label(marketwindow, text="Buy\nBlueberry", width="8").grid(row="6", column="0")
+        Button(marketwindow, text="Buy Blueberry\n$15", command=buyblueberry, width="11").grid(row="6", column="1")
+        Button(marketwindow, text="Buy Box (25)\n$375", command=buyblueberrybox, width="11").grid(row="6", column="2")
+        Button(marketwindow, text="Buy Crate (750)\n$11250", command=buyblueberrycrate, width="11").grid(row="6", column="3")
+    if fruitupgradelevel == 7:
+        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
+        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
+        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
+        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
+        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
+        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
+        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
+        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
+        Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
+        Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
+        Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
+        Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
+        Label(marketwindow, text="Buy\nStrawberry", width="8").grid(row="5", column="0")
+        Button(marketwindow, text="Buy Strawberry\n$10", command=buystrawberry, width="11").grid(row="5", column="1")
+        Button(marketwindow, text="Buy Box (25)\n$250", command=buystrawberrybox, width="11").grid(row="5", column="2")
+        Button(marketwindow, text="Buy Crate (750)\n$7500", command=buystrawberrycrate, width="11").grid(row="5", column="3")
+        Label(marketwindow, text="Buy\nBlueberry", width="8").grid(row="6", column="0")
+        Button(marketwindow, text="Buy Blueberry\n$15", command=buyblueberry, width="11").grid(row="6", column="1")
+        Button(marketwindow, text="Buy Box (25)\n$375", command=buyblueberrybox, width="11").grid(row="6", column="2")
+        Button(marketwindow, text="Buy Crate (750)\n$11250", command=buyblueberrycrate, width="11").grid(row="6", column="3")
+        Label(marketwindow, text="Buy\nBlackberry", width="8").grid(row="7", column="0")
+        Button(marketwindow, text="Buy Blackberry\n$20", command=buyblackberry, width="11").grid(row="7", column="1")
+        Button(marketwindow, text="Buy Box (15)\n$300", command=buyblackberrybox, width="11").grid(row="7", column="2")
+        Button(marketwindow, text="Buy Crate (450)\n$9000", command=buyblackberrycrate, width="11").grid(row="7", column="3")
     marketwindow.iconbitmap("images/apple.ico")
     marketwindow.mainloop()
 
@@ -1288,6 +1559,7 @@ def upgrades():
     global upgradeswindow
     global multiconverttextvar
     global multiconvertbutton
+    global fruitupgradetextvar
     root.withdraw()
     upgradeswindow = Toplevel()
     upgradeswindow.title("Fruit Clicker - Upgrades")
@@ -1295,9 +1567,28 @@ def upgrades():
     upgradeswindow.protocol("WM_DELETE_WINDOW", upgradesOnClose)
     upgradeswindow.iconbitmap("images/apple.ico")
     multiconverttextvar = StringVar()
-    multiconverttextvar.set("Multi Convert Lv. " + str(multiconvertlevel) + " -> " + str(multiconvertlevel + 1) + " $" + str(multiconvertcost))
+    multiconverttextvar.set("Multi Convert (Lv. " + str(multiconvertlevel) + " -> " + str(multiconvertlevel + 1) + ") $" + str(multiconvertcost))
     multiconvertbutton = Button(upgradeswindow, textvariable=multiconverttextvar, width="56", command=multiconvertbuy).grid(row="0", column="0")
+    fruitupgradetextvar = StringVar()
+    fruitupgradebutton = Button(upgradeswindow, textvariable=fruitupgradetextvar, width="56", command=fruitupgradebuy).grid(row="1", column="0")
+    if fruitupgradelevel == 0:
+        fruitupgradetextvar.set("Market Expansion (Lv. " + str(fruitupgradelevel + 1) + ") $25")
+    if fruitupgradelevel == 1:
+        fruitupgradetextvar.set("Market Expansion II (Lv. " + str(fruitupgradelevel + 1) + ") $50")
+    if fruitupgradelevel == 2:
+        fruitupgradetextvar.set("Citrus Stall (Lv. " + str(fruitupgradelevel + 1) + ") $250")
+    if fruitupgradelevel == 3:
+        fruitupgradetextvar.set("Summertime Shop (Lv. " + str(fruitupgradelevel + 1) + ") $1000")
+    if fruitupgradelevel == 4:
+        fruitupgradetextvar.set("Berry Investment (Lv. " + str(fruitupgradelevel + 1) + ") $5000")
+    if fruitupgradelevel == 5:
+        fruitupgradetextvar.set("Berry Investment II (Lv. " + str(fruitupgradelevel + 1) + ") $10000")
+    if fruitupgradelevel == 6:
+        fruitupgradetextvar.set("Berry Investment III (Lv. " + str(fruitupgradelevel + 1) + ") $50000")
+    if fruitupgradelevel == 7:
+        fruitupgradetextvar.set("Market Upgrade Lv. MAX")
     upgradeswindow.mainloop()
+    
 
 root = Tk()
 root.title("Fruit Clicker")
@@ -1361,6 +1652,9 @@ loadbutton.grid(row="6", column="0")
 
 munchconvertbutton = Button(root, text="Convert Munch", fg="White", bg="Black", width="11", command=convertmunch)
 munchconvertbutton.grid(row="7", column="0")
+
+calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
+calendarbutton.grid(row="8", column="0")
 
 root.iconbitmap("images/apple.ico")
 root.mainloop()

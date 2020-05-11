@@ -107,7 +107,7 @@ def advancetime():
         fixmonth()
         datelabelstringvar.set(str(date) + "/" + str(month) + "/" + str(year))
         return
-    if month == "02" and not year / 4 == True:
+    if month == "02":
         date = int(date) + 1
         if date > 31:
             date = 1

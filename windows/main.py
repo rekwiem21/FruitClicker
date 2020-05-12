@@ -9,14 +9,16 @@ from datetime import datetime
 
 pygame.init()
 
+totalfruitclicked = 0
+totalfruitbought = 0
 wholedate = datetime.date(datetime.now())
 date = wholedate.strftime("%d")
 month = wholedate.strftime("%m")
 year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
-money = 10000000
-rawmoney = 10000000
+money = 10
+rawmoney = 10
 currentfruit = "Apple"
 multiconvertlevel = 0
 fruitupgradelevel = 0
@@ -135,6 +137,9 @@ def calendar():
     datelabelstringvar.set(str(date) + "/" + str(month) + "/" + str(year))
     datelabel = Label(calendarwindow, textvariable=datelabelstringvar).grid(row="0", column="0")
     Button(calendarwindow, text="Advance Time", command=advancetime).grid(row="1", column="0")
+    totalfruitclickerstringvar = StringVar()
+    totalfruitclickerstringvar.set(totalfruitclicked)
+    Label(calendarwindow, textvariable=totalfruitclickerstringvar).grid(row="2", column="0")
 
 def fruitupgradebuy():
     global fruitupgradelevel
@@ -1245,6 +1250,8 @@ def clicked():
     global numOfStrawberries
     global numOfBlueberries
     global numOfBlackberries
+    global totalfruitclicked
+    totalfruitclicked = totalfruitclicked + 1
     if currentfruit == "Apple":
         if numOfApples == 0:
             messagebox.showerror("Error", "You do not have any Apples!")

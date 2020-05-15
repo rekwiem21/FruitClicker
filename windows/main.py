@@ -6,9 +6,13 @@ import pygame
 import os
 import random
 from datetime import datetime
+import threading
+import time
 
 pygame.init()
 
+autoeatcost = 50
+autoclicklevel = 0
 totalfruitclicked = 0
 totalfruitbought = 0
 wholedate = datetime.date(datetime.now())
@@ -23,7 +27,7 @@ currentfruit = "Apple"
 multiconvertlevel = 0
 fruitupgradelevel = 0
 multiconvertcost = 50
-numOfApples = 0
+numOfApples = 600
 numOfBananas = 0
 numOfPears = 0
 numOfOranges = 0
@@ -31,6 +35,28 @@ numOfMangos = 0
 numOfStrawberries = 0
 numOfBlueberries = 0
 numOfBlackberries = 0
+numOfRaspberries = 0
+
+
+def autoeatbuy():
+    global rawmoney
+    global autoclicklevel
+    if autoclicklevel == 0:
+        if rawmoney < 10:
+            messagebox.showerror("Error", "Not enough money!")
+        else:
+            rawmoney = rawmoney - 10
+            moneyplace()
+            autoclicklevel = autoclicklevel + 1
+            autoclick()
+
+def autoclick():
+    if autoclicklevel == 1:
+        threading.Timer(10.0, autoclick).start()
+        clicked()
+        
+def rootOnClose():
+    root.destroy()
 
 def fixdate():
     global date
@@ -79,12 +105,13 @@ def fixmonth():
         month = "11"
     if month == 12:
         month = "12"
-        
 
 def advancetime():
+    global datelabelstringvar
     global date
     global month
     global year
+    threading.Timer(5.0, advancetime).start()
     if month == "09" or month == "04" or month == "06" or month == "11":
         date = int(date) + 1
         if date > 30:
@@ -136,9 +163,8 @@ def calendar():
     datelabelstringvar = StringVar()
     datelabelstringvar.set(str(date) + "/" + str(month) + "/" + str(year))
     datelabel = Label(calendarwindow, textvariable=datelabelstringvar).grid(row="0", column="0")
-    Button(calendarwindow, text="Advance Time", command=advancetime).grid(row="1", column="0")
     totalfruitclickerstringvar = StringVar()
-    totalfruitclickerstringvar.set(totalfruitclicked)
+    totalfruitclickerstringvar.set("Fruit Clicked: " + str(totalfruitclicked))
     Label(calendarwindow, textvariable=totalfruitclickerstringvar).grid(row="2", column="0")
 
 def fruitupgradebuy():
@@ -346,8 +372,8 @@ def convertmunch():
             messagebox.showerror("Error", "Not enough munch!")
         else:
             rawmunch = rawmunch - 5
-            munchstringvar.set("Munch: " + str(munch))
             munchplace()
+            munchstringvar.set("Munch: " + str(munch))
             rawmoney = rawmoney + 1
             moneyplace()
             moneystringvar.set("You have $" + str(money))
@@ -356,8 +382,8 @@ def convertmunch():
             messagebox.showerror("Error", "Not enough munch!")
         else:
             rawmunch = rawmunch - 10
-            munchstringvar.set("Munch: " + str(munch))
             munchplace()
+            munchstringvar.set("Munch: " + str(munch))
             rawmoney = rawmoney + 2
             moneyplace()
             moneystringvar.set("You have $" + str(money))
@@ -658,7 +684,6 @@ def switchleft():
         return
     if currentfruit == "Blackberry":
         currentfruit = "Blueberry"
-        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto7)
         currentfruitstringvar.set("Blueberry x" + str(numOfBlueberries))
         if numOfBlueberries < 10:
@@ -668,6 +693,19 @@ def switchleft():
         if numOfBlueberries < 1000 and numOfBlueberries > 99:
             currentfruitlabel.place(x="155", y="290")
         return
+    if currentfruit == "Raspberry":
+        currentfruit = "Blackberry"
+        rightfruitbutton.config(state=NORMAL)
+        clickerbutton.config(image=clickerphoto8)
+        currentfruitstringvar.set("Blackberry x" + str(numOfBlackberries))
+        if numOfBlackberries < 10:
+            currentfruitlabel.place(x="165", y="290")
+        if numOfBlackberries < 100 and numOfBlackberries > 9:
+            currentfruitlabel.place(x="160", y="290")
+        if numOfBlackberries < 1000 and numOfBlackberries > 99:
+            currentfruitlabel.place(x="155", y="290")
+        return
+        
 
 def switchright():
     global currentfruit
@@ -741,7 +779,6 @@ def switchright():
         return
     if currentfruit == "Blueberry":
         currentfruit = "Blackberry"
-        rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto8)
         currentfruitstringvar.set("Blackberry x" + str(numOfBlackberries))
         if numOfBlackberries < 10:
@@ -749,6 +786,18 @@ def switchright():
         if numOfBlackberries < 100 and numOfBlackberries > 9:
             currentfruitlabel.place(x="160", y="290")
         if numOfBlackberries < 1000 and numOfBlackberries > 99:
+            currentfruitlabel.place(x="155", y="290")
+        return
+    if currentfruit == "Blackberry":
+        currentfruit = "Raspberry"
+        rightfruitbutton.config(state=DISABLED)
+        clickerbutton.config(image=clickerphoto9)
+        currentfruitstringvar.set("Raspberry x" + str(numOfRaspberries))
+        if numOfRaspberries < 10:
+            currentfruitlabel.place(x="165", y="290")
+        if numOfRaspberries < 100 and numOfRaspberries > 9:
+            currentfruitlabel.place(x="160", y="290")
+        if numOfRaspberries < 1000 and numOfRaspberries > 99:
             currentfruitlabel.place(x="155", y="290")
         return
     
@@ -766,6 +815,7 @@ def buyapple():
     else:
         rawmoney = rawmoney - 1
         numOfApples = numOfApples + 1
+        marketapplecount.set("Current:\n" + str(numOfApples))
         if currentfruit == "Apple":
             currentfruitstringvar.set("Apple x" + str(numOfApples))
             if numOfApples < 10:
@@ -775,6 +825,7 @@ def buyapple():
             if numOfApples < 1000 and numOfApples > 99:
                 currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyapplepack():
@@ -786,6 +837,7 @@ def buyapplepack():
     else:
         rawmoney = rawmoney - 6
         numOfApples = numOfApples + 6
+        marketapplecount.set("Current:\n" + str(numOfApples))
         if currentfruit == "Apple":
             currentfruitstringvar.set("Apple x" + str(numOfApples))
             if numOfApples < 10:
@@ -795,6 +847,7 @@ def buyapplepack():
             if numOfApples < 1000 and numOfApples > 99:
                 currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyapplecrate():
@@ -806,6 +859,7 @@ def buyapplecrate():
     else:
         rawmoney = rawmoney - 36
         numOfApples = numOfApples + 36
+        marketapplecount.set("Current:\n" + str(numOfApples))
         if currentfruit == "Apple":
             currentfruitstringvar.set("Apple x" + str(numOfApples))
             if numOfApples < 10:
@@ -815,6 +869,7 @@ def buyapplecrate():
             if numOfApples < 1000 and numOfApples > 99:
                 currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buybanana():
@@ -1251,11 +1306,11 @@ def clicked():
     global numOfBlueberries
     global numOfBlackberries
     global totalfruitclicked
-    totalfruitclicked = totalfruitclicked + 1
     if currentfruit == "Apple":
         if numOfApples == 0:
             messagebox.showerror("Error", "You do not have any Apples!")
         else:
+            totalfruitclicked = totalfruitclicked + 1
             numOfApples = numOfApples - 1
             currentfruitstringvar.set("Apple x" + str(numOfApples))
             if numOfApples < 10:
@@ -1383,11 +1438,11 @@ def marketOnClose():
     
 def upgradesOnClose():
     root.deiconify()
+    moneyplace()
     upgradeswindow.destroy()
 
 def inventory():
     global inventorywindow
-    global numOfApples
     root.withdraw()
     inventorywindow = Toplevel()
     inventorywindow.title("Fruit Clicker - Inventory")
@@ -1425,12 +1480,16 @@ def inventory():
     blackberriesinventory.set("Blackberries: " + str(numOfBlackberries))
     blackberriesinvlabel = Label(inventorywindow, textvariable=blackberriesinventory)
     blackberriesinvlabel.place(x="0", y="140")
+    raspberriesinventory.set("Raspberries: " + str(numOfRaspberries))
+    raspberriesinvlabel = Label(inventorywindow, textvariable=raspberriesinventory)
+    raspberriesinvlabel.place(x="0", y="140")
     inventorywindow.iconbitmap("images/apple.ico")
     inventorywindow.mainloop()
 
 def market():
-    global marketwindow
     global marketapplecount
+    global marketwindow
+    global marketmoneylabelstringvar
     root.withdraw()
     marketwindow = Toplevel()
     marketwindow.title("Fruit Clicker - Market")
@@ -1440,6 +1499,9 @@ def market():
     Button(marketwindow, text="Buy Apple\n$1", command=buyapple, width="11").grid(row="0", column="1")
     Button(marketwindow, text="Buy Pack (6)\n$6", command=buyapplepack, width="11").grid(row="0", column="2")
     Button(marketwindow, text="Buy Crate (36)\n$36", command=buyapplecrate, width="11").grid(row="0", column="3")
+    marketapplecount = StringVar()
+    marketapplecount.set("Current:\n" + str(numOfApples))
+    Label(marketwindow, textvariable=marketapplecount).grid(row="0", column="4")
     if fruitupgradelevel == 1:
         Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
         Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
@@ -1559,6 +1621,10 @@ def market():
         Button(marketwindow, text="Buy Blackberry\n$20", command=buyblackberry, width="11").grid(row="7", column="1")
         Button(marketwindow, text="Buy Box (15)\n$300", command=buyblackberrybox, width="11").grid(row="7", column="2")
         Button(marketwindow, text="Buy Crate (450)\n$9000", command=buyblackberrycrate, width="11").grid(row="7", column="3")
+    marketmoneylabelstringvar = StringVar()
+    marketmoneylabelstringvar.set("$" + str(money))
+    marketmoneylabel = Label(marketwindow, textvariable=marketmoneylabelstringvar)
+    marketmoneylabel.place(x="190", y="330")
     marketwindow.iconbitmap("images/apple.ico")
     marketwindow.mainloop()
 
@@ -1594,6 +1660,9 @@ def upgrades():
         fruitupgradetextvar.set("Berry Investment III (Lv. " + str(fruitupgradelevel + 1) + ") $50000")
     if fruitupgradelevel == 7:
         fruitupgradetextvar.set("Market Upgrade Lv. MAX")
+    autoeattextvar = StringVar()
+    autoeattextvar.set("Auto Eat (Lv. " + str(autoclicklevel) + " -> " + str(autoclicklevel + 1) + ") $" + str(autoeatcost))
+    autoeatupgradebutton = Button(upgradeswindow, textvariable=autoeattextvar, width="56", command=autoeatbuy).grid(row="2", column="0")
     upgradeswindow.mainloop()
     
 
@@ -1645,6 +1714,7 @@ clickerphoto5 = PhotoImage(file = "images/mango.png")
 clickerphoto6 = PhotoImage(file = "images/strawberry.png")
 clickerphoto7 = PhotoImage(file = "images/blueberry.png")
 clickerphoto8 = PhotoImage(file = "images/blackberry.png")
+clickerphoto9 = PhotoImage(file = "images/raspberry.png")
 clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="Black", command=clicked)
 clickerbutton.place(x="100", y="75")
 
@@ -1663,5 +1733,14 @@ munchconvertbutton.grid(row="7", column="0")
 calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
 calendarbutton.grid(row="8", column="0")
 
+calendar()
+date = int(date) - 1
+fixdate()
+calendarwindow.destroy()
+root.deiconify()
+advancetime()
+autoclick()
+
 root.iconbitmap("images/apple.ico")
+root.protocol("WM_DELETE_WINDOW", rootOnClose)
 root.mainloop()

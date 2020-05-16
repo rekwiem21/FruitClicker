@@ -27,7 +27,7 @@ currentfruit = "Apple"
 multiconvertlevel = 0
 fruitupgradelevel = 0
 multiconvertcost = 50
-numOfApples = 600
+numOfApples = 0
 numOfBananas = 0
 numOfPears = 0
 numOfOranges = 0
@@ -37,22 +37,64 @@ numOfBlueberries = 0
 numOfBlackberries = 0
 numOfRaspberries = 0
 
-
 def autoeatbuy():
+    #Needs Work
     global rawmoney
     global autoclicklevel
-    if autoclicklevel == 0:
-        if rawmoney < 10:
+    global autoeatcost
+    if autoclicklevel == 11:
+        messagebox.showinfo("Max Level", "Auto Eat is Max Level!")
+    else:
+        if rawmoney < autoeatcost:
             messagebox.showerror("Error", "Not enough money!")
         else:
-            rawmoney = rawmoney - 10
+            rawmoney = rawmoney - autoeatcost
             moneyplace()
             autoclicklevel = autoclicklevel + 1
             autoclick()
+            autoeatcost = round(autoeatcost * 3 / 2 + 2)
+            if autoclicklevel == 11:
+                autoeattextvar.set("Auto Eat (Lv. MAX)")
+            else:
+                autoeattextvar.set("Auto Eat (Lv. " + str(autoclicklevel) + " -> " + str(autoclicklevel + 1) + ") $" + str(autoeatcost))
 
 def autoclick():
+    #Needs Multi Run Fixing
     if autoclicklevel == 1:
-        threading.Timer(10.0, autoclick).start()
+        threading.Timer(9.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 2:
+        threading.Timer(8.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 3:
+        threading.Timer(7.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 4:
+        threading.Timer(6.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 5:
+        threading.Timer(6.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 6:
+        threading.Timer(5.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 7:
+        threading.Timer(4.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 8:
+        threading.Timer(3.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 9:
+        threading.Timer(2.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 10:
+        threading.Timer(1.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 10:
+        threading.Timer(1.99, autoclick).start()
+        clicked()
+    if autoclicklevel == 11:
+        threading.Timer(0.99, autoclick).start()
         clicked()
         
 def rootOnClose():
@@ -1633,6 +1675,7 @@ def upgrades():
     global multiconverttextvar
     global multiconvertbutton
     global fruitupgradetextvar
+    global autoeattextvar
     root.withdraw()
     upgradeswindow = Toplevel()
     upgradeswindow.title("Fruit Clicker - Upgrades")

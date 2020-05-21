@@ -38,11 +38,10 @@ numOfBlackberries = 0
 numOfRaspberries = 0
 
 def autoeatbuy():
-    #Needs Work
     global rawmoney
     global autoclicklevel
     global autoeatcost
-    if autoclicklevel == 11:
+    if autoclicklevel == 10:
         messagebox.showinfo("Max Level", "Auto Eat is Max Level!")
     else:
         if rawmoney < autoeatcost:
@@ -51,51 +50,55 @@ def autoeatbuy():
             rawmoney = rawmoney - autoeatcost
             moneyplace()
             autoclicklevel = autoclicklevel + 1
-            autoclick()
+            if autoclicklevel == 1:
+                autoclick()
             autoeatcost = round(autoeatcost * 3 / 2 + 2)
-            if autoclicklevel == 11:
+            if autoclicklevel == 10:
                 autoeattextvar.set("Auto Eat (Lv. MAX)")
             else:
                 autoeattextvar.set("Auto Eat (Lv. " + str(autoclicklevel) + " -> " + str(autoclicklevel + 1) + ") $" + str(autoeatcost))
 
 def autoclick():
-    #Needs Multi Run Fixing
     if autoclicklevel == 1:
         threading.Timer(9.99, autoclick).start()
-        clicked()
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
     if autoclicklevel == 2:
         threading.Timer(8.99, autoclick).start()
-        clicked()
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
     if autoclicklevel == 3:
         threading.Timer(7.99, autoclick).start()
-        clicked()
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
     if autoclicklevel == 4:
         threading.Timer(6.99, autoclick).start()
-        clicked()
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
     if autoclicklevel == 5:
-        threading.Timer(6.99, autoclick).start()
-        clicked()
-    if autoclicklevel == 6:
         threading.Timer(5.99, autoclick).start()
-        clicked()
-    if autoclicklevel == 7:
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:            
+            clicked()
+    if autoclicklevel == 6:
         threading.Timer(4.99, autoclick).start()
-        clicked()
-    if autoclicklevel == 8:
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
+    if autoclicklevel == 7:
         threading.Timer(3.99, autoclick).start()
-        clicked()
-    if autoclicklevel == 9:
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
+    if autoclicklevel == 8:
         threading.Timer(2.99, autoclick).start()
-        clicked()
-    if autoclicklevel == 10:
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
+    if autoclicklevel == 9:
         threading.Timer(1.99, autoclick).start()
-        clicked()
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
     if autoclicklevel == 10:
-        threading.Timer(1.99, autoclick).start()
-        clicked()
-    if autoclicklevel == 11:
         threading.Timer(0.99, autoclick).start()
-        clicked()
+        if currentfruit == "Apple" and numOfApples > 0 or currentfruit == "Banana" and numOfBananas > 0 or currentfruit == "Pear" and numOfPears > 0 or currentfruit == "Orange" and numOfOranges > 0 or currentfruit == "Mango" and numOfMangos > 0 or currentfruit == "Strawberry" and numOfStrawberries > 0 or currentfruit == "Blueberry" and numOfBlueberries > 0 or currentfruit == "Blackberry" and numOfBlackberries > 0 or currentfruit == "Raspberry" and numOfRaspberries > 0:
+            clicked()
         
 def rootOnClose():
     root.destroy()
@@ -1376,7 +1379,7 @@ def clicked():
                 currentfruitlabel.place(x="175", y="290")
             if numOfBananas < 1000 and numOfBananas > 99:
                 currentfruitlabel.place(x="170", y="290")
-            munch = munch + random.randint(30, 35)
+            rawmunch = rawmunch + random.randint(30, 35)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
     if currentfruit == "Pear":
@@ -1391,7 +1394,7 @@ def clicked():
                 currentfruitlabel.place(x="175", y="290")
             if numOfPears < 1000 and numOfPears > 99:
                 currentfruitlabel.place(x="170", y="290")
-            munch = munch + random.randint(60, 75)
+            rawmunch = rawmunch + random.randint(60, 75)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
     if currentfruit == "Orange":
@@ -1406,7 +1409,7 @@ def clicked():
                 currentfruitlabel.place(x="170", y="290")
             if numOfOranges < 1000 and numOfOranges > 99:
                 currentfruitlabel.place(x="165", y="290")
-            munch = munch + random.randint(95, 110)
+            rawmunch = rawmunch + random.randint(95, 110)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
     if currentfruit == "Mango":
@@ -1421,7 +1424,7 @@ def clicked():
                 currentfruitlabel.place(x="170", y="290")
             if numOfMangos < 1000 and numOfOranges > 99:
                 currentfruitlabel.place(x="165", y="290")
-            munch = munch + random.randint(245, 250)
+            rawmunch = rawmunch + random.randint(245, 250)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
     if currentfruit == "Strawberry":
@@ -1436,7 +1439,7 @@ def clicked():
                 currentfruitlabel.place(x="160", y="290")
             if numOfStrawberries < 1000 and numOfStrawberries > 99:
                 currentfruitlabel.place(x="155", y="290")
-            munch = munch + random.randint(48, 55)
+            rawmunch = rawmunch + random.randint(48, 55)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
     if currentfruit == "Blueberry":
@@ -1451,7 +1454,7 @@ def clicked():
                 currentfruitlabel.place(x="160", y="290")
             if numOfBlueberries < 1000 and numOfBlueberries > 99:
                 currentfruitlabel.place(x="155", y="290")
-            munch = munch + random.randint(73, 82)
+            rawmunch = rawmunch + random.randint(73, 82)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
     if currentfruit == "Blackberry":
@@ -1466,7 +1469,7 @@ def clicked():
                 currentfruitlabel.place(x="160", y="290")
             if numOfBlackberries < 1000 and numOfBlackberries > 99:
                 currentfruitlabel.place(x="155", y="290")
-            munch = munch + random.randint(98, 110)
+            rawmunch = rawmunch + random.randint(98, 110)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
             
@@ -1782,7 +1785,6 @@ fixdate()
 calendarwindow.destroy()
 root.deiconify()
 advancetime()
-autoclick()
 
 root.iconbitmap("images/apple.ico")
 root.protocol("WM_DELETE_WINDOW", rootOnClose)

@@ -8,6 +8,7 @@ import random
 from datetime import datetime
 import threading
 import time
+import sys
 
 pygame.init()
 
@@ -21,7 +22,7 @@ month = wholedate.strftime("%m")
 year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
-money = 10
+money = 0
 rawmoney = 10
 currentfruit = "Apple"
 multiconvertlevel = 0
@@ -101,7 +102,8 @@ def autoclick():
             clicked()
         
 def rootOnClose():
-    root.destroy()
+    root.quit()
+    root.destroy()    
 
 def fixdate():
     global date
@@ -156,7 +158,9 @@ def advancetime():
     global date
     global month
     global year
-    threading.Timer(5.0, advancetime).start()
+    global calendarthread
+    calendarthread = threading.Timer(5.0, advancetime).start()
+    calendarthread.setDaemon(True)
     if month == "09" or month == "04" or month == "06" or month == "11":
         date = int(date) + 1
         if date > 30:
@@ -305,107 +309,37 @@ def moneyplace():
     global root
     global rawmoney
     global money
-    if rawmoney < 10:
+    if rawmoney > 999:
+        money = numerize.numerize(rawmoney)
+    else:
         money = rawmoney
+    if len(str(money)) == 1:
         moneylabel.place(x="327", y="0")
-    if rawmoney < 100 and rawmoney > 9:
-        money = rawmoney
+    if len(str(money)) == 2:
         moneylabel.place(x="320", y="0")
-    if rawmoney < 1000 and rawmoney > 99:
-        money = rawmoney
+    if len(str(money)) == 3:
         moneylabel.place(x="315", y="0")
-    if rawmoney < 10000 and rawmoney > 999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="320", y="0")
-    if rawmoney < 100000 and rawmoney > 9999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="315", y="0")
-    if rawmoney < 1000000 and rawmoney > 99999:
-        money = numerize.numerize(rawmoney)
+    if len(str(money)) == 4:
         moneylabel.place(x="310", y="0")
-    if rawmoney < 10000000 and rawmoney > 999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="320", y="0")
-    if rawmoney < 100000000 and rawmoney > 9999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="312", y="0")
-    if rawmoney < 1000000000 and rawmoney > 99999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="307", y="0")
-    if rawmoney < 10000000000 and rawmoney > 999999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="320", y="0")
-    if rawmoney < 100000000000 and rawmoney > 9999999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="315", y="0")
-    if rawmoney < 1000000000000 and rawmoney > 99999999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="310", y="0")
-    if rawmoney < 10000000000000 and rawmoney > 999999999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="320", y="0")
-    if rawmoney < 100000000000000 and rawmoney > 9999999999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="315", y="0")
-    if rawmoney < 1000000000000000 and rawmoney > 99999999999999:
-        money = numerize.numerize(rawmoney)
-        moneylabel.place(x="310", y="0")
-    if rawmoney > 10000000000000000:
-        messagebox.showerror("HOw DiD YOu gEt heRE", "YOu hAve ToO MUch mONEy...\nGo gET a lIfE.")
-        root.destroy()
+    if len(str(money)) == 5:
+        moneylabel.place(x="305", y="0")
 
 def munchplace():
     global root
     global rawmunch
     global munch
-    if rawmunch < 10:
+    if rawmunch > 999:
+        munch = numerize.numerize(rawmunch)
+    else:
         munch = rawmunch
+    if len(str(munch)) == 1:
         munchlabel.place(x="340", y="20")
-    if rawmunch < 100 and rawmunch > 9:
-        munch = rawmunch
+    if len(str(munch)) == 2:
         munchlabel.place(x="335", y="20")
-    if rawmunch < 1000 and rawmunch > 99:
-        munch = rawmunch
+    if len(str(munch)) == 3:
         munchlabel.place(x="330", y="20")
-    if rawmunch < 10000 and rawmunch > 999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="333", y="20")
-    if rawmunch < 100000 and rawmunch > 9999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="328", y="20")
-    if rawmunch < 1000000 and rawmunch > 99999:
-        munch = numerize.numerize(rawmunch)
+    if len(str(munch)) == 4:
         munchlabel.place(x="323", y="20")
-    if rawmunch < 10000000 and rawmunch > 999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="329", y="20")
-    if rawmunch < 100000000 and rawmunch > 9999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="325", y="20")
-    if rawmunch < 1000000000 and rawmunch > 99999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="320", y="20")
-    if rawmunch < 10000000000 and rawmunch > 999999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="333", y="20")
-    if rawmunch < 100000000000 and rawmunch > 9999999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="327", y="20")
-    if rawmunch < 1000000000000 and rawmunch > 99999999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="322", y="20")
-    if rawmunch < 10000000000000 and rawmunch > 999999999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="333", y="20")
-    if rawmunch < 100000000000000 and rawmunch > 9999999999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="327", y="20")
-    if rawmunch < 1000000000000000 and rawmunch > 99999999999999:
-        munch = numerize.numerize(rawmunch)
-        munchlabel.place(x="322", y="20")
-    if rawmoney > 10000000000000000:
-        messagebox.showerror("HOw DiD YOu gEt heRE", "YOu hAve ToO MUch mUNCh...\nGo gET a lIfE.")
-        root.destroy()
                 
 def convertmunch():
     global munch

@@ -8,7 +8,6 @@ import random
 from datetime import datetime
 import threading
 import time
-import sys
 
 pygame.init()
 
@@ -37,6 +36,9 @@ numOfStrawberries = 0
 numOfBlueberries = 0
 numOfBlackberries = 0
 numOfRaspberries = 0
+numOfGrapes = 0
+numOfWatermelons = 0
+numOfPineapples = 0
 
 def autoeatbuy():
     global rawmoney
@@ -102,7 +104,6 @@ def autoclick():
             clicked()
         
 def rootOnClose():
-    root.quit()
     root.destroy()    
 
 def fixdate():
@@ -160,7 +161,6 @@ def advancetime():
     global year
     global calendarthread
     calendarthread = threading.Timer(5.0, advancetime).start()
-    calendarthread.setDaemon(True)
     if month == "09" or month == "04" or month == "06" or month == "11":
         date = int(date) + 1
         if date > 30:
@@ -684,6 +684,40 @@ def switchleft():
         if numOfBlackberries < 1000 and numOfBlackberries > 99:
             currentfruitlabel.place(x="155", y="290")
         return
+    if currentfruit == "Grapes":
+        currentfruit = "Raspberry"
+        clickerbutton.config(image=clickerphoto9)
+        currentfruitstringvar.set("Raspberry x" + str(numOfRaspberries))
+        if numOfRaspberries < 10:
+            currentfruitlabel.place(x="165", y="290")
+        if numOfRaspberries < 100 and numOfRaspberries > 9:
+            currentfruitlabel.place(x="160", y="290")
+        if numOfRaspberries < 1000 and numOfRaspberries > 99:
+            currentfruitlabel.place(x="155", y="290")
+        return
+    if currentfruit == "Watermelon":
+        currentfruit = "Grapes"
+        clickerbutton.config(image=clickerphoto10)
+        currentfruitstringvar.set("Grapes x" + str(numOfGrapes))
+        if numOfGrapes < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfGrapes < 100 and numOfGrapes > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfGrapes < 1000 and numOfGrapes > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Pineapple":
+        currentfruit = "Watermelon"
+        clickerbutton.config(image=clickerphoto11)
+        rightfruitbutton.config(state=NORMAL)
+        currentfruitstringvar.set("Watermelon x" + str(numOfWatermelons))
+        if numOfWatermelons < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfWatermelons < 100 and numOfWatermelons > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfWatermelons < 1000 and numOfWatermelons > 99:
+            currentfruitlabel.place(x="165", y="290")
+    
         
 
 def switchright():
@@ -769,7 +803,6 @@ def switchright():
         return
     if currentfruit == "Blackberry":
         currentfruit = "Raspberry"
-        rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto9)
         currentfruitstringvar.set("Raspberry x" + str(numOfRaspberries))
         if numOfRaspberries < 10:
@@ -779,9 +812,42 @@ def switchright():
         if numOfRaspberries < 1000 and numOfRaspberries > 99:
             currentfruitlabel.place(x="155", y="290")
         return
+    if currentfruit == "Raspberry":
+        currentfruit = "Grapes"
+        clickerbutton.config(image=clickerphoto10)
+        currentfruitstringvar.set("Grapes x" + str(numOfGrapes))
+        if numOfGrapes < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfGrapes < 100 and numOfGrapes > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfGrapes < 1000 and numOfGrapes > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Grapes":
+        currentfruit = "Watermelon"
+        clickerbutton.config(image=clickerphoto11)
+        currentfruitstringvar.set("Watermelon x" + str(numOfWatermelons))
+        if numOfWatermelons < 10:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfWatermelons < 100 and numOfWatermelons > 9:
+            currentfruitlabel.place(x="170", y="290")
+        if numOfWatermelons < 1000 and numOfWatermelons > 99:
+            currentfruitlabel.place(x="165", y="290")
+        return
+    if currentfruit == "Watermelon":
+        currentfruit = "Pineapple"
+        rightfruitbutton.config(state=DISABLED)
+        clickerbutton.config(image=clickerphoto12)
+        currentfruitstringvar.set("Pineapple x" + str(numOfPineapples))
+        if numOfPineapples < 10:
+            currentfruitlabel.place(x="165", y="290")
+        if numOfPineapples < 100 and numOfPineapples > 9:
+            currentfruitlabel.place(x="160", y="290")
+        if numOfPineapples < 1000 and numOfPineapples > 99:
+            currentfruitlabel.place(x="155", y="290")
     
 def musicselect():
-    musicfilename = filedialog.askopenfilename(initialdir = "/",title = "Select MP3 File",filetypes = (("MP3 Files","*.mp3"),("WAV Files","*.wav")))
+    musicfilename = filedialog.askopenfilename(initialdir = "/",title = "Select MP3 File", filetypes=(("MP3 Files","*.mp3"),("WAV Files","*.wav")))
     pygame.mixer.music.load(musicfilename)
     pygame.mixer.music.play(-1)
 
@@ -1644,7 +1710,6 @@ def upgrades():
     autoeattextvar.set("Auto Eat (Lv. " + str(autoclicklevel) + " -> " + str(autoclicklevel + 1) + ") $" + str(autoeatcost))
     autoeatupgradebutton = Button(upgradeswindow, textvariable=autoeattextvar, width="56", command=autoeatbuy).grid(row="2", column="0")
     upgradeswindow.mainloop()
-    
 
 root = Tk()
 root.title("Fruit Clicker")
@@ -1695,6 +1760,11 @@ clickerphoto6 = PhotoImage(file = "images/strawberry.png")
 clickerphoto7 = PhotoImage(file = "images/blueberry.png")
 clickerphoto8 = PhotoImage(file = "images/blackberry.png")
 clickerphoto9 = PhotoImage(file = "images/raspberry.png")
+clickerphoto10 = PhotoImage(file = "images/grapes.png")
+clickerphoto11 = PhotoImage(file = "images/watermelon.png")
+clickerphoto12 = PhotoImage(file = "images/pineapple.png")
+clickerphoto13 = PhotoImage(file = "images/coconut.png")
+clickerphoto14 = PhotoImage(file = "images/guava.png")
 clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="Black", command=clicked)
 clickerbutton.place(x="100", y="75")
 

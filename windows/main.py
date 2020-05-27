@@ -25,7 +25,7 @@ money = 0
 rawmoney = 10
 currentfruit = "Apple"
 multiconvertlevel = 0
-fruitupgradelevel = 0
+fruitupgradelevel = 8
 multiconvertcost = 50
 marketpage = 1
 numOfApples = 0
@@ -42,19 +42,20 @@ numOfWatermelons = 0
 numOfPineapples = 0
 
 def marketplace():
+    global bananamarketlabel
     if marketpage == 1:
-        Label(marketwindow, text="Buy\nApple", width="8").grid(row="0", column="0")
-        Button(marketwindow, text="Buy Apple\n$1", command=buyapple, width="11").grid(row="0", column="1")
-        Button(marketwindow, text="Buy Pack (6)\n$6", command=buyapplepack, width="11").grid(row="0", column="2")
-        Button(marketwindow, text="Buy Crate (36)\n$36", command=buyapplecrate, width="11").grid(row="0", column="3")
+        applemarketlabel = Label(marketwindow, text="Buy\nApple", width="8").grid(row="0", column="0")
+        applemarketbuttonsingle = Button(marketwindow, text="Buy Apple\n$1", command=buyapple, width="11").grid(row="0", column="1")
+        applemarketbuttonpack = Button(marketwindow, text="Buy Pack (6)\n$6", command=buyapplepack, width="11").grid(row="0", column="2")
+        applemarketbuttoncrate = Button(marketwindow, text="Buy Crate (36)\n$36", command=buyapplecrate, width="11").grid(row="0", column="3")
         marketapplecount = StringVar()
         marketapplecount.set("Current:\n" + str(numOfApples))
-        Label(marketwindow, textvariable=marketapplecount).grid(row="0", column="4")
+        applecountlabel = Label(marketwindow, textvariable=marketapplecount).grid(row="0", column="4")
     if fruitupgradelevel == 1 and marketpage == 1:
-        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        bananamarketlabel = Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        bananamarketbuttonsingle = Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        bananamarketbuttonbunch = Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        bananamarketbuttoncrate = Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
     if fruitupgradelevel == 2 and marketpage == 1:
         Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
         Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
@@ -141,7 +142,7 @@ def marketplace():
         Button(marketwindow, text="Buy Box (25)\n$375", command=buyblueberrybox, width="11").grid(row="6", column="2")
         Button(marketwindow, text="Buy Crate (750)\n$11250", command=buyblueberrycrate, width="11").grid(row="6", column="3")
     if fruitupgradelevel >= 7 and marketpage == 1:
-        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        bananamarketlabel = Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
         Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
         Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
         Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
@@ -170,6 +171,7 @@ def marketplace():
         Button(marketwindow, text="Buy Box (15)\n$300", command=buyblackberrybox, width="11").grid(row="7", column="2")
         Button(marketwindow, text="Buy Crate (450)\n$9000", command=buyblackberrycrate, width="11").grid(row="7", column="3")
     if fruitupgradelevel == 8 and marketpage == 2:
+        bananamarketlabel.grid_forget()
         Label(marketwindow, text="Buy\nRaspberry", width="8").grid(row="0", column="0")
         Button(marketwindow, text="Buy Raspberry\n$30", command=buybanana, width="11").grid(row="0", column="1")
         Button(marketwindow, text="Buy Box (10)\n$300", command=buybananabunch, width="11").grid(row="0", column="2")
@@ -184,6 +186,7 @@ def marketpageleft():
 def marketpageright():
     global marketpage
     if not marketpage == 2:
+        marketpage = marketpage + 1
         marketplace()
 
 def autoeatbuy():

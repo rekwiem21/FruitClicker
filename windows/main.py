@@ -22,10 +22,10 @@ year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
 money = 0
-rawmoney = 10
+rawmoney = 1000000000
 currentfruit = "Apple"
 multiconvertlevel = 0
-fruitupgradelevel = 8
+fruitupgradelevel = 0
 multiconvertcost = 50
 marketpage = 1
 numOfApples = 0
@@ -42,20 +42,20 @@ numOfWatermelons = 0
 numOfPineapples = 0
 
 def marketplace():
-    global bananamarketlabel
+    global marketapplecount
     if marketpage == 1:
-        applemarketlabel = Label(marketwindow, text="Buy\nApple", width="8").grid(row="0", column="0")
-        applemarketbuttonsingle = Button(marketwindow, text="Buy Apple\n$1", command=buyapple, width="11").grid(row="0", column="1")
-        applemarketbuttonpack = Button(marketwindow, text="Buy Pack (6)\n$6", command=buyapplepack, width="11").grid(row="0", column="2")
-        applemarketbuttoncrate = Button(marketwindow, text="Buy Crate (36)\n$36", command=buyapplecrate, width="11").grid(row="0", column="3")
+        Label(marketwindow, text="Buy\nApple", width="8").grid(row="0", column="0")
+        Button(marketwindow, text="Buy Apple\n$1", command=buyapple, width="11").grid(row="0", column="1")
+        Button(marketwindow, text="Buy Pack (6)\n$6", command=buyapplepack, width="11").grid(row="0", column="2")
+        Button(marketwindow, text="Buy Crate (36)\n$36", command=buyapplecrate, width="11").grid(row="0", column="3")
         marketapplecount = StringVar()
         marketapplecount.set("Current:\n" + str(numOfApples))
         applecountlabel = Label(marketwindow, textvariable=marketapplecount).grid(row="0", column="4")
     if fruitupgradelevel == 1 and marketpage == 1:
-        bananamarketlabel = Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        bananamarketbuttonsingle = Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        bananamarketbuttonbunch = Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        bananamarketbuttoncrate = Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
     if fruitupgradelevel == 2 and marketpage == 1:
         Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
         Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
@@ -171,9 +171,8 @@ def marketplace():
         Button(marketwindow, text="Buy Box (15)\n$300", command=buyblackberrybox, width="11").grid(row="7", column="2")
         Button(marketwindow, text="Buy Crate (450)\n$9000", command=buyblackberrycrate, width="11").grid(row="7", column="3")
     if fruitupgradelevel == 8 and marketpage == 2:
-        bananamarketlabel.grid_forget()
         Label(marketwindow, text="Buy\nRaspberry", width="8").grid(row="0", column="0")
-        Button(marketwindow, text="Buy Raspberry\n$30", command=buybanana, width="11").grid(row="0", column="1")
+        Button(marketwindow, text="Buy Raspberry\n$35", command=buyraspberry, width="11").grid(row="0", column="1")
         Button(marketwindow, text="Buy Box (10)\n$300", command=buybananabunch, width="11").grid(row="0", column="2")
         Button(marketwindow, text="Buy Crate (150)\n$4500", command=buybananacrate, width="11").grid(row="0", column="3")
 
@@ -429,9 +428,18 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 50000
             moneyplace()
-            fruitupgradetextvar.set("Market Upgrade Lv. MAX")
+            fruitupgradetextvar.set("Berry Investment IV (Lv. " + str(fruitupgradelevel + 1) + ") $100000")
         return
     if fruitupgradelevel == 7:
+        if rawmoney < 100000:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 100000
+            moneyplace()
+            fruitupgradetextvar.set("Market Upgrade Lv. MAX")
+        return
+    if fruitupgradelevel == 8:
         messagebox.showerror("Error", "Upgrade is MAX Level!")
     
 def multiconvertbuy():
@@ -1122,6 +1130,7 @@ def buybanana():
             if numOfBananas < 1000 and numOfBananas > 99:
                 currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buybananabunch():
@@ -1142,6 +1151,7 @@ def buybananabunch():
             if numOfBananas < 1000 and numOfBananas > 99:
              currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buybananacrate():
@@ -1162,6 +1172,7 @@ def buybananacrate():
             if numOfBananas < 1000 and numOfBananas > 99:
                 currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buypear():
@@ -1182,6 +1193,7 @@ def buypear():
             if numOfPears < 1000 and numOfPears > 99:
                 currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
         
 def buypearpack():
@@ -1202,6 +1214,7 @@ def buypearpack():
             if numOfPears < 1000 and numOfPears > 99:
                 currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 
@@ -1223,6 +1236,7 @@ def buypearcrate():
             if numOfPears < 1000 and numOfPears > 99:
                 currentfruitlabel.place(x="170", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyorange():
@@ -1243,6 +1257,7 @@ def buyorange():
             if numOfOranges < 1000 and numOfOranges > 99:
                 currentfruitlabel.place(x="165", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyorangebag():
@@ -1263,6 +1278,7 @@ def buyorangebag():
             if numOfOranges < 1000 and numOfOranges > 99:
                 currentfruitlabel.place(x="165", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyorangecrate():
@@ -1283,6 +1299,7 @@ def buyorangecrate():
             if numOfOranges < 1000 and numOfOranges > 99:
                 currentfruitlabel.place(x="165", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buymango():
@@ -1303,6 +1320,7 @@ def buymango():
             if numOfMangos < 1000 and numOfMangos > 99:
                 currentfruitlabel.place(x="165", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buymangobag():
@@ -1323,6 +1341,7 @@ def buymangobag():
             if numOfMangos < 1000 and numOfMangos > 99:
                 currentfruitlabel.place(x="165", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
         
 def buymangocrate():
@@ -1343,6 +1362,7 @@ def buymangocrate():
             if numOfMangos < 1000 and numOfMangos > 99:
                 currentfruitlabel.place(x="165", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buystrawberry():
@@ -1363,6 +1383,7 @@ def buystrawberry():
             if numOfStrawberries < 1000 and numOfStrawberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buystrawberrybox():
@@ -1383,6 +1404,7 @@ def buystrawberrybox():
             if numOfStrawberries < 1000 and numOfStrawberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buystrawberrycrate():
@@ -1403,6 +1425,7 @@ def buystrawberrycrate():
             if numOfStrawberries < 1000 and numOfStrawberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
         
 def buyblueberry():
@@ -1423,6 +1446,7 @@ def buyblueberry():
             if numOfBlueberries < 1000 and numOfBlueberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyblueberrybox():
@@ -1443,6 +1467,7 @@ def buyblueberrybox():
             if numOfBlueberries < 1000 and numOfBlueberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyblueberrycrate():
@@ -1463,6 +1488,7 @@ def buyblueberrycrate():
             if numOfBlueberries < 1000 and numOfBlueberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyblackberry():
@@ -1483,6 +1509,7 @@ def buyblackberry():
             if numOfBlackberries < 1000 and numOfBlackberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyblackberrybox():
@@ -1503,6 +1530,7 @@ def buyblackberrybox():
             if numOfBlackberries < 1000 and numOfBlackberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
 
 def buyblackberrycrate():
@@ -1523,6 +1551,28 @@ def buyblackberrycrate():
             if numOfBlackberries < 1000 and numOfBlackberries > 99:
                 currentfruitlabel.place(x="155", y="290")
         moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
+        moneystringvar.set("You have $" + str(money))
+
+def buyraspberry():
+    global money
+    global rawmoney
+    global numOfRaspberries
+    if rawmoney < 35:
+       messagebox.showerror("Error", "You do not have enough money!")
+    else:
+        rawmoney = rawmoney - 35
+        numOfRaspberries = numOfRaspberries + 1
+        if currentfruit == "Raspberry":
+            currentfruitstringvar.set("Raspberries x" + str(numOfRaspberries))
+            if numOfRaspberries < 10:
+                currentfruitlabel.place(x="165", y="290")
+            if numOfRaspberries < 100 and numOfRaspberries > 9:
+              currentfruitlabel.place(x="160", y="290")
+            if numOfRaspberries < 1000 and numOfRaspberries > 99:
+                currentfruitlabel.place(x="155", y="290")
+        moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
             
 def clicked():
@@ -1537,6 +1587,7 @@ def clicked():
     global numOfStrawberries
     global numOfBlueberries
     global numOfBlackberries
+    global numOfRaspberries
     global totalfruitclicked
     if currentfruit == "Apple":
         if numOfApples == 0:
@@ -1671,7 +1722,7 @@ def clicked():
                 currentfruitlabel.place(x="160", y="290")
             if numOfRaspberries < 1000 and numOfRaspberries > 99:
                 currentfruitlabel.place(x="155", y="290")
-            rawmunch = rawmunch + random.randint(148, 155)
+            rawmunch = rawmunch + random.randint(173, 185)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
             
@@ -1788,6 +1839,8 @@ def upgrades():
     if fruitupgradelevel == 6:
         fruitupgradetextvar.set("Berry Investment III (Lv. " + str(fruitupgradelevel + 1) + ") $50000")
     if fruitupgradelevel == 7:
+        fruitupgradetextvar.set("Berry Investment IV (Lv. " + str(fruitupgradelevel + 1) + ") $100000")
+    if fruitupgradelevel == 8:
         fruitupgradetextvar.set("Market Upgrade Lv. MAX")
     autoeattextvar = StringVar()
     autoeattextvar.set("Auto Eat (Lv. " + str(autoclicklevel) + " -> " + str(autoclicklevel + 1) + ") $" + str(autoeatcost))

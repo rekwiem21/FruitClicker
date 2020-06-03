@@ -8,6 +8,7 @@ import random
 from datetime import datetime
 import threading
 import time
+import requests
 
 pygame.init()
 
@@ -22,7 +23,7 @@ year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
 money = 0
-rawmoney = 1000000000
+rawmoney = 10
 currentfruit = "Apple"
 multiconvertlevel = 0
 fruitupgradelevel = 0
@@ -40,6 +41,11 @@ numOfRaspberries = 0
 numOfGrapes = 0
 numOfWatermelons = 0
 numOfPineapples = 0
+
+def update():
+    url = "https://raw.githubusercontent.com/SeaPuppy2006/FruitClicker/master/windows/images/apple.ico"
+    r = requests.get(url, allow_redirects=True)
+    open("stuff.png", "wb").write(r.content)
 
 def marketplace():
     global marketapplecount
@@ -173,8 +179,17 @@ def marketplace():
     if fruitupgradelevel == 8 and marketpage == 2:
         Label(marketwindow, text="Buy\nRaspberry", width="8").grid(row="0", column="0")
         Button(marketwindow, text="Buy Raspberry\n$35", command=buyraspberry, width="11").grid(row="0", column="1")
-        Button(marketwindow, text="Buy Box (10)\n$300", command=buybananabunch, width="11").grid(row="0", column="2")
-        Button(marketwindow, text="Buy Crate (150)\n$4500", command=buybananacrate, width="11").grid(row="0", column="3")
+        Button(marketwindow, text="Buy Box (10)\n$300", command=buyraspberrybox, width="11").grid(row="0", column="2")
+        Button(marketwindow, text="Buy Crate (150)\n$4500", command=buyraspberrycrate, width="11").grid(row="0", column="3")
+    if fruitupgradelevel == 9 and marketpage == 2:
+        Label(marketwindow, text="Buy\nRaspberry", width="8").grid(row="0", column="0")
+        Button(marketwindow, text="Buy Raspberry\n$35", command=buyraspberry, width="11").grid(row="0", column="1")
+        Button(marketwindow, text="Buy Box (10)\n$300", command=buyraspberrybox, width="11").grid(row="0", column="2")
+        Button(marketwindow, text="Buy Crate (150)\n$4500", command=buyraspberrycrate, width="11").grid(row="0", column="3")
+        Label(marketwindow, text="Buy\nGrapes", width="8").grid(row="0", column="0")
+        Button(marketwindow, text="Buy Grapes\n$10", command=buygrape, width="11").grid(row="0", column="1")
+        Button(marketwindow, text="Buy Bag (50)\n$300", command=buygrapebag, width="11").grid(row="0", column="2")
+        Button(marketwindow, text="Buy Crate (300)\n$3000", command=buygrapecrate, width="11").grid(row="0", column="3")
 
 def marketpageleft():
     global marketpage
@@ -1918,6 +1933,8 @@ munchconvertbutton.grid(row="7", column="0")
 
 calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
 calendarbutton.grid(row="8", column="0")
+
+Button(root, text="Update", command=update).grid(row="9", column="0")
 
 calendar()
 date = int(date) - 1

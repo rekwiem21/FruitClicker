@@ -42,11 +42,6 @@ numOfGrapes = 0
 numOfWatermelons = 0
 numOfPineapples = 0
 
-def update():
-    url = "https://raw.githubusercontent.com/SeaPuppy2006/FruitClicker/master/windows/images/apple.ico"
-    r = requests.get(url, allow_redirects=True)
-    open("stuff.png", "wb").write(r.content)
-
 def marketplace():
     global marketapplecount
     if marketpage == 1:
@@ -267,7 +262,10 @@ def autoclick():
             clicked()
         
 def rootOnClose():
-    root.destroy()    
+    root.destroy()
+    si = subprocess.STARTUPINFO()
+    si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    subprocess.call(["launcher.exe"])
 
 def fixdate():
     global date
@@ -1933,8 +1931,6 @@ munchconvertbutton.grid(row="7", column="0")
 
 calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
 calendarbutton.grid(row="8", column="0")
-
-Button(root, text="Update", command=update).grid(row="9", column="0")
 
 calendar()
 date = int(date) - 1

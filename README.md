@@ -1,10 +1,11 @@
-# FruitClicker
+FruitClicker
+
 A simple clicker game that's all about fruit!
 
-Made by Jayden Collis for a friend.
+Made by Jayden Collis for a friend however this is now being sold nationally.
 
-To run on windows, go to releases and download the source code zip, extract it and run the exe file. On linux you have to run the code in a Python IDE. Its not updated to match windows either.
+Simply run the EXE file once downloaded. To close this app, not only do you have to close the main window, you must quit it in the task manager. The team are actively working to fix this issue.
+
+For any questions, contact: 'seapuppy2006@gmail.com'
 
 Find the Trello here: https://trello.com/b/xPMekeTK/fruit-clicker
-
-For the record, this game is nowhere near complete at this moment in time. However, I am actively working on this. Stay tuned!

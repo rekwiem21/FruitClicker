@@ -15,7 +15,7 @@ pygame.init()
 
 appleprice = 1
 applesboughttoday = 0
-bananaprice = 1000
+bananaprice = 5
 bananasboughttoday = 0
 autoeatcost = 50
 autoclicklevel = 0
@@ -28,7 +28,7 @@ year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
 money = 0
-rawmoney = 1000000000
+rawmoney = 10
 currentfruit = "Apple"
 multiconvertlevel = 0
 fruitupgradelevel = 0
@@ -59,9 +59,9 @@ def marketplace():
         applecountlabel = Label(marketwindow, textvariable=marketapplecount).grid(row="0", column="4")
     if fruitupgradelevel == 1 and marketpage == 1:
         Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
+        Button(marketwindow, text="Buy Banana\n" + numerize.numerize(bananaprice), command=buybanana, width="11").grid(row="1", column="1")
+        Button(marketwindow, text="Buy Bunch (4)\n" + numerize.numerize(bananaprice * 4), command=buybananabunch, width="11").grid(row="1", column="2")
+        Button(marketwindow, text="Buy Crate (30)\n" + numerize.numerize(bananaprice * 30), command=buybananacrate, width="11").grid(row="1", column="3")
     if fruitupgradelevel == 2 and marketpage == 1:
         Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
         Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
@@ -318,8 +318,9 @@ def fixmonth():
     if month == 12:
         month = "12"
 
-def stockchange
-
+def stockchange():
+    return
+    
 def advancetime():
     global datelabelstringvar
     global date

@@ -46,9 +46,46 @@ numOfRaspberries = 0
 numOfGrapes = 0
 numOfWatermelons = 0
 numOfPineapples = 0
+numOfCoconuts = 0
 
 def marketplace():
     global marketapplecount
+    global marketbananacount
+    global bananalabel
+    global bananabutton1
+    global bananabutton2
+    global bananabutton3
+    global bananacountlabel
+    global pearlabel
+    global pearbutton1
+    global pearbutton2
+    global pearbutton3
+    global pearcountlabel
+    global orangelabel
+    global orangebutton1
+    global orangebutton2
+    global orangebutton3
+    global orangecountlabel
+    global mangolabel
+    global mangobutton1
+    global mangobutton2
+    global mangobutton3
+    global mangocountlabel
+    global strawberrylabel
+    global strawberrybutton1
+    global strawberrybutton2
+    global strawberrybutton3
+    global strawberrycountlabel
+    global blueberrylabel
+    global blueberrybutton1
+    global blueberrybutton2
+    global blueberrybutton3
+    global blueberrycountlabel
+    global blackberrylabel
+    global blackberrybutton1
+    global blackberrybutton2
+    global blackberrybutton3
+    global blackberrycountlabel
     if marketpage == 1:
         Label(marketwindow, text="Buy\nApple", width="8").grid(row="0", column="0")
         Button(marketwindow, text="Buy Apple\n$" + numerize.numerize(appleprice), command=buyapple, width="11").grid(row="0", column="1")
@@ -57,139 +94,151 @@ def marketplace():
         marketapplecount = StringVar()
         marketapplecount.set("Current:\n" + str(numOfApples))
         applecountlabel = Label(marketwindow, textvariable=marketapplecount).grid(row="0", column="4")
-    if fruitupgradelevel == 1 and marketpage == 1:
-        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n" + numerize.numerize(bananaprice), command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n" + numerize.numerize(bananaprice * 4), command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n" + numerize.numerize(bananaprice * 30), command=buybananacrate, width="11").grid(row="1", column="3")
-    if fruitupgradelevel == 2 and marketpage == 1:
-        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
-        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
-        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
-        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
-        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
-    if fruitupgradelevel == 3 and marketpage == 1:
-        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
-        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
-        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
-        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
-        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
-        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
-        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
-        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
-        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
-    if fruitupgradelevel == 4 and marketpage == 1:
-        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
-        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
-        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
-        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
-        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
-        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
-        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
-        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
-        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
-        Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
-        Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
-        Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
-        Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
-    if fruitupgradelevel == 5 and marketpage == 1:
-        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
-        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
-        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
-        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
-        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
-        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
-        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
-        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
-        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
-        Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
-        Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
-        Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
-        Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
-        Label(marketwindow, text="Buy\nStrawberry", width="8").grid(row="5", column="0")
-        Button(marketwindow, text="Buy Strawberry\n$10", command=buystrawberry, width="11").grid(row="5", column="1")
-        Button(marketwindow, text="Buy Box (25)\n$250", command=buystrawberrybox, width="11").grid(row="5", column="2")
-        Button(marketwindow, text="Buy Crate (750)\n$7500", command=buystrawberrycrate, width="11").grid(row="5", column="3")
-    if fruitupgradelevel == 6 and marketpage == 1:
-        Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
-        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
-        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
-        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
-        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
-        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
-        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
-        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
-        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
-        Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
-        Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
-        Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
-        Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
-        Label(marketwindow, text="Buy\nStrawberry", width="8").grid(row="5", column="0")
-        Button(marketwindow, text="Buy Strawberry\n$10", command=buystrawberry, width="11").grid(row="5", column="1")
-        Button(marketwindow, text="Buy Box (25)\n$250", command=buystrawberrybox, width="11").grid(row="5", column="2")
-        Button(marketwindow, text="Buy Crate (750)\n$7500", command=buystrawberrycrate, width="11").grid(row="5", column="3")
-        Label(marketwindow, text="Buy\nBlueberry", width="8").grid(row="6", column="0")
-        Button(marketwindow, text="Buy Blueberry\n$15", command=buyblueberry, width="11").grid(row="6", column="1")
-        Button(marketwindow, text="Buy Box (25)\n$375", command=buyblueberrybox, width="11").grid(row="6", column="2")
-        Button(marketwindow, text="Buy Crate (750)\n$11250", command=buyblueberrycrate, width="11").grid(row="6", column="3")
+    if fruitupgradelevel >= 1 and marketpage == 1:
+        bananalabel = Label(marketwindow, text="Buy\nBanana", width="8")
+        bananalabel.grid(row="1", column="0")
+        bananabutton1 = Button(marketwindow, text="Buy Banana\n$" + numerize.numerize(bananaprice), command=buybanana, width="11")
+        bananabutton1.grid(row="1", column="1")
+        bananabutton2 = Button(marketwindow, text="Buy Bunch (4)\n$" + numerize.numerize(bananaprice * 4), command=buybananabunch, width="11")
+        bananabutton2.grid(row="1", column="2")
+        bananabutton3 = Button(marketwindow, text="Buy Crate (30)\n$" + numerize.numerize(bananaprice * 30), command=buybananacrate, width="11")
+        bananabutton3.grid(row="1", column="3")
+        marketbananacount = StringVar()
+        marketbananacount.set("Current:\n" + str(numOfBananas))
+        bananacountlabel = Label(marketwindow, textvariable=marketbananacount)
+        bananacountlabel.grid(row="1", column="4")
+    if fruitupgradelevel >= 2 and marketpage == 1:
+        pearlabel = Label(marketwindow, text="Buy\nPear", width="8")
+        pearlabel.grid(row="2", column="0")
+        pearbutton1 = Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11")
+        pearbutton1.grid(row="2", column="1")
+        pearbutton2 = Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11")
+        pearbutton2.grid(row="2", column="2")
+        pearbutton3 = Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11")
+        pearbutton3.grid(row="2", column="3")
+        marketpearcount = StringVar()
+        marketpearcount.set("Current:\n" + str(numOfPears))
+        pearcountlabel = Label(marketwindow, textvariable=marketpearcount)
+        pearcountlabel.grid(row="2", column="4")
+    if fruitupgradelevel >= 3 and marketpage == 1:
+        orangelabel = Label(marketwindow, text="Buy\nOrange", width="8")
+        orangelabel.grid(row="3", column="0")
+        orangebutton1 = Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11")
+        orangebutton1.grid(row="3", column="1")
+        orangebutton2 = Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11")
+        orangebutton2.grid(row="3", column="2")
+        orangebutton3 = Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11")
+        orangebutton3.grid(row="3", column="3")
+        marketorangecount = StringVar()
+        marketorangecount.set("Current:\n" + str(numOfOranges))
+        orangecountlabel = Label(marketwindow, textvariable=marketorangecount)
+        orangecountlabel.grid(row="3", column="4")
+    if fruitupgradelevel >= 4 and marketpage == 1:
+        mangolabel = Label(marketwindow, text="Buy\nMango", width="8")
+        mangolabel.grid(row="4", column="0")
+        mangobutton1 = Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11")
+        mangobutton1.grid(row="4", column="1")
+        mangobutton2 = Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11")
+        mangobutton2.grid(row="4", column="2")
+        mangobutton3 = Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11")
+        mangobutton3.grid(row="4", column="3")
+        marketmangocount = StringVar()
+        marketmangocount.set("Current:\n" + str(numOfMangos))
+        mangocountlabel = Label(marketwindow, textvariable=marketmangocount)
+        mangocountlabel.grid(row="4", column="4")
+    if fruitupgradelevel >= 5 and marketpage == 1:
+        strawberrylabel = Label(marketwindow, text="Buy\nStrawberry", width="8")
+        strawberrylabel.grid(row="5", column="0")
+        strawberrybutton1 = Button(marketwindow, text="Buy Strawberry\n$10", command=buystrawberry, width="11")
+        strawberrybutton1.grid(row="5", column="1")
+        strawberrybutton2 = Button(marketwindow, text="Buy Box (25)\n$250", command=buystrawberrybox, width="11")
+        strawberrybutton2.grid(row="5", column="2")
+        strawberrybutton3 = Button(marketwindow, text="Buy Crate (750)\n$7500", command=buystrawberrycrate, width="11")
+        strawberrybutton3.grid(row="5", column="3")
+        marketstrawberrycount = StringVar()
+        marketstrawberrycount.set("Current:\n" + str(numOfStrawberries))
+        strawberrycountlabel = Label(marketwindow, textvariable=marketstrawberrycount)
+        strawberrycountlabel.grid(row="5", column="4")
+    if fruitupgradelevel >= 6 and marketpage == 1:
+        blueberrylabel = Label(marketwindow, text="Buy\nBlueberry", width="8")
+        blueberrylabel.grid(row="6", column="0")
+        blueberrybutton1 = Button(marketwindow, text="Buy Blueberry\n$15", command=buyblueberry, width="11")
+        blueberrybutton1.grid(row="6", column="1")
+        blueberrybutton2 = Button(marketwindow, text="Buy Box (25)\n$375", command=buyblueberrybox, width="11")
+        blueberrybutton2.grid(row="6", column="2")
+        blueberrybutton3 = Button(marketwindow, text="Buy Crate (750)\n$11250", command=buyblueberrycrate, width="11")
+        blueberrybutton3.grid(row="6", column="3")
+        marketblueberrycount = StringVar()
+        marketblueberrycount.set("Current:\n" + str(numOfBlueberries))
+        blueberrycountlabel = Label(marketwindow, textvariable=marketblueberrycount)
+        blueberrycountlabel.grid(row="6", column="4")
     if fruitupgradelevel >= 7 and marketpage == 1:
-        bananamarketlabel = Label(marketwindow, text="Buy\nBanana", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Banana\n$5", command=buybanana, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bunch (4)\n$20", command=buybananabunch, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (30)\n$150", command=buybananacrate, width="11").grid(row="1", column="3")
-        Label(marketwindow, text="Buy\nPear", width="8").grid(row="2", column="0")
-        Button(marketwindow, text="Buy Pear\n$10", command=buypear, width="11").grid(row="2", column="1")
-        Button(marketwindow, text="Buy Pack (3)\n$30", command=buypearpack, width="11").grid(row="2", column="2")
-        Button(marketwindow, text="Buy Crate (25)\n$250", command=buypearcrate, width="11").grid(row="2", column="3")
-        Label(marketwindow, text="Buy\nOrange", width="8").grid(row="3", column="0")
-        Button(marketwindow, text="Buy Orange\n$20", command=buyorange, width="11").grid(row="3", column="1")
-        Button(marketwindow, text="Buy Bag (4)\n$80", command=buyorangebag, width="11").grid(row="3", column="2")
-        Button(marketwindow, text="Buy Crate (20)\n$400", command=buyorangecrate, width="11").grid(row="3", column="3")
-        Label(marketwindow, text="Buy\nMango", width="8").grid(row="4", column="0")
-        Button(marketwindow, text="Buy Mango\n$50", command=buymango, width="11").grid(row="4", column="1")
-        Button(marketwindow, text="Buy Bag (2)\n$100", command=buymangobag, width="11").grid(row="4", column="2")
-        Button(marketwindow, text="Buy Crate (15)\n$750", command=buymangocrate, width="11").grid(row="4", column="3")
-        Label(marketwindow, text="Buy\nStrawberry", width="8").grid(row="5", column="0")
-        Button(marketwindow, text="Buy Strawberry\n$10", command=buystrawberry, width="11").grid(row="5", column="1")
-        Button(marketwindow, text="Buy Box (25)\n$250", command=buystrawberrybox, width="11").grid(row="5", column="2")
-        Button(marketwindow, text="Buy Crate (750)\n$7500", command=buystrawberrycrate, width="11").grid(row="5", column="3")
-        Label(marketwindow, text="Buy\nBlueberry", width="8").grid(row="6", column="0")
-        Button(marketwindow, text="Buy Blueberry\n$15", command=buyblueberry, width="11").grid(row="6", column="1")
-        Button(marketwindow, text="Buy Box (25)\n$375", command=buyblueberrybox, width="11").grid(row="6", column="2")
-        Button(marketwindow, text="Buy Crate (750)\n$11250", command=buyblueberrycrate, width="11").grid(row="6", column="3")
-        Label(marketwindow, text="Buy\nBlackberry", width="8").grid(row="7", column="0")
-        Button(marketwindow, text="Buy Blackberry\n$20", command=buyblackberry, width="11").grid(row="7", column="1")
-        Button(marketwindow, text="Buy Box (15)\n$300", command=buyblackberrybox, width="11").grid(row="7", column="2")
-        Button(marketwindow, text="Buy Crate (450)\n$9000", command=buyblackberrycrate, width="11").grid(row="7", column="3")
-    if fruitupgradelevel == 8 and marketpage == 2:
+        blackberrylabel = Label(marketwindow, text="Buy\nBlackberry", width="8")
+        blackberrylabel.grid(row="7", column="0")
+        blackberrybutton1 = Button(marketwindow, text="Buy Blackberry\n$20", command=buyblackberry, width="11")
+        blackberrybutton1.grid(row="7", column="1")
+        blackberrybutton2 = Button(marketwindow, text="Buy Box (15)\n$300", command=buyblackberrybox, width="11")
+        blackberrybutton2.grid(row="7", column="2")
+        blackberrybutton3 = Button(marketwindow, text="Buy Crate (450)\n$9000", command=buyblackberrycrate, width="11")
+        blackberrybutton3.grid(row="7", column="3")
+        marketblackberrycount = StringVar()
+        marketblackberrycount.set("Current:\n" + str(numOfBlackberries))
+        blackberrycountlabel = Label(marketwindow, textvariable=marketblackberrycount)
+        blackberrycountlabel.grid(row="7", column="4")
+    if fruitupgradelevel >= 8 and marketpage == 2:
+        bananalabel.grid_forget()
+        bananabutton1.grid_forget()
+        bananabutton2.grid_forget()
+        bananabutton3.grid_forget()
+        bananacountlabel.grid_forget()
+        pearlabel.grid_forget()
+        pearbutton1.grid_forget()
+        pearbutton2.grid_forget()
+        pearbutton3.grid_forget()
+        pearcountlabel.grid_forget()
+        orangelabel.grid_forget()
+        orangebutton1.grid_forget()
+        orangebutton2.grid_forget()
+        orangebutton3.grid_forget()
+        orangecountlabel.grid_forget()
+        mangolabel.grid_forget()
+        mangobutton1.grid_forget()
+        mangobutton2.grid_forget()
+        mangobutton3.grid_forget()
+        mangocountlabel.grid_forget()
+        strawberrylabel.grid_forget()
+        strawberrybutton1.grid_forget()
+        strawberrybutton2.grid_forget()
+        strawberrybutton3.grid_forget()
+        strawberrycountlabel.grid_forget()
+        blueberrylabel.grid_forget()
+        blueberrybutton1.grid_forget()
+        blueberrybutton2.grid_forget()
+        blueberrybutton3.grid_forget()
+        blueberrycountlabel.grid_forget()
+        blackberrylabel.grid_forget()
+        blackberrybutton1.grid_forget()
+        blackberrybutton2.grid_forget()
+        blackberrybutton3.grid_forget()
+        blackberrycountlabel.grid_forget()
         Label(marketwindow, text="Buy\nRaspberry", width="8").grid(row="0", column="0")
         Button(marketwindow, text="Buy Raspberry\n$35", command=buyraspberry, width="11").grid(row="0", column="1")
         Button(marketwindow, text="Buy Box (10)\n$300", command=buyraspberrybox, width="11").grid(row="0", column="2")
         Button(marketwindow, text="Buy Crate (150)\n$4500", command=buyraspberrycrate, width="11").grid(row="0", column="3")
-    if fruitupgradelevel == 9 and marketpage == 2:
-        Label(marketwindow, text="Buy\nRaspberry", width="8").grid(row="0", column="0")
-        Button(marketwindow, text="Buy Raspberry\n$35", command=buyraspberry, width="11").grid(row="0", column="1")
-        Button(marketwindow, text="Buy Box (10)\n$300", command=buyraspberrybox, width="11").grid(row="0", column="2")
-        Button(marketwindow, text="Buy Crate (150)\n$4500", command=buyraspberrycrate, width="11").grid(row="0", column="3")
+        marketraspberrycount = StringVar()
+        marketraspberrycount.set("Current:\n" + str(numOfRaspberries))
+        raspberrycountlabel = Label(marketwindow, textvariable=marketraspberrycount)
+        raspberrycountlabel.grid(row="0", column="4")
+    if fruitupgradelevel >= 9 and marketpage == 2:
         Label(marketwindow, text="Buy\nGrapes", width="8").grid(row="1", column="0")
         Button(marketwindow, text="Buy Grapes\n$100", command=buygrape, width="11").grid(row="1", column="1")
         Button(marketwindow, text="Buy Bag (3)\n$300", command=buygrapebag, width="11").grid(row="1", column="2")
         Button(marketwindow, text="Buy Crate (18)\n$1800", command=buygrapecrate, width="11").grid(row="1", column="3")
+    if fruitupgradelevel >= 10 and marketpage == 2:
+        Label(marketwindow, text="Buy\nWatermelon", width="8").grid(row="1", column="0")
+        Button(marketwindow, text="Buy Watermelon\n$1000", command=buymelon, width="11").grid(row="2", column="1")
+        Button(marketwindow, text="Buy Box (4)\n$4000", command=buymelonbag, width="11").grid(row="2", column="2")
+        Button(marketwindow, text="Buy Crate (7)\n$7000", command=buymeloncrate, width="11").grid(row="2", column="3")
 
 def marketpageleft():
     global marketpage
@@ -394,6 +443,7 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 25
             moneyplace()
+            rightfruitbutton.config(state=NORMAL)
             fruitupgradetextvar.set("Market Expansion II (Lv. " + str(fruitupgradelevel + 1) + ") $50")
         return
     if fruitupgradelevel == 1:
@@ -403,6 +453,7 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 50
             moneyplace()
+            rightfruitbutton.config(state=NORMAL)                
             fruitupgradetextvar.set("Citrus Stall (Lv. " + str(fruitupgradelevel + 1) + ") $250")
         return
     if fruitupgradelevel == 2:
@@ -412,7 +463,8 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 250
             moneyplace()
-            fruitupgradetextvar.set("Summertime Shop (Lv. " + str(fruitupgradelevel + 1) + ") $1000")
+            rightfruitbutton.config(state=NORMAL)
+            fruitupgradetextvar.set("Summertime Shop (Lv. " + str(fruitupgradelevel + 1) + ") $1K")
         return
     if fruitupgradelevel == 3:
         if rawmoney < 1000:
@@ -421,7 +473,8 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 1000
             moneyplace()
-            fruitupgradetextvar.set("Berry Investment (Lv. " + str(fruitupgradelevel + 1) + ") $5000")
+            rightfruitbutton.config(state=NORMAL)
+            fruitupgradetextvar.set("Berry Investment (Lv. " + str(fruitupgradelevel + 1) + ") $5K")
         return
     if fruitupgradelevel == 4:
         if rawmoney < 5000:
@@ -430,7 +483,8 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 5000
             moneyplace()
-            fruitupgradetextvar.set("Berry Investment II (Lv. " + str(fruitupgradelevel + 1) + ") $10000")
+            rightfruitbutton.config(state=NORMAL)
+            fruitupgradetextvar.set("Berry Investment II (Lv. " + str(fruitupgradelevel + 1) + ") $10K")
         return
     if fruitupgradelevel == 5:
         if rawmoney < 10000:
@@ -439,7 +493,8 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 10000
             moneyplace()
-            fruitupgradetextvar.set("Berry Investment III (Lv. " + str(fruitupgradelevel + 1) + ") $50000")
+            rightfruitbutton.config(state=NORMAL)
+            fruitupgradetextvar.set("Berry Investment III (Lv. " + str(fruitupgradelevel + 1) + ") $50K")
         return
     if fruitupgradelevel == 6:
         if rawmoney < 50000:
@@ -448,7 +503,8 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 50000
             moneyplace()
-            fruitupgradetextvar.set("Berry Investment IV (Lv. " + str(fruitupgradelevel + 1) + ") $100000")
+            rightfruitbutton.config(state=NORMAL)
+            fruitupgradetextvar.set("Berry Investment IV (Lv. " + str(fruitupgradelevel + 1) + ") $100K")
         return
     if fruitupgradelevel == 7:
         if rawmoney < 100000:
@@ -457,7 +513,8 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 100000
             moneyplace()
-            fruitupgradetextvar.set("Berry Investment V (Lv. " + str(fruitupgradelevel + 1) + ") $350000")
+            rightfruitbutton.config(state=NORMAL)
+            fruitupgradetextvar.set("Berry Investment V (Lv. " + str(fruitupgradelevel + 1) + ") $350K")
         return
     if fruitupgradelevel == 8:
         if rawmoney < 350000:
@@ -466,9 +523,20 @@ def fruitupgradebuy():
             fruitupgradelevel = fruitupgradelevel + 1
             rawmoney = rawmoney - 350000
             moneyplace()
-            fruitupgradetextvar.set("Upgrade is MAX Level!")
+            rightfruitbutton.config(state=NORMAL)
+            fruitupgradetextvar.set("Melon Fever (Lv. " + str(fruitupgradelevel + 1) + ") $1M")
         return
     if fruitupgradelevel == 9:
+        if rawmoney < 1000000:
+            messagebox.showerror("Error", "You do not have enough money!")
+        else:
+            fruitupgradelevel = fruitupgradelevel + 1
+            rawmoney = rawmoney - 1000000
+            moneyplace()
+            rightfruitbutton.config(state=NORMAL)
+            fruitupgradetextvar.set("Upgrade is MAX Level!")
+        return
+    if fruitupgradelevel == 10:
         messagebox.showerror("Error", "Upgrade is MAX Level!")
     
 def multiconvertbuy():
@@ -824,6 +892,7 @@ def switchleft():
     if currentfruit == "Banana":
         currentfruit = "Apple"
         leftfruitbutton.config(state=DISABLED)
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto)
         currentfruitstringvar.set("Apple x" + str(numOfApples))
         if numOfApples < 10:
@@ -834,6 +903,7 @@ def switchleft():
             currentfruitlabel.place(x="170", y="290")
     if currentfruit == "Pear":
         currentfruit = "Banana"
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto2)
         currentfruitstringvar.set("Banana x" + str(numOfBananas))
         if numOfBananas < 10:
@@ -845,6 +915,7 @@ def switchleft():
         return
     if currentfruit == "Orange":
         currentfruit = "Pear"
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto3)
         currentfruitstringvar.set("Pear x" + str(numOfPears))
         if numOfPears < 10:
@@ -856,6 +927,7 @@ def switchleft():
         return
     if currentfruit == "Mango":
         currentfruit = "Orange"
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto4)
         currentfruitstringvar.set("Orange x" + str(numOfOranges))
         if numOfOranges < 10:
@@ -867,6 +939,7 @@ def switchleft():
         return
     if currentfruit == "Strawberry":
         currentfruit = "Mango"
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto5)
         currentfruitstringvar.set("Mango x" + str(numOfMangos))
         if numOfMangos < 10:
@@ -878,6 +951,7 @@ def switchleft():
         return
     if currentfruit == "Blueberry":
         currentfruit = "Strawberry"
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto6)
         currentfruitstringvar.set("Strawberry x" + str(numOfStrawberries))
         if numOfStrawberries < 10:
@@ -889,6 +963,7 @@ def switchleft():
         return
     if currentfruit == "Blackberry":
         currentfruit = "Blueberry"
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto7)
         currentfruitstringvar.set("Blueberry x" + str(numOfBlueberries))
         if numOfBlueberries < 10:
@@ -912,6 +987,7 @@ def switchleft():
         return
     if currentfruit == "Grapes":
         currentfruit = "Raspberry"
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto9)
         currentfruitstringvar.set("Raspberry x" + str(numOfRaspberries))
         if numOfRaspberries < 10:
@@ -923,6 +999,7 @@ def switchleft():
         return
     if currentfruit == "Watermelon":
         currentfruit = "Grapes"
+        rightfruitbutton.config(state=NORMAL)
         clickerbutton.config(image=clickerphoto10)
         currentfruitstringvar.set("Grapes x" + str(numOfGrapes))
         if numOfGrapes < 10:
@@ -934,8 +1011,8 @@ def switchleft():
         return
     if currentfruit == "Pineapple":
         currentfruit = "Watermelon"
-        clickerbutton.config(image=clickerphoto11)
         rightfruitbutton.config(state=NORMAL)
+        clickerbutton.config(image=clickerphoto11)
         currentfruitstringvar.set("Watermelon x" + str(numOfWatermelons))
         if numOfWatermelons < 10:
             currentfruitlabel.place(x="165", y="290")
@@ -943,13 +1020,29 @@ def switchleft():
             currentfruitlabel.place(x="160", y="290")
         if numOfWatermelons < 1000 and numOfWatermelons > 99:
             currentfruitlabel.place(x="155", y="290")
-
+    if currentfruit == "Coconut":
+        currentfruit = "Pineapple"
+        clickerbutton.config(image=clickerphoto12)
+        rightfruitbutton.config(state=NORMAL)
+        currentfruitstringvar.set("Pineapple x" + str(numOfPineapples))
+        if numOfPineapples < 10:
+            currentfruitlabel.place(x="165", y="290")
+        if numOfPineapples < 100 and numOfPineapples > 9:
+            currentfruitlabel.place(x="160", y="290")
+        if numOfPineapples < 1000 and numOfPineapples > 99:
+            currentfruitlabel.place(x="155", y="290")
+    
 def switchright():
     global currentfruit
     global clickerbutton
+    if fruitupgradelevel == 0:
+        rightfruitbutton.config(state=DISABLED)
+        return
     if currentfruit == "Apple":
         currentfruit = "Banana"
         leftfruitbutton.config(state=NORMAL)
+        if fruitupgradelevel == 1:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto2)
         currentfruitstringvar.set("Banana x" + str(numOfBananas))
         if numOfBananas < 10:
@@ -961,6 +1054,8 @@ def switchright():
         return
     if currentfruit == "Banana":
         currentfruit = "Pear"
+        if fruitupgradelevel == 2:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto3)
         currentfruitstringvar.set("Pear x" + str(numOfPears))
         if numOfPears < 10:
@@ -972,6 +1067,8 @@ def switchright():
         return
     if currentfruit == "Pear":
         currentfruit = "Orange"
+        if fruitupgradelevel == 3:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto4)
         currentfruitstringvar.set("Orange x" + str(numOfOranges))
         if numOfOranges < 10:
@@ -983,6 +1080,8 @@ def switchright():
         return
     if currentfruit == "Orange":
         currentfruit = "Mango"
+        if fruitupgradelevel == 4:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto5)
         currentfruitstringvar.set("Mango x" + str(numOfMangos))
         if numOfMangos < 10:
@@ -994,6 +1093,8 @@ def switchright():
         return
     if currentfruit == "Mango":
         currentfruit = "Strawberry"
+        if fruitupgradelevel == 5:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto6)
         currentfruitstringvar.set("Strawberry x" + str(numOfStrawberries))
         if numOfStrawberries < 10:
@@ -1005,6 +1106,8 @@ def switchright():
         return
     if currentfruit == "Strawberry":
         currentfruit = "Blueberry"
+        if fruitupgradelevel == 6:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto7)
         currentfruitstringvar.set("Blueberry x" + str(numOfBlueberries))
         if numOfBlueberries < 10:
@@ -1016,6 +1119,8 @@ def switchright():
         return
     if currentfruit == "Blueberry":
         currentfruit = "Blackberry"
+        if fruitupgradelevel == 7:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto8)
         currentfruitstringvar.set("Blackberry x" + str(numOfBlackberries))
         if numOfBlackberries < 10:
@@ -1027,6 +1132,8 @@ def switchright():
         return
     if currentfruit == "Blackberry":
         currentfruit = "Raspberry"
+        if fruitupgradelevel == 8:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto9)
         currentfruitstringvar.set("Raspberry x" + str(numOfRaspberries))
         if numOfRaspberries < 10:
@@ -1038,6 +1145,8 @@ def switchright():
         return
     if currentfruit == "Raspberry":
         currentfruit = "Grapes"
+        if fruitupgradelevel == 9:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto10)
         currentfruitstringvar.set("Grapes x" + str(numOfGrapes))
         if numOfGrapes < 10:
@@ -1049,6 +1158,8 @@ def switchright():
         return
     if currentfruit == "Grapes":
         currentfruit = "Watermelon"
+        if fruitupgradelevel == 10:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto11)
         currentfruitstringvar.set("Watermelon x" + str(numOfWatermelons))
         if numOfWatermelons < 10:
@@ -1060,7 +1171,8 @@ def switchright():
         return
     if currentfruit == "Watermelon":
         currentfruit = "Pineapple"
-        rightfruitbutton.config(state=DISABLED)
+        if fruitupgradelevel == 11:
+            rightfruitbutton.config(state=DISABLED)
         clickerbutton.config(image=clickerphoto12)
         currentfruitstringvar.set("Pineapple x" + str(numOfPineapples))
         if numOfPineapples < 10:
@@ -1068,6 +1180,20 @@ def switchright():
         if numOfPineapples < 100 and numOfPineapples > 9:
             currentfruitlabel.place(x="160", y="290")
         if numOfPineapples < 1000 and numOfPineapples > 99:
+            currentfruitlabel.place(x="155", y="290")
+        return
+    if currentfruit == "Pineapple":
+        currentfruit = "Coconut"
+        if fruitupgradelevel == 12:
+            rightfruitbutton.config(state=DISABLED)
+        rightfruitbutton.config(state=DISABLED)
+        clickerbutton.config(image=clickerphoto13)
+        currentfruitstringvar.set("Coconuts x" + str(numOfCoconuts))
+        if numOfCoconuts < 10:
+            currentfruitlabel.place(x="165", y="290")
+        if numOfCoconuts < 100 and numOfCoconuts > 9:
+            currentfruitlabel.place(x="160", y="290")
+        if numOfCoconuts < 1000 and numOfCoconuts > 99:
             currentfruitlabel.place(x="155", y="290")
     
 def musicselect():
@@ -1159,6 +1285,7 @@ def buybanana():
     else:
         rawmoney = rawmoney - 5
         numOfBananas = numOfBananas + 1
+        marketbananacount.set("Current:\n" + str(numOfBananas))
         if currentfruit == "Banana":
             currentfruitstringvar.set("Banana x" + str(numOfBananas))
             if numOfBananas < 10:
@@ -1717,6 +1844,27 @@ def buygrapecrate():
         moneyplace()
         marketmoneylabelstringvar.set("$" + str(money))
         moneystringvar.set("You have $" + str(money))
+
+def buymelon():
+    global money
+    global rawmoney
+    global numOfWatermelons
+    if rawmoney < 200:
+       messagebox.showerror("Error", "You do not have enough money!")
+    else:
+        rawmoney = rawmoney - 200
+        numOfWatermelons = numOfWatermelons + 1
+        if currentfruit == "Watermelon":
+            currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
+            if numOfWatermelons < 10:
+                currentfruitlabel.place(x="165", y="290")
+            if numOfWatermelons < 100 and numOfWatermelons > 9:
+              currentfruitlabel.place(x="160", y="290")
+            if numOfWatermelons < 1000 and numOfWatermelons > 99:
+                currentfruitlabel.place(x="155", y="290")
+        moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
+        moneystringvar.set("You have $" + str(money))
         
 def clicked():
     global munch
@@ -1884,6 +2032,22 @@ def clicked():
             rawmunch = rawmunch + random.randint(495, 520)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
+    if currentfruit == "Watermelon":
+        if numOfWatermelons == 0:
+            messagebox.showerror("Error", "You do not have any Watermelon!")
+        else:
+            numOfGrapes = numOfGrapes - 1
+            currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
+            if numOfWatermelon < 10:
+                currentfruitlabel.place(x="165", y="290")
+            if numOfWatermelon < 100 and numOfWatermelon > 9:
+                currentfruitlabel.place(x="160", y="290")
+            if numOfWatemelon < 1000 and numOfWatermelon > 99:
+                currentfruitlabel.place(x="155", y="290")
+            rawmunch = rawmunch + random.randint(995, 1100)
+            munchplace()
+            munchstringvar.set("Munch: " + str(munch))
+    
             
 def inventoryOnClose():
     root.deiconify()
@@ -1895,7 +2059,6 @@ def marketOnClose():
     
 def upgradesOnClose():
     root.deiconify()
-    moneyplace()
     upgradeswindow.destroy()
 
 def inventory():
@@ -1990,19 +2153,21 @@ def upgrades():
     if fruitupgradelevel == 2:
         fruitupgradetextvar.set("Citrus Stall (Lv. " + str(fruitupgradelevel + 1) + ") $250")
     if fruitupgradelevel == 3:
-        fruitupgradetextvar.set("Summertime Shop (Lv. " + str(fruitupgradelevel + 1) + ") $1000")
+        fruitupgradetextvar.set("Summertime Shop (Lv. " + str(fruitupgradelevel + 1) + ") $1K")
     if fruitupgradelevel == 4:
-        fruitupgradetextvar.set("Berry Investment (Lv. " + str(fruitupgradelevel + 1) + ") $5000")
+        fruitupgradetextvar.set("Berry Investment (Lv. " + str(fruitupgradelevel + 1) + ") $5K")
     if fruitupgradelevel == 5:
-        fruitupgradetextvar.set("Berry Investment II (Lv. " + str(fruitupgradelevel + 1) + ") $10000")
+        fruitupgradetextvar.set("Berry Investment II (Lv. " + str(fruitupgradelevel + 1) + ") $10K")
     if fruitupgradelevel == 6:
-        fruitupgradetextvar.set("Berry Investment III (Lv. " + str(fruitupgradelevel + 1) + ") $50000")
+        fruitupgradetextvar.set("Berry Investment III (Lv. " + str(fruitupgradelevel + 1) + ") $50K")
     if fruitupgradelevel == 7:
-        fruitupgradetextvar.set("Berry Investment IV (Lv. " + str(fruitupgradelevel + 1) + ") $100000")
+        fruitupgradetextvar.set("Berry Investment IV (Lv. " + str(fruitupgradelevel + 1) + ") $100K")
     if fruitupgradelevel == 8:
-        fruitupgradetextvar.set("Berry Investment V (Lv. " + str(fruitupgradelevel + 1) + ") $350000")
+        fruitupgradetextvar.set("Berry Investment V (Lv. " + str(fruitupgradelevel + 1) + ") $350K")
     if fruitupgradelevel == 9:
-        fruitupgradetextvar.set("Market Upgrade Lv. MAX")
+        fruitupgradetextvar.set("Melon Fever (Lv. " + str(fruitupgradelevel + 1) + ") $1M")
+    if fruitupgradelevel == 10:
+        fruitupgradetextvar.set("Upgrade Lv. MAX")
     autoeattextvar = StringVar()
     autoeattextvar.set("Auto Eat (Lv. " + str(autoclicklevel) + " -> " + str(autoclicklevel + 1) + ") $" + str(autoeatcost))
     autoeatupgradebutton = Button(upgradeswindow, textvariable=autoeattextvar, width="56", command=autoeatbuy).grid(row="2", column="0")
@@ -2035,7 +2200,7 @@ if currentfruit == "Apple":
     if numOfApples < 1000 and numOfApples > 99:
         currentfruitlabel.place(x="170", y="290")
 
-rightfruitbutton = Button(root, text=">", command=switchright)
+rightfruitbutton = Button(root, text=">", command=switchright, state=DISABLED)
 rightfruitbutton.place(x="287", y="285")
 
 moneystringvar = StringVar()
@@ -2090,5 +2255,3 @@ advancetime()
 root.iconbitmap("images/apple.ico")
 root.protocol("WM_DELETE_WINDOW", rootOnClose)
 root.mainloop()
-
-sys.exit(1)

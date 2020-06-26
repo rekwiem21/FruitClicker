@@ -2252,6 +2252,9 @@ munchconvertbutton.grid(row="7", column="0")
 calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
 calendarbutton.grid(row="8", column="0")
 
+pygame.mixer.music.load("audio/theme.wav")
+pygame.mixer.music.play(-1)
+
 calendar()
 date = int(date) - 1
 fixdate()

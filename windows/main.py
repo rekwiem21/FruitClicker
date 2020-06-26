@@ -825,13 +825,13 @@ def save():
     if os.path.exists("save.fcsave") == True:
         if messagebox.askyesno("Save Exists", "A save file already exists.\nWould you still like to save?") == True:
             savedoc = open("save.fcsave", "w+")
-            savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
+            savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
             messagebox.showinfo("Save", "Your game has been saved!")
         else:
             messagebox.showinfo("Save", "Your game will not be saved")
     else:
         savedoc = open("save.fcsave", "w+")
-        savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
+        savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
         messagebox.showinfo("Save", "Your game has been saved!")
 
 def load():
@@ -845,6 +845,9 @@ def load():
     global numOfStrawberries
     global numOfBlueberries
     global numOfBlackberries
+    global numOfRaspberries
+    global numOfGrapes
+    global numOfWatermelons
     global multiconvertlevel
     global fruitupgradelevel
     global autoclicklevel
@@ -878,11 +881,14 @@ def load():
         numOfStrawberries =int(loadedfilelines[7])
         numOfBlueberries = int(loadedfilelines[8])
         numOfBlackberries = int(loadedfilelines[9])
-        multiconvertlevel = int(loadedfilelines[10])
-        multiconvertcost = int(loadedfilelines[11])
-        autoclicklevel = int(loadedfilelines[12])
-        autoeatcost = int(loadedfilelines[13])
-        fruitupgradelevel = int(loadedfilelines[14])
+        numOfRaspberries = int(loadedfilelines[10])
+        numOfGrapes = int(loadedfilelines[11])
+        numOfWatermelons = int(loadedfilelines[12])
+        multiconvertlevel = int(loadedfilelines[13])
+        multiconvertcost = int(loadedfilelines[14])
+        autoclicklevel = int(loadedfilelines[15])
+        autoeatcost = int(loadedfilelines[16])
+        fruitupgradelevel = int(loadedfilelines[17])
     else:
         messagebox.showerror("Error", "Save data not found.")
         
@@ -1880,6 +1886,7 @@ def clicked():
     global numOfBlackberries
     global numOfRaspberries
     global numOfGrapes
+    global numOfWatermelons
     global totalfruitclicked
     if currentfruit == "Apple":
         if numOfApples == 0:

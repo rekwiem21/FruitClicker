@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Fruit Clicker"
-#define MyAppVersion "0.8.alpha"
+#define MyAppVersion "0.9.alpha"
 #define MyAppPublisher "SeaPuppy Studios"
 #define MyAppURL "www.seapuppystudios.com"
 #define MyAppExeName "Fruit Clicker.exe"

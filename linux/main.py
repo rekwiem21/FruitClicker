@@ -15,9 +15,9 @@ def switchright():
     if currentfruit == "Apple":
         currentfruit = "Banana"
         if currentfruit == "Apple":
-    clickerphoto = PhotoImage(file = "apple.png")
+            clickerphoto = PhotoImage(file = "images/apple.png")
 if currentfruit == "Banana":
-    clickerphoto = PhotoImage(file = "banana.png")
+    clickerphoto = PhotoImage(file = "images/banana.png")
 clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="White", command=clicked)
 clickerbutton.place(x="100", y="75")
 

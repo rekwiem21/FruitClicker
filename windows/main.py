@@ -10,9 +10,12 @@ import threading
 import time
 import requests
 import subprocess
+import sys
 
+print (sys.executable)
 pygame.init()
 
+saveopen = 0
 appleprice = 1
 applesboughttoday = 0
 bananaprice = 5
@@ -28,7 +31,7 @@ year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
 money = 0
-rawmoney = 10
+rawmoney = 1000000000
 currentfruit = "Apple"
 multiconvertlevel = 0
 fruitupgradelevel = 0
@@ -236,8 +239,8 @@ def marketplace():
         Button(marketwindow, text="Buy Crate (18)\n$1800", command=buygrapecrate, width="11").grid(row="1", column="3")
     if fruitupgradelevel >= 10 and marketpage == 2:
         Label(marketwindow, text="Buy\nWatermelon", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Watermelon\n$1000", command=buymelon, width="11").grid(row="2", column="1")
-        Button(marketwindow, text="Buy Box (4)\n$4000", command=buymelonbag, width="11").grid(row="2", column="2")
+        Button(marketwindow, text="Buy Melon\n$1000", command=buymelon, width="11").grid(row="2", column="1")
+        Button(marketwindow, text="Buy Box (4)\n$4000", command=buymelonbox, width="11").grid(row="2", column="2")
         Button(marketwindow, text="Buy Crate (7)\n$7000", command=buymeloncrate, width="11").grid(row="2", column="3")
 
 def marketpageleft():
@@ -317,7 +320,7 @@ def autoclick():
         
 def rootOnClose():
     root.destroy()
-    sys.exit(1)
+    main.deiconify()
 
 def fixdate():
     global date
@@ -376,7 +379,7 @@ def advancetime():
     global month
     global year
     global calendarthread
-    calendarthread = threading.Timer(90.0, advancetime).start()
+    #calendarthread = threading.Timer(5.0, advancetime, daemon=True).start()
     stockchange()
     if month == "09" or month == "04" or month == "06" or month == "11":
         date = int(date) + 1
@@ -822,75 +825,21 @@ def convertmunch():
             moneystringvar.set("You have $" + str(money))
 
 def save():
-    if os.path.exists("save.fcsave") == True:
-        if messagebox.askyesno("Save Exists", "A save file already exists.\nWould you still like to save?") == True:
-            savedoc = open("save.fcsave", "w+")
-            savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
-            messagebox.showinfo("Save", "Your game has been saved!")
-        else:
-            messagebox.showinfo("Save", "Your game will not be saved")
-    else:
-        savedoc = open("save.fcsave", "w+")
+    if saveopen == 1:
+        savedoc = open("save1.fcsave", "w+")
         savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
-        messagebox.showinfo("Save", "Your game has been saved!")
-
-def load():
-    global rawmoney
-    global rawmunch
-    global numOfApples
-    global numOfBananas
-    global numOfPears
-    global numOfOranges
-    global numOfMangos
-    global numOfStrawberries
-    global numOfBlueberries
-    global numOfBlackberries
-    global numOfRaspberries
-    global numOfGrapes
-    global numOfWatermelons
-    global multiconvertlevel
-    global fruitupgradelevel
-    global autoclicklevel
-    global autoeatcost
-    global multiconvertcost
-    global wholedate
-    if os.path.exists("save.fcsave") == True:
-        loadedfile = open("save.fcsave")
-        loadedfilelines = loadedfile.readlines()
-        rawmoney = str(loadedfilelines[0])
-        rawmoney = int(rawmoney)
-        moneyplace()
-        moneystringvar.set("You have $" + str(money))
-        rawmunch = str(loadedfilelines[1])
-        rawmunch = int(rawmunch)
-        munchplace()
-        munchstringvar.set("Munch: " + str(munch))
-        numOfApples = int(loadedfilelines[2])
-        if currentfruit == "Apple":
-            currentfruitstringvar.set("Apple x" + str(numOfApples))
-            if numOfApples < 10:
-                currentfruitlabel.place(x="180", y="290")
-            if numOfApples < 100 and numOfApples > 9:
-                currentfruitlabel.place(x="175", y="290")
-            if numOfApples < 1000 and numOfApples > 99:
-                currentfruitlabel.place(x="170", y="290")
-        numOfBananas = int(loadedfilelines[3])
-        numOfPears = int(loadedfilelines[4])
-        numOfOranges = int(loadedfilelines[5])
-        numOfMangos = int(loadedfilelines[6])
-        numOfStrawberries =int(loadedfilelines[7])
-        numOfBlueberries = int(loadedfilelines[8])
-        numOfBlackberries = int(loadedfilelines[9])
-        numOfRaspberries = int(loadedfilelines[10])
-        numOfGrapes = int(loadedfilelines[11])
-        numOfWatermelons = int(loadedfilelines[12])
-        multiconvertlevel = int(loadedfilelines[13])
-        multiconvertcost = int(loadedfilelines[14])
-        autoclicklevel = int(loadedfilelines[15])
-        autoeatcost = int(loadedfilelines[16])
-        fruitupgradelevel = int(loadedfilelines[17])
-    else:
-        messagebox.showerror("Error", "Save data not found.")
+        savedoc.flush()
+        messagebox.showinfo("Info", "Game Saved!")
+    if saveopen == 2:
+        savedoc = open("save2.fcsave", "w+")
+        savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
+        savedoc.flush()
+        messagebox.showinfo("Info", "Game Saved!")
+    if saveopen == 3:
+        savedoc = open("save3.fcsave", "w+")
+        savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
+        savedoc.flush()
+        messagebox.showinfo("Info", "Game Saved!")
         
 def switchleft():
     global currentfruit
@@ -1213,6 +1162,7 @@ def buyapple():
     global money
     global rawmoney
     global numOfApples
+    global currentfruitstringvar
     if rawmoney < appleprice:
         messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1238,6 +1188,7 @@ def buyapplepack():
     global money
     global rawmoney
     global numOfApples
+    global currentfruitstringvar
     if rawmoney < appleprice * 6:
         messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1286,6 +1237,7 @@ def buybanana():
     global money
     global rawmoney
     global numOfBananas
+    global currentfruitstringvar
     if rawmoney < 5:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1308,6 +1260,7 @@ def buybananabunch():
     global money
     global rawmoney
     global numOfBananas
+    global currentfruitstringvar
     if rawmoney < 20:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1329,6 +1282,7 @@ def buybananacrate():
     global money
     global rawmoney
     global numOfBananas
+    global currentfruitstringvar
     if rawmoney < 150:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1350,6 +1304,7 @@ def buypear():
     global money
     global rawmoney
     global numOfPears
+    global currentfruitstringvar
     if rawmoney < 10:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1371,6 +1326,7 @@ def buypearpack():
     global money
     global rawmoney
     global numOfPears
+    global currentfruitstringvar
     if rawmoney < 30:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1393,6 +1349,7 @@ def buypearcrate():
     global money
     global rawmoney
     global numOfPears
+    global currentfruitstringvar
     if rawmoney < 250:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1414,6 +1371,7 @@ def buyorange():
     global money
     global rawmoney
     global numOfOranges
+    global currentfruitstringvar
     if rawmoney < 20:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1435,6 +1393,7 @@ def buyorangebag():
     global money
     global rawmoney
     global numOfOranges
+    global currentfruitstringvar
     if rawmoney < 80:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1456,6 +1415,7 @@ def buyorangecrate():
     global money
     global rawmoney
     global numOfOranges
+    global currentfruitstringvar
     if rawmoney < 400:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1477,6 +1437,7 @@ def buymango():
     global money
     global rawmoney
     global numOfMangos
+    global currentfruitstringvar
     if rawmoney < 50:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1498,6 +1459,7 @@ def buymangobag():
     global money
     global rawmoney
     global numOfMangos
+    global currentfruitstringvar
     if rawmoney < 100:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1519,6 +1481,7 @@ def buymangocrate():
     global money
     global rawmoney
     global numOfMangos
+    global currentfruitstringvar
     if rawmoney < 750:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1540,6 +1503,7 @@ def buystrawberry():
     global money
     global rawmoney
     global numOfStrawberries
+    global currentfruitstringvar
     if rawmoney < 10:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1561,6 +1525,7 @@ def buystrawberrybox():
     global money
     global rawmoney
     global numOfStrawberries
+    global currentfruitstringvar
     if rawmoney < 250:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1582,6 +1547,7 @@ def buystrawberrycrate():
     global money
     global rawmoney
     global numOfStrawberries
+    global currentfruitstringvar
     if rawmoney < 7500:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1603,6 +1569,7 @@ def buyblueberry():
     global money
     global rawmoney
     global numOfBlueberries
+    global currentfruitstringvar
     if rawmoney < 15:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1624,6 +1591,7 @@ def buyblueberrybox():
     global money
     global rawmoney
     global numOfBlueberries
+    global currentfruitstringvar
     if rawmoney < 375:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1645,6 +1613,7 @@ def buyblueberrycrate():
     global money
     global rawmoney
     global numOfBlueberries
+    global currentfruitstringvar
     if rawmoney < 11250:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1666,6 +1635,7 @@ def buyblackberry():
     global money
     global rawmoney
     global numOfBlackberries
+    global currentfruitstringvar
     if rawmoney < 20:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1687,6 +1657,7 @@ def buyblackberrybox():
     global money
     global rawmoney
     global numOfBlackberries
+    global currentfruitstringvar
     if rawmoney < 300:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1708,6 +1679,7 @@ def buyblackberrycrate():
     global money
     global rawmoney
     global numOfBlackberries
+    global currentfruitstringvar
     if rawmoney < 9000:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1729,6 +1701,7 @@ def buyraspberry():
     global money
     global rawmoney
     global numOfRaspberries
+    global currentfruitstringvar
     if rawmoney < 35:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1750,6 +1723,7 @@ def buyraspberrybox():
     global money
     global rawmoney
     global numOfRaspberries
+    global currentfruitstringvar
     if rawmoney < 300:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1771,6 +1745,7 @@ def buyraspberrycrate():
     global money
     global rawmoney
     global numOfRaspberries
+    global currentfruitstringvar
     if rawmoney < 4500:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1792,6 +1767,7 @@ def buygrape():
     global money
     global rawmoney
     global numOfGrapes
+    global currentfruitstringvar
     if rawmoney < 100:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1813,6 +1789,7 @@ def buygrapebag():
     global money
     global rawmoney
     global numOfGrapes
+    global currentfruitstringvar
     if rawmoney < 300:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1834,6 +1811,7 @@ def buygrapecrate():
     global money
     global rawmoney
     global numOfGrapes
+    global currentfruitstringvar
     if rawmoney < 1800:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
@@ -1855,10 +1833,55 @@ def buymelon():
     global money
     global rawmoney
     global numOfWatermelons
-    if rawmoney < 200:
+    global currentfruitstringvar
+    if rawmoney < 1000:
        messagebox.showerror("Error", "You do not have enough money!")
     else:
-        rawmoney = rawmoney - 200
+        rawmoney = rawmoney - 1000
+        numOfWatermelons = numOfWatermelons + 1
+        if currentfruit == "Watermelon":
+            currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
+            if numOfWatermelons < 10:
+                currentfruitlabel.place(x="165", y="290")
+            if numOfWatermelons < 100 and numOfWatermelons > 9:
+              currentfruitlabel.place(x="160", y="290")
+            if numOfWatermelons < 1000 and numOfWatermelons > 99:
+                currentfruitlabel.place(x="155", y="290")
+        moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
+        moneystringvar.set("You have $" + str(money))
+
+def buymelonbox():
+    global money
+    global rawmoney
+    global numOfWatermelons
+    global currentfruitstringvar
+    if rawmoney < 4000:
+       messagebox.showerror("Error", "You do not have enough money!")
+    else:
+        rawmoney = rawmoney - 4000
+        numOfWatermelons = numOfWatermelons + 1
+        if currentfruit == "Watermelon":
+            currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
+            if numOfWatermelons < 10:
+                currentfruitlabel.place(x="165", y="290")
+            if numOfWatermelons < 100 and numOfWatermelons > 9:
+              currentfruitlabel.place(x="160", y="290")
+            if numOfWatermelons < 1000 and numOfWatermelons > 99:
+                currentfruitlabel.place(x="155", y="290")
+        moneyplace()
+        marketmoneylabelstringvar.set("$" + str(money))
+        moneystringvar.set("You have $" + str(money))
+
+def buymeloncrate():
+    global money
+    global rawmoney
+    global numOfWatermelons
+    global currentfruitstringvar
+    if rawmoney < 7000:
+       messagebox.showerror("Error", "You do not have enough money!")
+    else:
+        rawmoney = rawmoney - 7000
         numOfWatermelons = numOfWatermelons + 1
         if currentfruit == "Watermelon":
             currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
@@ -2180,88 +2203,340 @@ def upgrades():
     autoeatupgradebutton = Button(upgradeswindow, textvariable=autoeattextvar, width="56", command=autoeatbuy).grid(row="2", column="0")
     upgradeswindow.mainloop()
 
-root = Tk()
-root.title("Fruit Clicker")
-root.geometry("400x350+300+100")
+def rootopen():
+    global root
+    global moneylabel
+    global munchlabel
+    global date
+    global month
+    global year
+    global currentfruitstringvar
+    global currentfruitlabel
+    global moneystringvar
+    global leftfruitbutton
+    global rightfruitbutton
+    global munchstringvar
+    global clickerbutton
+    global clickerphoto
+    global clickerphoto2
+    global clickerphoto3
+    global clickerphoto4
+    global clickerphoto5
+    global clickerphoto6
+    global clickerphoto7
+    global clickerphoto8
+    global clickerphoto9
+    global clickerphoto10
+    global clickerphoto11
+    global clickerphoto12
+    global clickerphoto13
+    global clickerphoto14
+    main.withdraw()
+    root = Toplevel()
+    root.title("Fruit Clicker")
+    root.geometry("400x350+300+100")
+    inventorybutton = Button(root, text="Inventory", foreground="White", bg="Black", width="11", command=inventory)
+    inventorybutton.grid(column="0", row="0")
+    marketbutton = Button(root, text="Market", fg="White", bg="Black", width="11", command=market)
+    marketbutton.grid(column="0", row="1")
+    upgradesbutton = Button(root, text="Upgrades", fg="White", bg="Black", width="11", command=upgrades)
+    upgradesbutton.grid(column="0", row="2")
+    leftfruitbutton = Button(root, text="<", command=switchleft, state=DISABLED)
+    leftfruitbutton.place(x="100", y="285")
+    currentfruitstringvar = StringVar()
+    if currentfruit == "Apple":  
+        currentfruitstringvar.set("Apple x" + str(numOfApples))
+        currentfruitlabel = Label(root, textvariable=currentfruitstringvar, fg="Black")
+        if numOfApples < 10:
+            currentfruitlabel.place(x="180", y="290")
+        if numOfApples < 100 and numOfApples > 9:
+            currentfruitlabel.place(x="175", y="290")
+        if numOfApples < 1000 and numOfApples > 99:
+            currentfruitlabel.place(x="170", y="290")
+    rightfruitbutton = Button(root, text=">", command=switchright, state=DISABLED)
+    rightfruitbutton.place(x="287", y="285")
+    moneystringvar = StringVar()
+    moneylabel = Label(root, textvariable=moneystringvar)
+    moneyplace()
+    moneystringvar.set("You have $" + str(money))
+    munchstringvar = StringVar()
+    munchlabel = Label(root, textvariable=munchstringvar)
+    munchplace()
+    munchstringvar.set("Munch: " + str(munch))
+    clickerphoto = PhotoImage(file = "images/apple.png")
+    clickerphoto2 = PhotoImage(file = "images/banana.png")
+    clickerphoto3 = PhotoImage(file = "images/pear.png")
+    clickerphoto4 = PhotoImage(file = "images/orange.png")
+    clickerphoto5 = PhotoImage(file = "images/mango.png")
+    clickerphoto6 = PhotoImage(file = "images/strawberry.png")
+    clickerphoto7 = PhotoImage(file = "images/blueberry.png")
+    clickerphoto8 = PhotoImage(file = "images/blackberry.png")
+    clickerphoto9 = PhotoImage(file = "images/raspberry.png")
+    clickerphoto10 = PhotoImage(file = "images/grapes.png")
+    clickerphoto11 = PhotoImage(file = "images/watermelon.png")
+    clickerphoto12 = PhotoImage(file = "images/pineapple.png")
+    clickerphoto13 = PhotoImage(file = "images/coconut.png")
+    clickerphoto14 = PhotoImage(file = "images/guava.png")
+    clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="Black", command=clicked)
+    clickerbutton.place(x="100", y="75")
+    musicselectbutton = Button(root, text="Music", command=musicselect, bg="Black", fg="White", width="11")
+    musicselectbutton.grid(row="4", column="0")
+    savebutton = Button(root, text="Save", fg="White", bg="Black", width="11", command=save)
+    savebutton.grid(row="5", column="0")
+    munchconvertbutton = Button(root, text="Convert Munch", fg="White", bg="Black", width="11", command=convertmunch)
+    munchconvertbutton.grid(row="6", column="0")
+    calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
+    calendarbutton.grid(row="7", column="0")
+    menubutton = Button(root, text="Main Menu", fg="White", bg="Black", width="11", command=mainmenu)
+    menubutton.grid(row="7", column="0")
+    pygame.mixer.music.load("audio/theme.wav")
+    pygame.mixer.music.play(-1)
+    calendar()
+    date = int(date) - 1
+    fixdate()
+    calendarwindow.destroy()
+    root.deiconify()
+    advancetime()
+    root.iconbitmap("images/apple.ico")
+    root.protocol("WM_DELETE_WINDOW", rootOnClose)
+    root.mainloop()
 
-inventorybutton = Button(root, text="Inventory", fg="White", bg="Black", width="11", command=inventory)
-inventorybutton.grid(column="0", row="0")
+def loadsave1():
+    saveopen = 1
+    startscreenback()
+    rootopen()
+    global rawmoney
+    global rawmunch
+    global numOfApples
+    global numOfBananas
+    global numOfPears
+    global numOfOranges
+    global numOfMangos
+    global numOfStrawberries
+    global numOfBlueberries
+    global numOfBlackberries
+    global numOfRaspberries
+    global numOfGrapes
+    global numOfWatermelons
+    global multiconvertlevel
+    global fruitupgradelevel
+    global autoclicklevel
+    global autoeatcost
+    global multiconvertcost
+    global wholedate
+    if os.path.exists("save1.fcsave") == True:
+        loadedfile = open("save1.fcsave")
+        loadedfilelines = loadedfile.readlines()
+        rawmoney = str(loadedfilelines[0])
+        rawmoney = int(rawmoney)
+        moneyplace()
+        moneystringvar.set("You have $" + str(money))
+        rawmunch = str(loadedfilelines[1])
+        rawmunch = int(rawmunch)
+        munchplace()
+        munchstringvar.set("Munch: " + str(munch))
+        numOfApples = int(loadedfilelines[2])
+        if currentfruit == "Apple":
+            currentfruitstringvar.set("Apple x" + str(numOfApples))
+            if numOfApples < 10:
+                currentfruitlabel.place(x="180", y="290")
+            if numOfApples < 100 and numOfApples > 9:
+                currentfruitlabel.place(x="175", y="290")
+            if numOfApples < 1000 and numOfApples > 99:
+                currentfruitlabel.place(x="170", y="290")
+        numOfBananas = int(loadedfilelines[3])
+        numOfPears = int(loadedfilelines[4])
+        numOfOranges = int(loadedfilelines[5])
+        numOfMangos = int(loadedfilelines[6])
+        numOfStrawberries =int(loadedfilelines[7])
+        numOfBlueberries = int(loadedfilelines[8])
+        numOfBlackberries = int(loadedfilelines[9])
+        numOfRaspberries = int(loadedfilelines[10])
+        numOfGrapes = int(loadedfilelines[11])
+        numOfWatermelons = int(loadedfilelines[12])
+        multiconvertlevel = int(loadedfilelines[13])
+        multiconvertcost = int(loadedfilelines[14])
+        autoclicklevel = int(loadedfilelines[15])
+        autoeatcost = int(loadedfilelines[16])
+        fruitupgradelevel = int(loadedfilelines[17])
+    else:
+        messagebox.showinfo("Info", "Save data not found.\nStarting new save!")
+        savedoc = open("save1.fcsave", "w+")
+        savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
+        savedoc.flush()
+        savedoc.close()
+        startscreenback()
+        rootopen()
 
-marketbutton = Button(root, text="Market", fg="White", bg="Black", width="11", command=market)
-marketbutton.grid(column="0", row="1")
+def loadsave2():
+    saveopen = 2
+    startscreenback()
+    rootopen()
+    global rawmoney
+    global rawmunch
+    global numOfApples
+    global numOfBananas
+    global numOfPears
+    global numOfOranges
+    global numOfMangos
+    global numOfStrawberries
+    global numOfBlueberries
+    global numOfBlackberries
+    global numOfRaspberries
+    global numOfGrapes
+    global numOfWatermelons
+    global multiconvertlevel
+    global fruitupgradelevel
+    global autoclicklevel
+    global autoeatcost
+    global multiconvertcost
+    global wholedate
+    if os.path.exists("save2.fcsave") == True:
+        loadedfile = open("save2.fcsave")
+        loadedfilelines = loadedfile.readlines()
+        rawmoney = str(loadedfilelines[0])
+        rawmoney = int(rawmoney)
+        moneyplace()
+        moneystringvar.set("You have $" + str(money))
+        rawmunch = str(loadedfilelines[1])
+        rawmunch = int(rawmunch)
+        munchplace()
+        munchstringvar.set("Munch: " + str(munch))
+        numOfApples = int(loadedfilelines[2])
+        if currentfruit == "Apple":
+            currentfruitstringvar.set("Apple x" + str(numOfApples))
+            if numOfApples < 10:
+                currentfruitlabel.place(x="180", y="290")
+            if numOfApples < 100 and numOfApples > 9:
+                currentfruitlabel.place(x="175", y="290")
+            if numOfApples < 1000 and numOfApples > 99:
+                currentfruitlabel.place(x="170", y="290")
+        numOfBananas = int(loadedfilelines[3])
+        numOfPears = int(loadedfilelines[4])
+        numOfOranges = int(loadedfilelines[5])
+        numOfMangos = int(loadedfilelines[6])
+        numOfStrawberries =int(loadedfilelines[7])
+        numOfBlueberries = int(loadedfilelines[8])
+        numOfBlackberries = int(loadedfilelines[9])
+        numOfRaspberries = int(loadedfilelines[10])
+        numOfGrapes = int(loadedfilelines[11])
+        numOfWatermelons = int(loadedfilelines[12])
+        multiconvertlevel = int(loadedfilelines[13])
+        multiconvertcost = int(loadedfilelines[14])
+        autoclicklevel = int(loadedfilelines[15])
+        autoeatcost = int(loadedfilelines[16])
+        fruitupgradelevel = int(loadedfilelines[17])
+    else:
+        messagebox.showinfo("Info", "Save data not found.\nStarting new save!")
+        savedoc = open("save2.fcsave", "w+")
+        savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
+        savedoc.flush()
+        savedoc.close()
+        startscreenback()
+        rootopen()
 
-upgradesbutton = Button(root, text="Upgrades", fg="White", bg="Black", width="11", command=upgrades)
-upgradesbutton.grid(column="0", row="2")
+def loadsave3():
+    saveopen = 3
+    startscreenback()
+    rootopen()
+    global rawmoney
+    global rawmunch
+    global numOfApples
+    global numOfBananas
+    global numOfPears
+    global numOfOranges
+    global numOfMangos
+    global numOfStrawberries
+    global numOfBlueberries
+    global numOfBlackberries
+    global numOfRaspberries
+    global numOfGrapes
+    global numOfWatermelons
+    global multiconvertlevel
+    global fruitupgradelevel
+    global autoclicklevel
+    global autoeatcost
+    global multiconvertcost
+    global wholedate
+    if os.path.exists("save3.fcsave") == True:
+        loadedfile = open("save3.fcsave")
+        loadedfilelines = loadedfile.readlines()
+        rawmoney = str(loadedfilelines[0])
+        rawmoney = int(rawmoney)
+        moneyplace()
+        moneystringvar.set("You have $" + str(money))
+        rawmunch = str(loadedfilelines[1])
+        rawmunch = int(rawmunch)
+        munchplace()
+        munchstringvar.set("Munch: " + str(munch))
+        numOfApples = int(loadedfilelines[2])
+        if currentfruit == "Apple":
+            currentfruitstringvar.set("Apple x" + str(numOfApples))
+            if numOfApples < 10:
+                currentfruitlabel.place(x="180", y="290")
+            if numOfApples < 100 and numOfApples > 9:
+                currentfruitlabel.place(x="175", y="290")
+            if numOfApples < 1000 and numOfApples > 99:
+                currentfruitlabel.place(x="170", y="290")
+        numOfBananas = int(loadedfilelines[3])
+        numOfPears = int(loadedfilelines[4])
+        numOfOranges = int(loadedfilelines[5])
+        numOfMangos = int(loadedfilelines[6])
+        numOfStrawberries =int(loadedfilelines[7])
+        numOfBlueberries = int(loadedfilelines[8])
+        numOfBlackberries = int(loadedfilelines[9])
+        numOfRaspberries = int(loadedfilelines[10])
+        numOfGrapes = int(loadedfilelines[11])
+        numOfWatermelons = int(loadedfilelines[12])
+        multiconvertlevel = int(loadedfilelines[13])
+        multiconvertcost = int(loadedfilelines[14])
+        autoclicklevel = int(loadedfilelines[15])
+        autoeatcost = int(loadedfilelines[16])
+        fruitupgradelevel = int(loadedfilelines[17])
+    else:
+        messagebox.showinfo("Info", "Save data not found.\nStarting new save!")
+        savedoc = open("save3.fcsave", "w+")
+        savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
+        savedoc.flush()
+        savedoc.close()
+        startscreenback()
+        rootopen() 
 
-leftfruitbutton = Button(root, text="<", command=switchleft, state=DISABLED)
-leftfruitbutton.place(x="100", y="285")
+def savefiles():
+    global backbutton
+    global save1button
+    global save2button
+    global save3button
+    playbutton.pack_forget()
+    quitbutton.pack_forget()
+    backbutton = Button(main, text="Back", command=startscreenback)
+    backbutton.pack()
+    save1button = Button(main, text="Save 1", command=loadsave1)
+    save1button.pack()
+    save2button = Button(main, text="Save 2", command=loadsave2)
+    save2button.pack()
+    save3button = Button(main, text="Save 3", command=loadsave3)
+    save3button.pack()
 
-currentfruitstringvar = StringVar()
-if currentfruit == "Apple":  
-    currentfruitstringvar.set("Apple x" + str(numOfApples))
-    currentfruitlabel = Label(root, textvariable=currentfruitstringvar, fg="Black")
-    if numOfApples < 10:
-        currentfruitlabel.place(x="180", y="290")
-    if numOfApples < 100 and numOfApples > 9:
-        currentfruitlabel.place(x="175", y="290")
-    if numOfApples < 1000 and numOfApples > 99:
-        currentfruitlabel.place(x="170", y="290")
+def mainmenu():
+    save()
+    root.destroy()
+    main.deiconify()
 
-rightfruitbutton = Button(root, text=">", command=switchright, state=DISABLED)
-rightfruitbutton.place(x="287", y="285")
-
-moneystringvar = StringVar()
-moneylabel = Label(root, textvariable=moneystringvar)
-moneyplace()
-moneystringvar.set("You have $" + str(money))
-
-munchstringvar = StringVar()
-munchlabel = Label(root, textvariable=munchstringvar)
-munchplace()
-munchstringvar.set("Munch: " + str(munch))
-
-clickerphoto = PhotoImage(file = "images/apple.png")
-clickerphoto2 = PhotoImage(file = "images/banana.png")
-clickerphoto3 = PhotoImage(file = "images/pear.png")
-clickerphoto4 = PhotoImage(file = "images/orange.png")
-clickerphoto5 = PhotoImage(file = "images/mango.png")
-clickerphoto6 = PhotoImage(file = "images/strawberry.png")
-clickerphoto7 = PhotoImage(file = "images/blueberry.png")
-clickerphoto8 = PhotoImage(file = "images/blackberry.png")
-clickerphoto9 = PhotoImage(file = "images/raspberry.png")
-clickerphoto10 = PhotoImage(file = "images/grapes.png")
-clickerphoto11 = PhotoImage(file = "images/watermelon.png")
-clickerphoto12 = PhotoImage(file = "images/pineapple.png")
-clickerphoto13 = PhotoImage(file = "images/coconut.png")
-clickerphoto14 = PhotoImage(file = "images/guava.png")
-clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="Black", command=clicked)
-clickerbutton.place(x="100", y="75")
-
-musicselectbutton = Button(root, text="Music", command=musicselect, bg="Black", fg="White", width="11")
-musicselectbutton.grid(row="4", column="0")
-
-savebutton = Button(root, text="Save", fg="White", bg="Black", width="11", command=save)
-savebutton.grid(row="5", column="0")
-
-loadbutton = Button(root, text="Load", fg="White", bg="Black", width="11", command=load)
-loadbutton.grid(row="6", column="0")
-
-munchconvertbutton = Button(root, text="Convert Munch", fg="White", bg="Black", width="11", command=convertmunch)
-munchconvertbutton.grid(row="7", column="0")
-
-calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
-calendarbutton.grid(row="8", column="0")
-
-pygame.mixer.music.load("audio/theme.wav")
-pygame.mixer.music.play(-1)
-
-calendar()
-date = int(date) - 1
-fixdate()
-calendarwindow.destroy()
-root.deiconify()
-advancetime()
-
-root.iconbitmap("images/apple.ico")
-root.protocol("WM_DELETE_WINDOW", rootOnClose)
-root.mainloop()
+def startscreenback():
+    backbutton.pack_forget()
+    save1button.pack_forget()
+    save2button.pack_forget()
+    save3button.pack_forget()
+    playbutton.pack()
+    quitbutton.pack()
+    
+main = Tk()
+main.title("Fruit Clicker")
+main.geometry("400x350+300+100")
+playbutton = Button(main, text="Play", command=savefiles)
+playbutton.pack()
+quitbutton = Button(main, text="Quit Game", command=main.destroy)
+quitbutton.pack()
+main.iconbitmap("images/apple.ico")
+main.mainloop()

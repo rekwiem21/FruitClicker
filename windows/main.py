@@ -379,7 +379,9 @@ def advancetime():
     global month
     global year
     global calendarthread
-    #calendarthread = threading.Timer(5.0, advancetime, daemon=True).start()
+    calendarthread = threading.Timer(5.0, advancetime)
+    calendarthread.setDaemon=(True)
+    calendarthread.start()
     stockchange()
     if month == "09" or month == "04" or month == "06" or month == "11":
         date = int(date) + 1

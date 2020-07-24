@@ -2,17 +2,16 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
 from numerize import numerize
-import pygame
 import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import pygame
 import random
 from datetime import datetime
 import threading
 import time
 import requests
 import subprocess
-import sys
 
-print (sys.executable)
 pygame.init()
 
 saveopen = 0
@@ -31,7 +30,7 @@ year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
 money = 0
-rawmoney = 1000000000
+rawmoney = 10
 currentfruit = "Apple"
 multiconvertlevel = 0
 fruitupgradelevel = 0
@@ -238,7 +237,7 @@ def marketplace():
         Button(marketwindow, text="Buy Bag (3)\n$300", command=buygrapebag, width="11").grid(row="1", column="2")
         Button(marketwindow, text="Buy Crate (18)\n$1800", command=buygrapecrate, width="11").grid(row="1", column="3")
     if fruitupgradelevel >= 10 and marketpage == 2:
-        Label(marketwindow, text="Buy\nWatermelon", width="8").grid(row="1", column="0")
+        Label(marketwindow, text="Buy\nMelon", width="8").grid(row="2", column="0")
         Button(marketwindow, text="Buy Melon\n$1000", command=buymelon, width="11").grid(row="2", column="1")
         Button(marketwindow, text="Buy Box (4)\n$4000", command=buymelonbox, width="11").grid(row="2", column="2")
         Button(marketwindow, text="Buy Crate (7)\n$7000", command=buymeloncrate, width="11").grid(row="2", column="3")
@@ -381,6 +380,7 @@ def advancetime():
     global calendarthread
     calendarthread = threading.Timer(5.0, advancetime)
     calendarthread.setDaemon=(True)
+    print(calendarthread.isDaemon())
     calendarthread.start()
     stockchange()
     if month == "09" or month == "04" or month == "06" or month == "11":
@@ -828,19 +828,22 @@ def convertmunch():
 
 def save():
     if saveopen == 1:
-        savedoc = open("save1.fcsave", "w+")
+        savedoc = open("saves/save1.fcsave", "w+")
         savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
         savedoc.flush()
+        savedoc.close()
         messagebox.showinfo("Info", "Game Saved!")
     if saveopen == 2:
-        savedoc = open("save2.fcsave", "w+")
+        savedoc = open("saves/save2.fcsave", "w+")
         savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
         savedoc.flush()
+        savedoc.close()
         messagebox.showinfo("Info", "Game Saved!")
     if saveopen == 3:
-        savedoc = open("save3.fcsave", "w+")
+        savedoc = open("saves/save3.fcsave", "w+")
         savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
         savedoc.flush()
+        savedoc.close()
         messagebox.showinfo("Info", "Game Saved!")
         
 def switchleft():
@@ -1862,7 +1865,7 @@ def buymelonbox():
        messagebox.showerror("Error", "You do not have enough money!")
     else:
         rawmoney = rawmoney - 4000
-        numOfWatermelons = numOfWatermelons + 1
+        numOfWatermelons = numOfWatermelons + 4
         if currentfruit == "Watermelon":
             currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
             if numOfWatermelons < 10:
@@ -1884,7 +1887,7 @@ def buymeloncrate():
        messagebox.showerror("Error", "You do not have enough money!")
     else:
         rawmoney = rawmoney - 7000
-        numOfWatermelons = numOfWatermelons + 1
+        numOfWatermelons = numOfWatermelons + 7
         if currentfruit == "Watermelon":
             currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
             if numOfWatermelons < 10:
@@ -2066,17 +2069,17 @@ def clicked():
             munchstringvar.set("Munch: " + str(munch))
     if currentfruit == "Watermelon":
         if numOfWatermelons == 0:
-            messagebox.showerror("Error", "You do not have any Watermelon!")
+            messagebox.showerror("Error", "You do not have any Watermelons!")
         else:
-            numOfGrapes = numOfGrapes - 1
-            currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
-            if numOfWatermelon < 10:
+            numOfWatermelons = numOfWatermelons - 1
+            currentfruitstringvar.set("Watermelon x" + str(numOfWatermelons))
+            if numOfWatermelons < 10:
                 currentfruitlabel.place(x="165", y="290")
-            if numOfWatermelon < 100 and numOfWatermelon > 9:
+            if numOfWatermelons < 100 and numOfWatermelons > 9:
                 currentfruitlabel.place(x="160", y="290")
-            if numOfWatemelon < 1000 and numOfWatermelon > 99:
+            if numOfWatermelons < 1000 and numOfWatermelons > 99:
                 currentfruitlabel.place(x="155", y="290")
-            rawmunch = rawmunch + random.randint(995, 1100)
+            rawmunch = rawmunch + random.randint(4900, 5100)
             munchplace()
             munchstringvar.set("Munch: " + str(munch))
     
@@ -2234,6 +2237,7 @@ def rootopen():
     global clickerphoto13
     global clickerphoto14
     main.withdraw()
+    print(saveopen)
     root = Toplevel()
     root.title("Fruit Clicker")
     root.geometry("400x350+300+100")
@@ -2290,7 +2294,7 @@ def rootopen():
     calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
     calendarbutton.grid(row="7", column="0")
     menubutton = Button(root, text="Main Menu", fg="White", bg="Black", width="11", command=mainmenu)
-    menubutton.grid(row="7", column="0")
+    menubutton.grid(row="8", column="0")
     pygame.mixer.music.load("audio/theme.wav")
     pygame.mixer.music.play(-1)
     calendar()
@@ -2304,9 +2308,6 @@ def rootopen():
     root.mainloop()
 
 def loadsave1():
-    saveopen = 1
-    startscreenback()
-    rootopen()
     global rawmoney
     global rawmunch
     global numOfApples
@@ -2326,8 +2327,13 @@ def loadsave1():
     global autoeatcost
     global multiconvertcost
     global wholedate
-    if os.path.exists("save1.fcsave") == True:
-        loadedfile = open("save1.fcsave")
+    global saveopen
+    saveopen = 1
+    if os.path.exists("saves/save1.fcsave") == True:
+        print("Save 1 Load")
+        startscreenback()
+        rootopen()
+        loadedfile = open("saves/save1.fcsave")
         loadedfilelines = loadedfile.readlines()
         rawmoney = str(loadedfilelines[0])
         rawmoney = int(rawmoney)
@@ -2362,8 +2368,9 @@ def loadsave1():
         autoeatcost = int(loadedfilelines[16])
         fruitupgradelevel = int(loadedfilelines[17])
     else:
+        print("Save 1 Create")
         messagebox.showinfo("Info", "Save data not found.\nStarting new save!")
-        savedoc = open("save1.fcsave", "w+")
+        savedoc = open("saves/save1.fcsave", "w+")
         savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
         savedoc.flush()
         savedoc.close()
@@ -2371,9 +2378,6 @@ def loadsave1():
         rootopen()
 
 def loadsave2():
-    saveopen = 2
-    startscreenback()
-    rootopen()
     global rawmoney
     global rawmunch
     global numOfApples
@@ -2393,8 +2397,13 @@ def loadsave2():
     global autoeatcost
     global multiconvertcost
     global wholedate
-    if os.path.exists("save2.fcsave") == True:
-        loadedfile = open("save2.fcsave")
+    global saveopen
+    saveopen = 2
+    if os.path.exists("saves/save2.fcsave") == True:
+        print("Save 2 Load")
+        startscreenback()
+        rootopen()
+        loadedfile = open("saves/save2.fcsave")
         loadedfilelines = loadedfile.readlines()
         rawmoney = str(loadedfilelines[0])
         rawmoney = int(rawmoney)
@@ -2429,8 +2438,9 @@ def loadsave2():
         autoeatcost = int(loadedfilelines[16])
         fruitupgradelevel = int(loadedfilelines[17])
     else:
+        print("Save 2 Create")
         messagebox.showinfo("Info", "Save data not found.\nStarting new save!")
-        savedoc = open("save2.fcsave", "w+")
+        savedoc = open("saves/save2.fcsave", "w+")
         savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
         savedoc.flush()
         savedoc.close()
@@ -2438,9 +2448,6 @@ def loadsave2():
         rootopen()
 
 def loadsave3():
-    saveopen = 3
-    startscreenback()
-    rootopen()
     global rawmoney
     global rawmunch
     global numOfApples
@@ -2460,8 +2467,13 @@ def loadsave3():
     global autoeatcost
     global multiconvertcost
     global wholedate
-    if os.path.exists("save3.fcsave") == True:
-        loadedfile = open("save3.fcsave")
+    global saveopen
+    saveopen = 3
+    if os.path.exists("saves/save3.fcsave") == True:
+        print("Save 3 Load")
+        startscreenback()
+        rootopen()
+        loadedfile = open("saves/save3.fcsave")
         loadedfilelines = loadedfile.readlines()
         rawmoney = str(loadedfilelines[0])
         rawmoney = int(rawmoney)
@@ -2496,8 +2508,9 @@ def loadsave3():
         autoeatcost = int(loadedfilelines[16])
         fruitupgradelevel = int(loadedfilelines[17])
     else:
+        print("Save 3 Create")
         messagebox.showinfo("Info", "Save data not found.\nStarting new save!")
-        savedoc = open("save3.fcsave", "w+")
+        savedoc = open("saves/save3.fcsave", "w+")
         savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
         savedoc.flush()
         savedoc.close()
@@ -2509,36 +2522,79 @@ def savefiles():
     global save1button
     global save2button
     global save3button
+    global creditslabel
+    global creditslabel1
+    global creditslabel2
+    global creditslabel3
+    global creditslabel4
+    global creditslabel5
+    global creditslabel6
+    global creditslabel7
+    global companylogolabel
+    global copyrightlabel
     playbutton.pack_forget()
     quitbutton.pack_forget()
-    backbutton = Button(main, text="Back", command=startscreenback)
-    backbutton.pack()
-    save1button = Button(main, text="Save 1", command=loadsave1)
-    save1button.pack()
-    save2button = Button(main, text="Save 2", command=loadsave2)
-    save2button.pack()
-    save3button = Button(main, text="Save 3", command=loadsave3)
-    save3button.pack()
+    backbutton = Button(main, text="Back", width ="56", command=startscreenback)
+    backbutton.grid(row="0", column="0")
+    save1button = Button(main, text="Save 1", width ="56", command=loadsave1)
+    save1button.grid(row="1", column="0")
+    save2button = Button(main, text="Save 2", width ="56", command=loadsave2)
+    save2button.grid(row="2", column="0")
+    save3button = Button(main, text="Save 3", width ="56", command=loadsave3)
+    save3button.grid(row="3", column="0")
+    creditslabel = Label(main, text="Credits")
+    creditslabel.place(x="175", y="110")
+    creditslabel1 = Label(main, text="Lead Programmer:\nJayden Collis")
+    creditslabel1.place(x="10", y="130")
+    creditslabel2 = Label(main, text="Lead Artist:\nEmily Tatlock")
+    creditslabel2.place(x="25", y="170")
+    creditslabel3 = Label(main, text="Lead Composer:\nWilliam Burgess")
+    creditslabel3.place(x="20", y="210")
+    creditslabel4 = Label(main, text="Kickstarters:\nAlison Collis\nSarah Kim\nMadison Golik\nJayden Golik\nSeth Armodoros")
+    creditslabel4.place(x="20", y="250")
+    creditslabel5 = Label(main, text="Glen Kerr\nRudra Labh\nAurora D'Rozario\nJasmine Walmsley\nMarc Cowan\nJoey Chen")
+    creditslabel5.place(x="135", y="130")
+    creditslabel6 = Label(main, text="Special Thanks:\nLisa Rodgers\nLeanne Hall\nStacey Collis\nAshton Grant\nStephanie Stellas\nStephen Collis")
+    creditslabel6.place(x="140", y="230")
+    creditslabel7 = Label(main, text="Jaide Knaus-Petrie\nJordan Silva\nScott Hackett\nKaylee Hatcher\nKoby Marshall\nEzekiel Swinn\nGeorge *****\nMason Colbran\nNadia *****")
+    creditslabel7.place(x="260", y="130")
+    companylogo = PhotoImage(file="images/company-logo.png")
+    companylogolabel = Label(main, image=companylogo)
+    companylogolabel.img = companylogo
+    companylogolabel.place(x="280", y="260")
+    copyrightlabel = Label(main, text="(c) SeaPuppy Studios 2020")
+    copyrightlabel.place(x="240", y="320")
 
 def mainmenu():
     save()
     root.destroy()
+    calendarthread.join()
     main.deiconify()
 
 def startscreenback():
-    backbutton.pack_forget()
-    save1button.pack_forget()
-    save2button.pack_forget()
-    save3button.pack_forget()
-    playbutton.pack()
-    quitbutton.pack()
+    backbutton.grid_forget()
+    save1button.grid_forget()
+    save2button.grid_forget()
+    save3button.grid_forget()
+    playbutton.grid(row="0", column="0")
+    quitbutton.grid(row="1", column="0")
+    creditslabel.place_forget()
+    creditslabel1.place_forget()
+    creditslabel2.place_forget()
+    creditslabel3.place_forget()
+    creditslabel4.place_forget()
+    creditslabel5.place_forget()
+    creditslabel6.place_forget()
+    creditslabel7.place_forget()
+    companylogolabel.place_forget()
+    copyrightlabel.place_forget()
     
 main = Tk()
 main.title("Fruit Clicker")
 main.geometry("400x350+300+100")
-playbutton = Button(main, text="Play", command=savefiles)
-playbutton.pack()
-quitbutton = Button(main, text="Quit Game", command=main.destroy)
-quitbutton.pack()
+playbutton = Button(main, text="Play", width="56", command=savefiles)
+playbutton.grid(row="0", column="0")
+quitbutton = Button(main, text="Quit Game", width="56", command=main.destroy)
+quitbutton.grid(row="1", column="0")
 main.iconbitmap("images/apple.ico")
 main.mainloop()

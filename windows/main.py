@@ -30,7 +30,7 @@ year = wholedate.strftime("%Y")
 munch = 0
 rawmunch = 0
 money = 0
-rawmoney = 10
+rawmoney = 10000000000
 currentfruit = "Apple"
 multiconvertlevel = 0
 fruitupgradelevel = 0
@@ -53,6 +53,15 @@ numOfCoconuts = 0
 def marketplace():
     global marketapplecount
     global marketbananacount
+    global marketpearcount
+    global marketorangecount
+    global marketmangocount
+    global marketstrawberrycount
+    global marketblueberrycount
+    global marketblackberrycount
+    global marketraspberrycount
+    global marketgrapescount
+    global marketmeloncount
     global bananalabel
     global bananabutton1
     global bananabutton2
@@ -223,24 +232,44 @@ def marketplace():
         blackberrybutton2.grid_forget()
         blackberrybutton3.grid_forget()
         blackberrycountlabel.grid_forget()
-        Label(marketwindow, text="Buy\nRaspberry", width="8").grid(row="0", column="0")
-        Button(marketwindow, text="Buy Raspberry\n$35", command=buyraspberry, width="11").grid(row="0", column="1")
-        Button(marketwindow, text="Buy Box (10)\n$300", command=buyraspberrybox, width="11").grid(row="0", column="2")
-        Button(marketwindow, text="Buy Crate (150)\n$4500", command=buyraspberrycrate, width="11").grid(row="0", column="3")
+        raspberrylabel = Label(marketwindow, text="Buy\nRaspberry", width="8")
+        raspberrylabel.grid(row="0", column="0")
+        raspberrybutton1 = Button(marketwindow, text="Buy Raspberry\n$35", command=buyraspberry, width="11")
+        raspberrybutton1.grid(row="0", column="1")
+        raspberrybutton2 = Button(marketwindow, text="Buy Box (10)\n$300", command=buyraspberrybox, width="11")
+        raspberrybutton2.grid(row="0", column="2")
+        raspberrybutton3 = Button(marketwindow, text="Buy Crate (150)\n$4500", command=buyraspberrycrate, width="11")
+        raspberrybutton3.grid(row="0", column="3")
         marketraspberrycount = StringVar()
         marketraspberrycount.set("Current:\n" + str(numOfRaspberries))
         raspberrycountlabel = Label(marketwindow, textvariable=marketraspberrycount)
         raspberrycountlabel.grid(row="0", column="4")
     if fruitupgradelevel >= 9 and marketpage == 2:
-        Label(marketwindow, text="Buy\nGrapes", width="8").grid(row="1", column="0")
-        Button(marketwindow, text="Buy Grapes\n$100", command=buygrape, width="11").grid(row="1", column="1")
-        Button(marketwindow, text="Buy Bag (3)\n$300", command=buygrapebag, width="11").grid(row="1", column="2")
-        Button(marketwindow, text="Buy Crate (18)\n$1800", command=buygrapecrate, width="11").grid(row="1", column="3")
+        grapeslabel = Label(marketwindow, text="Buy\nGrapes", width="8")
+        grapeslabel.grid(row="1", column="0")
+        grapesbutton1 = Button(marketwindow, text="Buy Grapes\n$100", command=buygrape, width="11")
+        grapesbutton1.grid(row="1", column="1")
+        grapesbutton2 = Button(marketwindow, text="Buy Bag (3)\n$300", command=buygrapebag, width="11")
+        grapesbutton2.grid(row="1", column="2")
+        grapesbutton3 = Button(marketwindow, text="Buy Crate (18)\n$1800", command=buygrapecrate, width="11")
+        grapesbutton3.grid(row="1", column="3")
+        marketgrapescount = StringVar()
+        marketgrapescount.set("Current:\n" + str(numOfGrapes))
+        grapescountlabel = Label(marketwindow, textvariable=marketgrapescount)
+        grapescountlabel.grid(row="1", column="4")
     if fruitupgradelevel >= 10 and marketpage == 2:
-        Label(marketwindow, text="Buy\nMelon", width="8").grid(row="2", column="0")
-        Button(marketwindow, text="Buy Melon\n$1000", command=buymelon, width="11").grid(row="2", column="1")
-        Button(marketwindow, text="Buy Box (4)\n$4000", command=buymelonbox, width="11").grid(row="2", column="2")
-        Button(marketwindow, text="Buy Crate (7)\n$7000", command=buymeloncrate, width="11").grid(row="2", column="3")
+        melonlabel = Label(marketwindow, text="Buy\nMelon", width="8")
+        melonlabel.grid(row="2", column="0")
+        melonbutton1 = Button(marketwindow, text="Buy Melon\n$1000", command=buymelon, width="11")
+        melonbutton1.grid(row="2", column="1")
+        melonbutton2 = Button(marketwindow, text="Buy Box (4)\n$4000", command=buymelonbox, width="11")
+        melonbutton2.grid(row="2", column="2")
+        melonbutton3 = Button(marketwindow, text="Buy Crate (7)\n$7000", command=buymeloncrate, width="11")
+        melonbutton3.grid(row="2", column="3")
+        marketmeloncount = StringVar()
+        marketmeloncount.set("Current:\n" + str(numOfWatermelons))
+        meloncountlabel = Label(marketwindow, textvariable=marketmeloncount)
+        meloncountlabel.grid(row="2", column="4")
 
 def marketpageleft():
     global marketpage
@@ -825,8 +854,9 @@ def convertmunch():
             rawmoney = rawmoney + 21
             moneyplace()
             moneystringvar.set("You have $" + str(money))
-
+            
 def save():
+    global saveopen
     if saveopen == 1:
         savedoc = open("saves/save1.fcsave", "w+")
         savedoc.write(str(rawmoney) + "\n" + str(rawmunch) + "\n" + str(numOfApples) + "\n" + str(numOfBananas) + "\n" + str(numOfPears) + "\n" + str(numOfOranges) + "\n" + str(numOfMangos) + "\n" + str(numOfStrawberries) + "\n" + str(numOfBlueberries) + "\n" + str(numOfBlackberries) + "\n" + str(numOfRaspberries) + "\n" + str(numOfGrapes) + "\n" + str(numOfWatermelons) + "\n" + str(multiconvertlevel) + "\n" + str(multiconvertcost) + "\n" + str(autoclicklevel) + "\n" + str(autoeatcost) + "\n" + str(fruitupgradelevel))
@@ -1271,6 +1301,7 @@ def buybananabunch():
     else:
         rawmoney = rawmoney - 20
         numOfBananas = numOfBananas + 5
+        marketbananacount.set("Current:\n" + str(numOfBananas))
         if currentfruit == "Banana":
             currentfruitstringvar.set("Banana x" + str(numOfBananas))
             if numOfBananas < 10:
@@ -1293,6 +1324,7 @@ def buybananacrate():
     else:
         rawmoney = rawmoney - 150
         numOfBananas = numOfBananas + 30
+        marketbananacount.set("Current:\n" + str(numOfBananas))
         if currentfruit == "Banana":
             currentfruitstringvar.set("Banana x" + str(numOfBananas))
             if numOfBananas < 10:
@@ -1315,6 +1347,7 @@ def buypear():
     else:
         rawmoney = rawmoney - 10
         numOfPears = numOfPears + 1
+        marketpearcount.set("Current:\n" + str(numOfPears))
         if currentfruit == "Pear":
             currentfruitstringvar.set("Pear x" + str(numOfPears))
             if numOfPears < 10:
@@ -1337,6 +1370,7 @@ def buypearpack():
     else:
         rawmoney = rawmoney - 30
         numOfPears = numOfPears + 3
+        marketpearcount.set("Current:\n" + str(numOfPears))
         if currentfruit == "Pear":
             currentfruitstringvar.set("Pear x" + str(numOfPears))
             if numOfPears < 10:
@@ -1360,6 +1394,7 @@ def buypearcrate():
     else:
         rawmoney = rawmoney - 250
         numOfPears = numOfPears + 25
+        marketpearcount.set("Current:\n" + str(numOfPears))
         if currentfruit == "Pear":
             currentfruitstringvar.set("Pear x" + str(numOfPears))
             if numOfPears < 10:
@@ -1382,6 +1417,7 @@ def buyorange():
     else:
         rawmoney = rawmoney - 20
         numOfOranges = numOfOranges + 1
+        marketorangecount.set("Current:\n" + str(numOfOranges))
         if currentfruit == "Orange":
             currentfruitstringvar.set("Orange x" + str(numOfOranges))
             if numOfOranges < 10:
@@ -1404,6 +1440,7 @@ def buyorangebag():
     else:
         rawmoney = rawmoney - 80
         numOfOranges = numOfOranges + 4
+        marketorangecount.set("Current:\n" + str(numOfOranges))
         if currentfruit == "Orange":
             currentfruitstringvar.set("Orange x" + str(numOfOranges))
             if numOfOranges < 10:
@@ -1426,6 +1463,7 @@ def buyorangecrate():
     else:
         rawmoney = rawmoney - 400
         numOfOranges = numOfOranges + 20
+        marketorangecount.set("Current:\n" + str(numOfOranges))
         if currentfruit == "Orange":
             currentfruitstringvar.set("Orange x" + str(numOfOranges))
             if numOfOranges < 10:
@@ -1448,6 +1486,7 @@ def buymango():
     else:
         rawmoney = rawmoney - 50
         numOfMangos = numOfMangos + 1
+        marketmangocount.set("Current:\n" + str(numOfMangos))
         if currentfruit == "Mango":
             currentfruitstringvar.set("Mango x" + str(numOfMangos))
             if numOfMangos < 10:
@@ -1470,6 +1509,7 @@ def buymangobag():
     else:
         rawmoney = rawmoney - 100
         numOfMangos = numOfMangos + 2
+        marketmangocount.set("Current:\n" + str(numOfMangos))
         if currentfruit == "Mango":
             currentfruitstringvar.set("Mango x" + str(numOfMangos))
             if numOfMangos < 10:
@@ -1492,6 +1532,7 @@ def buymangocrate():
     else:
         rawmoney = rawmoney - 750
         numOfMangos = numOfMangos + 25
+        marketmangocount.set("Current:\n" + str(numOfMangos))
         if currentfruit == "Mango":
             currentfruitstringvar.set("Mango x" + str(numOfMangos))
             if numOfMangos < 10:
@@ -1514,6 +1555,7 @@ def buystrawberry():
     else:
         rawmoney = rawmoney - 10
         numOfStrawberries = numOfStrawberries + 1
+        marketstrawberrycount.set("Current:\n" + str(numOfStrawberries))
         if currentfruit == "Strawberry":
             currentfruitstringvar.set("Strawberries x" + str(numOfStrawberries))
             if numOfStrawberries < 10:
@@ -1536,6 +1578,7 @@ def buystrawberrybox():
     else:
         rawmoney = rawmoney - 250
         numOfStrawberries = numOfStrawberries + 25
+        marketstrawberrycount.set("Current:\n" + str(numOfStrawberries))
         if currentfruit == "Strawberry":
             currentfruitstringvar.set("Strawberries x" + str(numOfStrawberries))
             if numOfStrawberries < 10:
@@ -1558,6 +1601,7 @@ def buystrawberrycrate():
     else:
         rawmoney = rawmoney - 7500
         numOfStrawberries = numOfStrawberries + 750
+        marketstrawberrycount.set("Current:\n" + str(numOfStrawberries))
         if currentfruit == "Strawberry":
             currentfruitstringvar.set("Strawberries x" + str(numOfStrawberries))
             if numOfStrawberries < 10:
@@ -1580,6 +1624,7 @@ def buyblueberry():
     else:
         rawmoney = rawmoney - 15
         numOfBlueberries = numOfBlueberries + 1
+        marketblueberrycount.set("Current:\n" + str(numOfBlueberries))
         if currentfruit == "Blueberry":
             currentfruitstringvar.set("Blueberries x" + str(numOfBlueberries))
             if numOfBlueberries < 10:
@@ -1602,6 +1647,7 @@ def buyblueberrybox():
     else:
         rawmoney = rawmoney - 375
         numOfBlueberries = numOfBlueberries + 25
+        marketblueberrycount.set("Current:\n" + str(numOfBlueberries))
         if currentfruit == "Blueberry":
             currentfruitstringvar.set("Blueberries x" + str(numOfBlueberries))
             if numOfBlueberries < 10:
@@ -1624,6 +1670,7 @@ def buyblueberrycrate():
     else:
         rawmoney = rawmoney - 11250
         numOfBlueberries = numOfBlueberries + 750
+        marketblueberrycount.set("Current:\n" + str(numOfBlueberries))
         if currentfruit == "Blueberry":
             currentfruitstringvar.set("Blueberries x" + str(numOfBlueberries))
             if numOfBlueberries < 10:
@@ -1646,6 +1693,7 @@ def buyblackberry():
     else:
         rawmoney = rawmoney - 20
         numOfBlackberries = numOfBlackberries + 1
+        marketblackberrycount.set("Current:\n" + str(numOfBlackberries))
         if currentfruit == "Blackberry":
             currentfruitstringvar.set("Blackberries x" + str(numOfBlackberries))
             if numOfBlackberries < 10:
@@ -1668,6 +1716,7 @@ def buyblackberrybox():
     else:
         rawmoney = rawmoney - 300
         numOfBlackberries = numOfBlackberries + 15
+        marketblackberrycount.set("Current:\n" + str(numOfBlackberries))
         if currentfruit == "Blackberry":
             currentfruitstringvar.set("Blackberries x" + str(numOfBlackberries))
             if numOfBlackberries < 10:
@@ -1690,6 +1739,7 @@ def buyblackberrycrate():
     else:
         rawmoney = rawmoney - 9000
         numOfBlackberries = numOfBlackberries + 450
+        marketblackberrycount.set("Current:\n" + str(numOfBlackberries))
         if currentfruit == "Blackberry":
             currentfruitstringvar.set("Blackberries x" + str(numOfBlackberries))
             if numOfBlackberries < 10:
@@ -1712,6 +1762,7 @@ def buyraspberry():
     else:
         rawmoney = rawmoney - 35
         numOfRaspberries = numOfRaspberries + 1
+        marketraspberrycount.set("Current:\n" + str(numOfRaspberries))
         if currentfruit == "Raspberry":
             currentfruitstringvar.set("Raspberries x" + str(numOfRaspberries))
             if numOfRaspberries < 10:
@@ -1734,6 +1785,7 @@ def buyraspberrybox():
     else:
         rawmoney = rawmoney - 300
         numOfRaspberries = numOfRaspberries + 10
+        marketraspberrycount.set("Current:\n" + str(numOfRaspberries))
         if currentfruit == "Raspberry":
             currentfruitstringvar.set("Raspberries x" + str(numOfRaspberries))
             if numOfRaspberries < 10:
@@ -1756,6 +1808,7 @@ def buyraspberrycrate():
     else:
         rawmoney = rawmoney - 4500
         numOfRaspberries = numOfRaspberries + 150
+        marketraspberrycount.set("Current:\n" + str(numOfRaspberries))
         if currentfruit == "Raspberry":
             currentfruitstringvar.set("Raspberries x" + str(numOfRaspberries))
             if numOfRaspberries < 10:
@@ -1778,6 +1831,7 @@ def buygrape():
     else:
         rawmoney = rawmoney - 100
         numOfGrapes = numOfGrapes + 1
+        marketgrapescount.set("Current:\n" + str(numOfGrapes))
         if currentfruit == "Grapes":
             currentfruitstringvar.set("Grapes x" + str(numOfGrapes))
             if numOfGrapes < 10:
@@ -1800,6 +1854,7 @@ def buygrapebag():
     else:
         rawmoney = rawmoney - 300
         numOfGrapes = numOfGrapes + 3
+        marketgrapescount.set("Current:\n" + str(numOfGrapes))
         if currentfruit == "Grapes":
             currentfruitstringvar.set("Grapes x" + str(numOfGrapes))
             if numOfGrapes < 10:
@@ -1822,6 +1877,7 @@ def buygrapecrate():
     else:
         rawmoney = rawmoney - 1800
         numOfGrapes = numOfGrapes + 18
+        marketgrapescount.set("Current:\n" + str(numOfGrapes))
         if currentfruit == "Grapes":
             currentfruitstringvar.set("Grapes x" + str(numOfGrapes))
             if numOfGrapes < 10:
@@ -1844,6 +1900,7 @@ def buymelon():
     else:
         rawmoney = rawmoney - 1000
         numOfWatermelons = numOfWatermelons + 1
+        marketmeloncount.set("Current:\n" + str(numOfWatermelons))
         if currentfruit == "Watermelon":
             currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
             if numOfWatermelons < 10:
@@ -1866,6 +1923,7 @@ def buymelonbox():
     else:
         rawmoney = rawmoney - 4000
         numOfWatermelons = numOfWatermelons + 4
+        marketmeloncount.set("Current:\n" + str(numOfWatermelons))
         if currentfruit == "Watermelon":
             currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
             if numOfWatermelons < 10:
@@ -1888,6 +1946,7 @@ def buymeloncrate():
     else:
         rawmoney = rawmoney - 7000
         numOfWatermelons = numOfWatermelons + 7
+        marketmeloncount.set("Current:\n" + str(numOfWatermelons))
         if currentfruit == "Watermelon":
             currentfruitstringvar.set("Watermelon x" + str(numOfWatermelon))
             if numOfWatermelons < 10:
@@ -2096,52 +2155,6 @@ def upgradesOnClose():
     root.deiconify()
     upgradeswindow.destroy()
 
-def inventory():
-    global inventorywindow
-    root.withdraw()
-    inventorywindow = Toplevel()
-    inventorywindow.title("Fruit Clicker - Inventory")
-    inventorywindow.geometry("400x350+300+100")
-    inventorywindow.protocol("WM_DELETE_WINDOW", inventoryOnClose)
-    applesinventory = StringVar()
-    applesinventory.set("Apples: " + str(numOfApples))
-    applesinvlabel = Label(inventorywindow, textvariable=applesinventory)
-    applesinvlabel.grid(row="0", column="0")
-    bananasinventory = StringVar()
-    bananasinventory.set("Bananas: " + str(numOfBananas))
-    bananasinvlabel = Label(inventorywindow, textvariable=bananasinventory)
-    bananasinvlabel.place(x="0", y="20")
-    pearsinventory = StringVar()
-    pearsinventory.set("Pears: " + str(numOfPears))
-    pearsinvlabel = Label(inventorywindow, textvariable=pearsinventory)
-    pearsinvlabel.place(x="0", y="40")
-    orangesinventory = StringVar()
-    orangesinventory.set("Oranges: " + str(numOfOranges))
-    orangesinvlabel = Label(inventorywindow, textvariable=orangesinventory)
-    orangesinvlabel.place(x="0", y="60")
-    mangosinventory = StringVar()
-    mangosinventory.set("Mangoes: " + str(numOfMangos))
-    mangosinvlabel = Label(inventorywindow, textvariable=mangosinventory)
-    mangosinvlabel.place(x="0", y="80")
-    strawberriesinventory = StringVar()
-    strawberriesinventory.set("Strawberries: " + str(numOfStrawberries))
-    strawberriesinvlabel = Label(inventorywindow, textvariable=strawberriesinventory)
-    strawberriesinvlabel.place(x="0", y="100")
-    blueberriesinventory = StringVar()
-    blueberriesinventory.set("Blueberries: " + str(numOfBlueberries))
-    blueberriesinvlabel = Label(inventorywindow, textvariable=blueberriesinventory)
-    blueberriesinvlabel.place(x="0", y="120")
-    blackberriesinventory = StringVar()
-    blackberriesinventory.set("Blackberries: " + str(numOfBlackberries))
-    blackberriesinvlabel = Label(inventorywindow, textvariable=blackberriesinventory)
-    blackberriesinvlabel.place(x="0", y="140")
-    raspberriesinventory = StringVar()
-    raspberriesinventory.set("Raspberries: " + str(numOfRaspberries))
-    raspberriesinvlabel = Label(inventorywindow, textvariable=raspberriesinventory)
-    raspberriesinvlabel.place(x="0", y="140")
-    inventorywindow.iconbitmap("images/apple.ico")
-    inventorywindow.mainloop()
-
 def market():
     global marketapplecount
     global marketwindow
@@ -2208,6 +2221,9 @@ def upgrades():
     autoeatupgradebutton = Button(upgradeswindow, textvariable=autoeattextvar, width="56", command=autoeatbuy).grid(row="2", column="0")
     upgradeswindow.mainloop()
 
+def achievementsmenu():
+    return
+
 def rootopen():
     global root
     global moneylabel
@@ -2236,17 +2252,14 @@ def rootopen():
     global clickerphoto12
     global clickerphoto13
     global clickerphoto14
-    main.withdraw()
-    print(saveopen)
     root = Toplevel()
+    main.withdraw()
     root.title("Fruit Clicker")
     root.geometry("400x350+300+100")
-    inventorybutton = Button(root, text="Inventory", foreground="White", bg="Black", width="11", command=inventory)
-    inventorybutton.grid(column="0", row="0")
     marketbutton = Button(root, text="Market", fg="White", bg="Black", width="11", command=market)
-    marketbutton.grid(column="0", row="1")
+    marketbutton.grid(column="0", row="0")
     upgradesbutton = Button(root, text="Upgrades", fg="White", bg="Black", width="11", command=upgrades)
-    upgradesbutton.grid(column="0", row="2")
+    upgradesbutton.grid(column="0", row="1")
     leftfruitbutton = Button(root, text="<", command=switchleft, state=DISABLED)
     leftfruitbutton.place(x="100", y="285")
     currentfruitstringvar = StringVar()
@@ -2286,15 +2299,18 @@ def rootopen():
     clickerbutton = Button(root, text="Clicker Button", image=clickerphoto, fg="Black", command=clicked)
     clickerbutton.place(x="100", y="75")
     musicselectbutton = Button(root, text="Music", command=musicselect, bg="Black", fg="White", width="11")
-    musicselectbutton.grid(row="4", column="0")
+    musicselectbutton.grid(row="2", column="0")
     savebutton = Button(root, text="Save", fg="White", bg="Black", width="11", command=save)
-    savebutton.grid(row="5", column="0")
+    savebutton.grid(row="3", column="0")
     munchconvertbutton = Button(root, text="Convert Munch", fg="White", bg="Black", width="11", command=convertmunch)
-    munchconvertbutton.grid(row="6", column="0")
+    munchconvertbutton.grid(row="4", column="0")
     calendarbutton = Button(root, text="Calendar", fg="White", bg="Black", width="11", command=calendar)
-    calendarbutton.grid(row="7", column="0")
+    calendarbutton.grid(row="5", column="0")
     menubutton = Button(root, text="Main Menu", fg="White", bg="Black", width="11", command=mainmenu)
-    menubutton.grid(row="8", column="0")
+    menubutton.grid(row="6", column="0")
+    achievementsbutton = Button(root, text="Achievements", fg="White", bg="Black", width="11", command=achievementsmenu)
+    achievementsbutton.grid(row="7", column="0")
+    Button(root, text="Load", fg="White", bg="Black", width="11", command=load).grid(row="8", column="0")
     pygame.mixer.music.load("audio/theme.wav")
     pygame.mixer.music.play(-1)
     calendar()
@@ -2307,7 +2323,7 @@ def rootopen():
     root.protocol("WM_DELETE_WINDOW", rootOnClose)
     root.mainloop()
 
-def loadsave1():
+def load():
     global rawmoney
     global rawmunch
     global numOfApples
@@ -2327,12 +2343,7 @@ def loadsave1():
     global autoeatcost
     global multiconvertcost
     global wholedate
-    global saveopen
-    saveopen = 1
     if os.path.exists("saves/save1.fcsave") == True:
-        print("Save 1 Load")
-        startscreenback()
-        rootopen()
         loadedfile = open("saves/save1.fcsave")
         loadedfilelines = loadedfile.readlines()
         rawmoney = str(loadedfilelines[0])
@@ -2367,6 +2378,70 @@ def loadsave1():
         autoclicklevel = int(loadedfilelines[15])
         autoeatcost = int(loadedfilelines[16])
         fruitupgradelevel = int(loadedfilelines[17])
+    else:
+        messagebox.showerror("Error", "Save data not found.")
+
+def loadsave1():
+    global rawmoney
+    global rawmunch
+    global numOfApples
+    global numOfBananas
+    global numOfPears
+    global numOfOranges
+    global numOfMangos
+    global numOfStrawberries
+    global numOfBlueberries
+    global numOfBlackberries
+    global numOfRaspberries
+    global numOfGrapes
+    global numOfWatermelons
+    global multiconvertlevel
+    global fruitupgradelevel
+    global autoclicklevel
+    global autoeatcost
+    global multiconvertcost
+    global wholedate
+    global saveopen
+    saveopen = 1
+    startscreenback()
+    rootopen()
+    if os.path.exists("saves/save1.fcsave") == True:
+        print("Save 1 Load")
+        loadedfile = open("saves/save1.fcsave")
+        loadedfilelines = loadedfile.readlines()       
+        rawmoney = str(loadedfilelines[0])
+        rawmoney = int(rawmoney)
+        moneyplace()
+        moneystringvar.set("You have $" + str(money))
+        rawmunch = str(loadedfilelines[1])
+        rawmunch = int(rawmunch)
+        munchplace()
+        munchstringvar.set("Munch: " + str(munch))
+        numOfApples = int(loadedfilelines[2])
+        if currentfruit == "Apple":
+            currentfruitstringvar.set("Apple x" + str(numOfApples))
+            if numOfApples < 10:
+                currentfruitlabel.place(x="180", y="290")
+            if numOfApples < 100 and numOfApples > 9:
+                currentfruitlabel.place(x="175", y="290")
+            if numOfApples < 1000 and numOfApples > 99:
+                currentfruitlabel.place(x="170", y="290")
+        numOfBananas = int(loadedfilelines[3])
+        numOfPears = int(loadedfilelines[4])
+        numOfOranges = int(loadedfilelines[5])
+        numOfMangos = int(loadedfilelines[6])
+        numOfStrawberries =int(loadedfilelines[7])
+        numOfBlueberries = int(loadedfilelines[8])
+        numOfBlackberries = int(loadedfilelines[9])
+        numOfRaspberries = int(loadedfilelines[10])
+        numOfGrapes = int(loadedfilelines[11])
+        numOfWatermelons = int(loadedfilelines[12])
+        multiconvertlevel = int(loadedfilelines[13])
+        multiconvertcost = int(loadedfilelines[14])
+        autoclicklevel = int(loadedfilelines[15])
+        autoeatcost = int(loadedfilelines[16])
+        fruitupgradelevel = int(loadedfilelines[17])
+        print("Loaded")
     else:
         print("Save 1 Create")
         messagebox.showinfo("Info", "Save data not found.\nStarting new save!")
@@ -2536,7 +2611,7 @@ def savefiles():
     quitbutton.pack_forget()
     backbutton = Button(main, text="Back", width ="56", command=startscreenback)
     backbutton.grid(row="0", column="0")
-    save1button = Button(main, text="Save 1", width ="56", command=loadsave1)
+    save1button = Button(main, text="Save 1", width ="56", command=loadsave1, state=DISABLED)
     save1button.grid(row="1", column="0")
     save2button = Button(main, text="Save 2", width ="56", command=loadsave2)
     save2button.grid(row="2", column="0")

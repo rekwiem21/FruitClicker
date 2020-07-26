@@ -407,7 +407,7 @@ def advancetime():
     global month
     global year
     global calendarthread
-    calendarthread = threading.Timer(5.0, advancetime)
+    calendarthread = threading.Timer(90.0, advancetime)
     calendarthread.setDaemon=(True)
     print(calendarthread.isDaemon())
     calendarthread.start()
@@ -2310,7 +2310,6 @@ def rootopen():
     menubutton.grid(row="6", column="0")
     achievementsbutton = Button(root, text="Achievements", fg="White", bg="Black", width="11", command=achievementsmenu)
     achievementsbutton.grid(row="7", column="0")
-    Button(root, text="Load", fg="White", bg="Black", width="11", command=load).grid(row="8", column="0")
     pygame.mixer.music.load("audio/theme.wav")
     pygame.mixer.music.play(-1)
     calendar()
@@ -2321,65 +2320,6 @@ def rootopen():
     advancetime()
     root.iconbitmap("images/apple.ico")
     root.protocol("WM_DELETE_WINDOW", rootOnClose)
-    root.mainloop()
-
-def load():
-    global rawmoney
-    global rawmunch
-    global numOfApples
-    global numOfBananas
-    global numOfPears
-    global numOfOranges
-    global numOfMangos
-    global numOfStrawberries
-    global numOfBlueberries
-    global numOfBlackberries
-    global numOfRaspberries
-    global numOfGrapes
-    global numOfWatermelons
-    global multiconvertlevel
-    global fruitupgradelevel
-    global autoclicklevel
-    global autoeatcost
-    global multiconvertcost
-    global wholedate
-    if os.path.exists("saves/save1.fcsave") == True:
-        loadedfile = open("saves/save1.fcsave")
-        loadedfilelines = loadedfile.readlines()
-        rawmoney = str(loadedfilelines[0])
-        rawmoney = int(rawmoney)
-        moneyplace()
-        moneystringvar.set("You have $" + str(money))
-        rawmunch = str(loadedfilelines[1])
-        rawmunch = int(rawmunch)
-        munchplace()
-        munchstringvar.set("Munch: " + str(munch))
-        numOfApples = int(loadedfilelines[2])
-        if currentfruit == "Apple":
-            currentfruitstringvar.set("Apple x" + str(numOfApples))
-            if numOfApples < 10:
-                currentfruitlabel.place(x="180", y="290")
-            if numOfApples < 100 and numOfApples > 9:
-                currentfruitlabel.place(x="175", y="290")
-            if numOfApples < 1000 and numOfApples > 99:
-                currentfruitlabel.place(x="170", y="290")
-        numOfBananas = int(loadedfilelines[3])
-        numOfPears = int(loadedfilelines[4])
-        numOfOranges = int(loadedfilelines[5])
-        numOfMangos = int(loadedfilelines[6])
-        numOfStrawberries =int(loadedfilelines[7])
-        numOfBlueberries = int(loadedfilelines[8])
-        numOfBlackberries = int(loadedfilelines[9])
-        numOfRaspberries = int(loadedfilelines[10])
-        numOfGrapes = int(loadedfilelines[11])
-        numOfWatermelons = int(loadedfilelines[12])
-        multiconvertlevel = int(loadedfilelines[13])
-        multiconvertcost = int(loadedfilelines[14])
-        autoclicklevel = int(loadedfilelines[15])
-        autoeatcost = int(loadedfilelines[16])
-        fruitupgradelevel = int(loadedfilelines[17])
-    else:
-        messagebox.showerror("Error", "Save data not found.")
 
 def loadsave1():
     global rawmoney
@@ -2611,7 +2551,7 @@ def savefiles():
     quitbutton.pack_forget()
     backbutton = Button(main, text="Back", width ="56", command=startscreenback)
     backbutton.grid(row="0", column="0")
-    save1button = Button(main, text="Save 1", width ="56", command=loadsave1, state=DISABLED)
+    save1button = Button(main, text="Save 1", width ="56", command=loadsave1)
     save1button.grid(row="1", column="0")
     save2button = Button(main, text="Save 2", width ="56", command=loadsave2)
     save2button.grid(row="2", column="0")
